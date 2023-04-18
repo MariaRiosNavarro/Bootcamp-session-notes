@@ -34,6 +34,7 @@ A shell (like zsh) is the command interpreter that runs and executes commands on
 pwd  
 
 ls (index of files)
+ls -la (index of files with the incognito files)
 
 clear (clear the terminal)
 
@@ -62,7 +63,9 @@ open  .        (space. is the place where I am and see where we are in finder)
 cat filename (we see in Terminal inside the file)
 
 <ins> rename & move <ins>
+
 mv
+
 
 
 
