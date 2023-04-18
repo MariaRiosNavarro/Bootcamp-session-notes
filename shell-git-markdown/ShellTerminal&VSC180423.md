@@ -68,7 +68,7 @@ mv
 
 We do a Challenge, we used only the Terminal:
 
-![Challenge!](/img/Bildschirmfoto%202023-04-18%20um%2013.49.25.png)
+![Challenge](/img/Bildschirmfoto%202023-04-18%20um%2013.49.25.png "picA")
 
 
 Why shell:
