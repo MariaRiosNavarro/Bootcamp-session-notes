@@ -68,7 +68,7 @@ mv
 
 We do a Challenge, we used only the Terminal:
 
-<img src="/img/Bildschirmfoto%202023-04-18%20um%2013.49.25.png" height="800px">
+<img src="/img/Bildschirmfoto%202023-04-18%20um%2013.49.25.png" height="800px"/>
 
 
 Why shell:
