@@ -33,27 +33,36 @@ A shell (like zsh) is the command interpreter that runs and executes commands on
 ---
 pwd  
 
-ls
+ls (index of files)
 
-clear
+clear (clear the terminal)
 
-cd file. 
+cd file. (go inside the folder)
 
-cd..
+cd..  (go back to the patern folder)
 
 cd Proj + tab then completes itself
 
-cd../../..
+cd../../.. (we can write the complet street to the file)
+
+<ins>do new<ins>:
 
 mkdir new directory
 
 touch new file (erstellt nur ein datei container, nicht ein word oder was auch immer)
 
-rm delete
+<ins>delete<ins>:
+
+rm delete files
+rmdir delete FOLDER !! take care!!
+
+<ins>Open/run<ins>:
 
 open  .        (space. is the place where I am and see where we are in finder)
+cat filename (we see in Terminal inside the file)
 
-
+<ins> rename & move <ins>
+mv
 
 
 
