@@ -21,6 +21,9 @@
 - [JS Forms 2:]()[Challenges]().
 
 
+
+<hr>
+
 ### JS Basics
 
 We conect JS with the ```<script>``` Tag
@@ -81,6 +84,8 @@ button.addEventListener("click", () => {
 
 ```
 
+<hr>
+
 ### JS Variables & Numbers
 
 Variables are a reference or alias for data stored in memory. You can access this data by using this variable.Three different keywords to declare a variable:
@@ -123,7 +128,6 @@ Math & Operators:
 
 Operator Precedence: In maths, some operators have a higher precedence than others. This means that they are performed before operators with a lower precedence. For example, multiplication comes before addition. But  Prettier will remove any unnecessary parentheses from your expression automatically. [operator precedence](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)
 
-<hr>
 
 Assignment Operators:
 
@@ -144,6 +148,8 @@ Assignment Operators:
 
 Number Systems: decimal (0-9), binary (0 1), hexadecimal (0-9, a-f)
 
+
+<hr>
 
 ### JS Conditions and Booleans:
 
@@ -234,11 +240,26 @@ The operator can only distinguish between two expressions like values, math / lo
 
 [Ternary Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)
 
+<hr>
 
 ### JS functions
+
+<hr>
 ### JS functions 2
+
+
+<hr>
 ### JS Inouts & Strings:
+
+<hr>
 ### JS Objects & Arrays:
+
+
+<hr>
 ### JS Create Element:
+
+<hr>
 ### JS Forms 2:
+
+<hr>
 ### JS ...
