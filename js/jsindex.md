@@ -307,8 +307,109 @@ console.log(localVariable); // Error! Variable not available outside of function
 
 
 <hr>
-### JS functions 2
+### JS functions 2: ```return``` statement, early return, fat arrow notation:
+A function can also return a value back to the place where it was called. This is done via a ```return``` statement.
 
+```
+function add3Numbers(first, second, third) {
+  const sum = first + second + third;
+  return sum;
+}
+```
+A function can return only one expression value, but can have multiple return statements, in combination with if else statements for example:
+
+```
+function checkInputLength(inputString) {
+  if (inputString.length > 3) {
+    return true;
+  } else {
+    return false;
+  }
+}
+```
+
+[Statements vs Expressions](https://www.joshwcomeau.com/javascript/statements-vs-expressions/)
+
+EARLY RETURN STATEMENTS: As soon as a return statement is reached in a function call, the function execution is ended. The following console.log() is therefore never reached:
+
+```
+function testFunction() {
+  return "a returned string";
+
+  console.log("I am never logged in the console.");
+}
+```
+
+This behavior can be used to our advantage as early return statements. Sometimes we want to execute certain parts of our code only if a condition applies. 
+
+```
+function setBackgroundColor(color) {
+  if (typeof color === "String") {
+    if (color.startsWith("#")) {
+      if (color.length >= 7) {
+        document.body.style.backgroundColor = color;
+      }
+    }
+  }
+
+```
+```
+function setBackgroundColor(color) {
+	// first condition
+	if(typeOf color !== 'String') {
+		return;
+	}
+
+	// second condition
+	if(!color.startsWith('#')) {
+		return;
+	}
+
+	// third condition
+	if(color.length < 7) {
+		return;
+	}
+
+	// only if all 3 conditions are passed the final line of code is executed.
+	body.style.backgroundColor = color;
+}
+```
+This way of writing the code is more readable
+
+A return statement can be left empty, the returned value is then undefined
+
+ARROW FUNCTION EXPRESSIONS: The function is saved like a variable with the keyword const. The parameters are written normally in round brackets followed by an fat arrow =>. Then the function body is written in curly brackets.
+```
+const addNumbers = (first, second) => {
+  return first + second;
+};
+
+```
+IMPLICIT RETURN STATEMENTS
+
+The advantage of arrow functions are possible shorter notations when certain criteria apply:
+- Omit the round brackets around the parameters: This is possible, if there is only one input:
+
+```
+const addOne = (number) => {
+  return number + 1;
+};
+```
+
+- Implicit return statements: If the function consists only of a return statement, the curly brackets and the return keyword can be omitted:
+
+```
+const addNumbers = (first, second) => {
+  return first + second;
+};
+
+```
+
+can rewritten to: ```const addNumbers = (first, second) => first + second```
+
+
+
+The syntax of the addEventListener method. We encountered these arrow functions there already!
 
 <hr>
 ### JS Inouts & Strings:
