@@ -1,6 +1,6 @@
-#Javascript# 
+#Javascript
 
-##Index##
+##Index
 
 - [JS Basics:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-basics/js-basics.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-basics/challenges-js-basics.md)
 
