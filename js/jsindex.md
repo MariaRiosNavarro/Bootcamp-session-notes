@@ -109,11 +109,17 @@ Variable Naming: Expressive variable names are very important for the readabilit
 Math & Operators: 
 
 ```+``` adds
+
 ```-``` subtracts
+
 ```*```multiplies
+
 ```/```divides
+
 ```**```potentiates- ```3**2 ->9```
+
 ```%``` modulos  ```15 % 2 -> 1``` You can also use this operator to determine if a number is even or odd ```6 % 2; // → 0```
+
 
 Operator Precedence: In maths, some operators have a higher precedence than others. This means that they are performed before operators with a lower precedence. For example, multiplication comes before addition. But  Prettier will remove any unnecessary parentheses from your expression automatically. [operator precedence](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)
 
