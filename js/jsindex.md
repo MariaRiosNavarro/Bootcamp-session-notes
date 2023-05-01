@@ -118,13 +118,21 @@ Math & Operators:
 Operator Precedence: In maths, some operators have a higher precedence than others. This means that they are performed before operators with a lower precedence. For example, multiplication comes before addition. But  Prettier will remove any unnecessary parentheses from your expression automatically. [operator precedence](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)
 
 <hr>
+
 Assignment Operators:
+
 ```+=``` increase the value: ```count +=8``` count is increased by 6.
+
 ```-=``` decreases the value.
+
 ```*=``` multiplies the value.
+
 ```/=``` divide the variable on the left with the value on the right.
+
 ```++``` increase by 1.
+
 ```--``` decrement by 1.
+
 
 [Type Coercion](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)
 
