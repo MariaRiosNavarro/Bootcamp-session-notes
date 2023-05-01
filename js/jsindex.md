@@ -119,12 +119,12 @@ Operator Precedence: In maths, some operators have a higher precedence than othe
 
 <hr>
 Assignment Operators:
-```+=```increase the value: ```count +=8``` count is increased by 6
-```-=```decreases the value
-```*=```multiplies the value
-```/=```divide the variable on the left with the value on the right
-```++```increase by 1
-```--```decrement by 1
+```+=``` increase the value: ```count +=8``` count is increased by 6.
+```-=``` decreases the value.
+```*=``` multiplies the value.
+```/=``` divide the variable on the left with the value on the right.
+```++``` increase by 1.
+```--``` decrement by 1.
 
 [Type Coercion](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)
 
