@@ -250,6 +250,62 @@ The operator can only distinguish between two expressions like values, math / lo
 
 ### JS functions
 
+Functions are a fundamental concept in JavaScript. They contain a set of statements - in other words: They contain JavaScript code. Functions have to be defined. When a function is defined it can be called an arbitrary number of times.
+To declare we need.
+
+- the ```function``` keyword
+- the function name
+- the function body (JavaScript statements / JavaScript code)
+
+```
+function greet() {
+  console.log("Hi Friends!");
+  console.log("Nice to be here.");
+}
+```
+
+
+Parameters: Functions can accept parameters. Parameters can be used like predefined variables inside the function body. When declaring a function we are free to choose a name for the parameters
+
+```
+function printSum(first, second, third) {
+  const sum = first + second + third;
+  console.log("The sum of your numbers is: " + sum);
+}
+```
+
+Function Calls: When functions are defined you can call them by writing their name, followed by parentheses ("round brackets"). If the functions consume parameters you can pass them as arguments in the brackets. With the e.g of above: ```printSum( 1, 2, 3);```
+
+
+ 
+Scope:
+
+The scope defines where variables are visible and where they can be referenced. In JavaScript there are different kinds of scope, for example:
+
+- global scope : A variable is in the global scope when it is declared outside of any function, in a JavaScript file. Global variables are visible and can be accessed from anywhere in that JavaScript file after declaration.
+- function scope : Variables defined inside a function are not accessible from outside. But all variables outside of the function can be accessed from inside the function body.
+
+```
+const globalVariable = "some Text";
+
+function myFunction() {
+  const localVariable = true;
+
+  console.log(globalVariable);
+  console.log(localVariable);
+}
+
+myFunction();
+// logs:
+// some Text
+// true
+
+console.log(localVariable); // Error! Variable not available outside of function
+
+```
+
+
+
 <hr>
 ### JS functions 2
 
