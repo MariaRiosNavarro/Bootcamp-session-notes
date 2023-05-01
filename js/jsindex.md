@@ -146,6 +146,95 @@ Number Systems: decimal (0-9), binary (0 1), hexadecimal (0-9, a-f)
 
 
 ### JS Conditions and Booleans:
+
+Boolean Values are only ```true``` and ```false```
+Truthy values are values that evaluate to true when converted to a boolean, and falsy values are values that evaluate to false when converted to a boolean. 
+
+Truthy values:
+- Non-empty strings, including whitespace (" ")
+- Non-zero numbers
+- Objects and arrays
+- Functions
+- Boolean value ```true```
+
+
+Falsy values:
+- Empty strings ("")
+- Zero (0) and negative zero (-0)
+- NaN (Not-a-Number)
+- null
+- undefined
+- Boolean value ```false```
+
+Comparison Operators:
+
+```A === B ```	strict equal: is true if both values are equal (including their type). 
+
+```A !== B```	strict not equal: is true if both values are not equal (including their type).
+
+```A > B```strictly greater than: is true if A is greater than B.
+
+```A < B```	strictly less than: is true if A is less than B.
+
+```A >= B	```greater than or equal: is true if A is greater than or equal B.
+
+```A <= B	```less than or equal: is true if A is less than or equal B.
+
+IMPORTANT:
+
+```= (const x = 0) ```is the assignment operator and has nothing to do with comparison.
+```== ```and ```!= ```are non-strict equality operators. You should avoid them 99% of the time.
+Non-strict equality tries to use type coercion to convert both values to the same type: "3" == 3 is true, which is seldomly what you want.
+```===``` and ```!==``` are strict equality operators. This is what you need almost always.
+Strict equality checks if type and value are the same: "3" === 3 is false.
+
+Logical Operators: combine up to two booleans into a new boolean.
+
+```!A```	not: flips a true value to false and vice versa.
+
+```A || B```	or: is true if either A or B is true.
+
+```A && B```	and: is true if both A and B is true.
+
+ You can combine logical operators with brackets to define which operator should be evaluated first, e.g: ```(A || B) && (C || D)```
+ 
+ CONTROL FLOW: ```ìf ( ) { }/ else { }```
+ 
+ With an if statement we can control whether a part of our code is executed or not, based on a condition, The else block is executed only if the condition is false. The condition expression between the () brackets can be composed of logical or comparison operators as well. You can distinguish between more cases by chaining ```else if``` statements.
+ 
+ ```
+ if (hour < 12) {
+  console.log("Good Morning.");
+} else if (hour < 18) {
+  console.log("Good afternoon.");
+} else if (hour === 24) {
+  console.log("Good night.");
+} else {
+  console.log("Good evening.");
+}
+```
+ 
+ 
+ 
+ 
+ If the condition is not a boolean, it is converted into one by type coercion. This can be used to check whether a value is not 0 or an empty string
+ 
+```
+ const name = "Alex";
+if (name) {
+  console.log("Hi " + name + "!"); // only executed if name is not an empty string
+}
+```
+ 
+TERNARY OPERATOR ```?  :```
+
+condition ? expressionIfTrue : expressionIfFalse;
+
+The operator can only distinguish between two expressions like values, math / logical operations or function calls, not between statements like variable declarations, if / else statements or multi-line code blocks.
+
+[Ternary Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)
+
+
 ### JS functions
 ### JS functions 2
 ### JS Inouts & Strings:
