@@ -412,7 +412,7 @@ can rewritten to: ```const addNumbers = (first, second) => first + second```
 The syntax of the addEventListener method. We encountered these arrow functions there already!
 
 <hr>
-### JS Inouts & Strings:
+### JS Inputs & Strings:
 
 There are three ways to create strings using string literals:
 
@@ -476,7 +476,7 @@ Strings in JavaScript have some build-in properties and functionalities called m
 
 [More methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String#instance_properties)
 
-# Input Fields
+### Input Fields
 Every input field in HTML holds a value in form of a string. You can access the value by using .value on the input Element:
 
 ```
