@@ -109,7 +109,7 @@ In contrast to the radio element, <input type="checkbox" /> presents individual 
   
  Fieldset and Legend:
   
-  The <fieldset> element is used to group multiple fields together. Use the <legend> element to provide a caption for such a group.
+  The ```<fieldset>``` element is used to group multiple fields together. Use the <legend> element to provide a caption for such a group.
   
   ````
   <fieldset>
