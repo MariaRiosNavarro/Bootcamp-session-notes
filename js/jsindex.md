@@ -479,14 +479,13 @@ Strings in JavaScript have some build-in properties and functionalities called m
 # Input Fields
 Every input field in HTML holds a value in form of a string. You can access the value by using .value on the input Element:
 
-````
+```
 <form>
   <input data-js="textInput" type="text" value="test 123" />
   <input data-js="numberInput" type="number" value="42" />
 </form>
-
 ```
-
+Here in JS:
 
 ```
 const textInput = document.querySelector('[data-js="textInput"]');
@@ -497,7 +496,8 @@ numberInput.value; // evaluates to '42' (still a string!)
 ```
 
 
--  You can also change the value of the input by assigning a new value to this input property. This change is immediately visible on the website.For example, you can enforce all uppercase letters in a form by combining this functionality with an input event listener on the input element:
+You can also change the value of the input by assigning a new value to this input property. 
+This change is immediately visible on the website.For example, you can enforce all uppercase letters in a form by combining this functionality with an input event listener on the input element:
 
 
 ```
