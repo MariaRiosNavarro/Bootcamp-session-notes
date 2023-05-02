@@ -488,20 +488,19 @@ Every input field in HTML holds a value in form of a string. You can access the 
 ```
 
 
-````
-
+```
 const textInput = document.querySelector('[data-js="textInput"]');
 const numberInput = document.querySelector('[data-js="numberInput"]');
 
 textInput.value; // evaluates to 'test 123'
 numberInput.value; // evaluates to '42' (still a string!)
-````
+```
 
 
-You can also change the value of the input by assigning a new value to this input property. This change is immediately visible on the website.For example, you can enforce all uppercase letters in a form by combining this functionality with an input event listener on the input element:
+-  You can also change the value of the input by assigning a new value to this input property. This change is immediately visible on the website.For example, you can enforce all uppercase letters in a form by combining this functionality with an input event listener on the input element:
 
 
-````
+```
 // transform on every change the input value to uppercase letters
 textInput.addEventListener("input", () => {
   const oldValue = textInput.value;
