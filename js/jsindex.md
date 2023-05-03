@@ -421,7 +421,7 @@ There are three ways to create strings using string literals:
 
 ```'string': single quotes```
 ```"string": double quotes```
-````string`: back ticks or template literals.```
+```/`string/`: back ticks or template literals.```
 
 
 - Strings can be chained together by using the + operator (yes, the same as the maths operator). This is called string concatination
