@@ -417,11 +417,19 @@ The syntax of the addEventListener method. We encountered these arrow functions 
 <hr>
 ### JS Inputs & Strings:
 
-There are three ways to create strings using string literals:
+There are three ways to create strings using string literals- back ticks or template literals.
 
-```'string': single quotes```
-```"string": double quotes```
-```/`string/`: back ticks or template literals.```
+```
+'string': single quotes
+```
+
+```
+"string": double quotes
+```
+
+```
+`string`
+```
 
 
 - Strings can be chained together by using the + operator (yes, the same as the maths operator). This is called string concatination
@@ -432,6 +440,7 @@ const stringConcatination = "Hello " + name + ", good to see you!";
 ```
 
 Template Literals
+
 The third method to write strings has the useful property that you can insert variables into the string by wrapping placeholders with a dollar sign and curly brackets ${} . This is also called string interpolation
 
 ```
@@ -479,7 +488,10 @@ Strings in JavaScript have some build-in properties and functionalities called m
 
 [More methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String#instance_properties)
 
+
 ### Input Fields
+
+
 Every input field in HTML holds a value in form of a string. You can access the value by using .value on the input Element:
 
 ```
