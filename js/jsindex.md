@@ -417,7 +417,7 @@ The syntax of the addEventListener method. We encountered these arrow functions 
 <hr>
 ### JS Inputs & Strings:
 
-There are three ways to create strings using string literals- back ticks or template literals.
+There are three ways to create strings using string literals-
 
 ```
 'string': single quotes
@@ -428,7 +428,7 @@ There are three ways to create strings using string literals- back ticks or temp
 ```
 
 ```
-`string`
+`string`: back ticks or template literals.
 ```
 
 
@@ -461,28 +461,28 @@ String Properties and Methods:
 
 Strings in JavaScript have some build-in properties and functionalities called methods. You can call them with the dot notation followed by the name of the property / method
 
-.length-returns the number of characters in a string.
+```.length```-returns the number of characters in a string.
 
 
-.toUpperCase()-returns a all uppercase version of the string.
+```.toUpperCase()```-returns a all uppercase version of the string.
 
 
-.toLowerCase()-	returns a all lowercase version of the string.
+```.toLowerCase()```-returns a all lowercase version of the string.
 
 
-.trim()-returns a string with all whitespace removed from the beginning and end
+```.trim()```-returns a string with all whitespace removed from the beginning and end
 
 
-.replaceAll(oldString, newString)- replaces all occurrences of oldString with the newString.
+```.replaceAll(oldString, newString)```- replaces all occurrences of oldString with the newString.
 
 
-.startsWith(subString)-returns true if the string starts with subString.
+```.startsWith(subString)```-returns true if the string starts with subString.
 
 
-.endsWith(subString)-returns true if the string ends with subString.
+```.endsWith(subString)```-returns true if the string ends with subString.
 
 
-.includes(subString)-returns true if the string contains the subString.
+```.includes(subString)```-returns true if the string contains the subString.
 
 
 
@@ -524,17 +524,28 @@ textInput.addEventListener("input", () => {
 });
 ```
 
+Change a Input.value from string to number with ```Number.parseInt()``` :
 
+````
+const inputString = input.value;
+const inputNumber = Number.parseInt(inputString);
 
+```
 
+or 
 
+```
+`$(inputString.parseInt())`
 
+```
 
 
 
 
 <hr>
 ### JS Objects & Arrays:
+
+
 
 
 <hr>
