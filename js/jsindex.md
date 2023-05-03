@@ -307,6 +307,7 @@ console.log(localVariable); // Error! Variable not available outside of function
 
 
 <hr>
+
 ### JS functions 2: 
 
 ```return``` statement, early return, fat arrow notation:
