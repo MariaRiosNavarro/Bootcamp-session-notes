@@ -630,6 +630,76 @@ You can change values of object properties by reassigning them using the dot or 
 delete object.propierty;
 
 
+<hr>
+
+
+### 8.-JS Forms:
+
+
+With ``` .preventDefault().```  we prevent a GET request from being sent in the browser (it is predefined).
+
+To prevent this behaviour:
+
+- put the event object as argument of the arrow function of the event listener
+
+- call event.preventDefault()
+
+
+The browser will not make a GET request that causes the page to reload when it is submitted.
+
+
+While event.target represents the entire form, event.target.elements is a collection of all form elements (form fields, field sets and buttons).
+
+You can access a specific form field through its name attribute and dot notation:
+
+``` 
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const formElements = event.target.elements;
+
+  console.log(formElements.firstName);
+  console.log(formElements.firstName.value);
+});
+``` 
+
+event.target.elements is stored in the variable formElements for better readability,
+firstName is the string value of the corresponding name attribute, as in <input name="firstName"/>, and
+firstName.value returns the user input for the field with name="firstName".
+
+To receive an object from the entire form we use:
+
+```
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(event.target);
+  const data = Object.fromEntries(formData);
+
+  console.log(data);
+});
+
+````
+
+Exception: Reading Values from Checkboxes
+
+Checkboxes have two states: checked ("true") and not checked ("false"). In contrast to other input types, the value attribute does not reflect this change, but is only used as an identifier for the checkbox.
+
+You can access the checkbox's state via the .checked property instead.
+
+Imagine the following checkbox
+
+```
+<input type="checkbox" name="colorBlue" value="blue" />
+```
+
+and its corresponding JavaScript:
+
+```
+console.log(formElements.colorBlue.checked); // output: true or false
+console.log(formElements.colorBlue.value); // output (always): blue
+```
 
 <hr>
 
