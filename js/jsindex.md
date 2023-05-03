@@ -21,6 +21,9 @@
 
 - [JS Objects & Arrays:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-objects-and-arrays/js-objects-and-arrays.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-objects-and-arrays/challenges-js-objects-and-arrays.md).
 
+- [JS Forms:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms/js-forms.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms/challenges-js-forms.md).
+
+
 - [JS Create Element:]()[Challenges]().
 
 - [JS Forms 2:]()[Challenges]().
@@ -29,7 +32,7 @@
 
 <hr>
 
-### JS Basics ###
+### 1.-JS Basics ###
 
 We conect JS with the ```<script>``` Tag
 ```<script src="./index.js" defer ></script>```
@@ -91,7 +94,7 @@ button.addEventListener("click", () => {
 
 <hr>
 
-### JS Variables & Numbers
+### 2.-JS Variables & Numbers
 
 Variables are a reference or alias for data stored in memory. You can access this data by using this variable.Three different keywords to declare a variable:
 
@@ -156,7 +159,7 @@ Number Systems: decimal (0-9), binary (0 1), hexadecimal (0-9, a-f)
 
 <hr>
 
-### JS Conditions and Booleans:
+### 3.-JS Conditions and Booleans:
 
 Boolean Values are only ```true``` and ```false```
 Truthy values are values that evaluate to true when converted to a boolean, and falsy values are values that evaluate to false when converted to a boolean. 
@@ -253,7 +256,7 @@ The operator can only distinguish between two expressions like values, math / lo
 
 <hr>
 
-### JS functions
+### 4.-JS functions
 
 Functions are a fundamental concept in JavaScript. They contain a set of statements - in other words: They contain JavaScript code. Functions have to be defined. When a function is defined it can be called an arbitrary number of times.
 To declare we need.
@@ -313,7 +316,7 @@ console.log(localVariable); // Error! Variable not available outside of function
 
 <hr>
 
-### JS functions 2: 
+### 5.-JS functions 2: 
 
 ```return``` statement, early return, fat arrow notation:
 A function can also return a value back to the place where it was called. This is done via a ```return``` statement.
@@ -422,7 +425,7 @@ The syntax of the addEventListener method. We encountered these arrow functions 
 <hr>
 
 
-###  JS Inputs & Strings:
+###  6.-JS Inputs & Strings:
 
 
 There are three ways to create strings using string literals-
@@ -549,16 +552,94 @@ or you can use:
 <hr>
 
 
-###  JS Objects & Arrays:
+###  7.-JS Objects & Arrays:
 
+### Array - structured data type- Look like:
+
+```
+const array = ["string", 22, true];
+const nestedArray = [23, false, [true, "hello"], "apple"]
+
+````
+
+
+We can acces to the values with index (begin at 0). You can access individual items using the bracket notation and the item's index. You can overwrite individual values in an array too. With the examples of above:
+ 
+```
+const secondItemOfArray = array[1];
+const thirdItemOfNestedArray = nestedArray[2][0];
+//add new value
+const shoppingList = ["apple", "tomato"];
+shoppingList[0] = "banana";
+shoppingList; // ["banana","tomato"];
+
+````
+
+Array Methods:
+
+```array.length```	returns the number of elements in the array
+
+```array.push(element)```	adds element to the end of the array
+
+```array.pop()```	removes the last element of an array
+
+```array.unshift(element)```	adds element as the first element of the array
+
+```array.shift()	```removes the first element of the array
+
+
+
+
+### Object
+
+````
+const object = { 
+	propierty1:"string",
+	propierty2: 22,
+	propierty3: true
+	}
+
+const nestedObject = {
+    name: "Marge",
+    age: 36,
+    parents: {
+      mothersName: "Jacqueline Bouvier",
+      fathersName: "Clancy Bouvier",
+    	}
+    }
+
+````
+
+
+
+
+For the Objects we can acces with dot notation or with brackets notation:
+
+
+````
+const thirdPropiertyValueOfObject = object.propierty3;
+const thirdPropiertyValueOfObjectVERSION = object["propierty3"];
+// thirdPropiertyValueOfObject AND thirdPropiertyValueOfObjectVERSION are the same propierty
+const firstPropiertyOfThirdPropiertyNestedObject= nestedObject.parents.mothersName
+
+`````
+
+
+You can change values of object properties by reassigning them using the dot or bracket notation, you can add new properties in the same way. You can delete properties using the delete keyword
+
+delete object.propierty;
 
 
 
 <hr>
-### JS Create Element:
+
+
+### 8.-JS Create Element:
 
 <hr>
-### JS Forms 2:
+
+### 9.-JS Forms 2:
 
 <hr>
-### JS ...
+
+### 10.-JS ...
