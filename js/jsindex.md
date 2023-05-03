@@ -307,7 +307,9 @@ console.log(localVariable); // Error! Variable not available outside of function
 
 
 <hr>
-### JS functions 2: ```return``` statement, early return, fat arrow notation:
+### JS functions 2: 
+
+```return``` statement, early return, fat arrow notation:
 A function can also return a value back to the place where it was called. This is done via a ```return``` statement.
 
 ```
