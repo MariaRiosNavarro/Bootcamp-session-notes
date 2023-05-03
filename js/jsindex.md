@@ -17,9 +17,9 @@
 
 - [JS functions 2:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-functions-2/js-functions-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-functions-2/challenges-js-functions-2.md).
 
-- [JS Inouts & Strings:]()[Challenges]().
+- [JS Inputs & Strings:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-inputs-and-strings/js-inputs-and-strings.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-inputs-and-strings/challenges-js-inputs-and-strings.md).
 
-- [JS Objects & Arrays:]()[Challenges]().
+- [JS Objects & Arrays:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-objects-and-arrays/js-objects-and-arrays.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-objects-and-arrays/challenges-js-objects-and-arrays.md).
 
 - [JS Create Element:]()[Challenges]().
 
@@ -531,20 +531,16 @@ textInput.addEventListener("input", () => {
 
 Change a Input.value from string to number with ```Number.parseInt()``` :
 
-````
+```
 const inputString = input.value;
 const inputNumber = Number.parseInt(inputString);
-
-```
-
-or 
+````
+or you can use: 
 
 ```
 `$(inputString.parseInt())`
 
-```
-
-
+````
 
 
 <hr>
