@@ -420,7 +420,10 @@ can rewritten to: ```const addNumbers = (first, second) => first + second```
 The syntax of the addEventListener method. We encountered these arrow functions there already!
 
 <hr>
-### JS Inputs & Strings:
+
+
+###  JS Inputs & Strings:
+
 
 There are three ways to create strings using string literals-
 
@@ -544,7 +547,9 @@ or you can use:
 
 
 <hr>
-### JS Objects & Arrays:
+
+
+###  JS Objects & Arrays:
 
 
 
