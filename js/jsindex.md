@@ -28,23 +28,23 @@
 
 - [JS Forms 2:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
 
-- [JS Loops :](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+- [JS Loops :](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-loops/js-loops.md)[Challenges]().
 
-- [JS Callback Functions :](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+- [JS Callback Functions :](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-callback-functions/js-callback-functions.md)[Challenges]().
 
-- [JS Array Methods:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+- [JS Array Methods:]()[Challenges]().
 
-- [npm and Linting Basics:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+- [npm and Linting Basics:]()[Challenges]().
 
-- [JS Structure :](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+- [JS Structure :]()[Challenges]().
 
-- [JS Arrays Methods 2:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+- [JS Arrays Methods 2:]()[Challenges]().
 
-- [JS Async Functions:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+- [JS Async Functions:]()[Challenges]().
 
-- [JS Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+- [JS Fetch]()[Challenges]().
 
-- [JS Modern Syntax](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+- [JS Modern Syntax]()[Challenges]().
 
 
 
