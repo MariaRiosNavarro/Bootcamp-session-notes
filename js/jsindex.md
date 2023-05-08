@@ -26,7 +26,25 @@
 
 - [JS Create Element:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-createelement/js-createelement.md)[Challenges]().
 
-- [JS Forms 2:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges]().
+- [JS Forms 2:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+
+- [JS Loops :](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+
+- [JS Callback Functions :](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+
+- [JS Array Methods:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+
+- [npm and Linting Basics:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+
+- [JS Structure :](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+
+- [JS Arrays Methods 2:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+
+- [JS Async Functions:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+
+- [JS Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
+
+- [JS Modern Syntax](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/js-forms-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-forms-2/challenges-js-forms-2.md).
 
 
 
@@ -814,7 +832,7 @@ is our ul empty:
 
 <hr>
 
-### 9.-JS Forms 2:
+### 10.-JS Forms 2:
 
 HTML FORM VALIDATION:
 Before submitting a form, it is important to ensure all required form fields are filled out, in the correct format. This is called client-side form validation. HTML provides several form field attributes to enable validation features build into the browser: 
@@ -901,4 +919,43 @@ This often comes in handy in combination with .focus(). Think of a chat: After t
 
 <hr>
 
-### 10.-JS ...
+### 11.-JS Loops ...
+
+<hr>
+
+### 12.-JS Callback Functions ...
+
+<hr>
+
+### 13.-JS Array Methods ...
+
+<hr>
+
+### 14.-JS npm and Linting Basics ...
+
+<hr>
+
+### 15.-JS Structure ...
+
+<hr>
+
+
+### 16.-JS Arrays Methods 2: ...
+
+<hr>
+
+### 17.-JS Async Functions ...
+
+<hr>
+### 18.-JS Fetch ...
+
+<hr>
+
+### 19.-JS Modern Syntax ...
+
+<hr>
+
+
+
+
+
