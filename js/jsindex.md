@@ -1001,7 +1001,7 @@ for (const fruit of fruits) {
 ### 12.-JS Callback Functions ...
 
 
-# Callback Functions
+###  Callback Functions
 A callback function is a function that is passed as an argument into another function.
 
 The outer function can execute this callback function at the correct moment or multiple times, for example:
@@ -1029,7 +1029,7 @@ second argument: callback function
 ````
 This type of function is called anonymous function, since it is declared without giving it a name.
 
-# Named Callback Functions
+###  Named Callback Functions
 Any function can be used as a callback function. It just needs to be passed to another function. You can declare a normal function and then use the name of the function to pass it into another function:
 ````
 function sayHello() {
@@ -1041,7 +1041,7 @@ button.addEventListener("click", sayHello);
 
 ❗️ Note that we do not call the function here (we wrote sayHello instead of sayHello()). We only pass the function to the event listener. The function is only called when the event happens.
 
-# Higher Order Functions
+###  Higher Order Functions
 A higher order function is a function that takes a callback function as an argument and calls the callback function inside their body, e.g. the addEventListener method.
 ````
 // this function calls its callback function 3 times!
@@ -1064,7 +1064,7 @@ We will encounter these higher order functions in future sessions:
 
 💡 Don't worry, you don't have to write higher order functions yourself, you only apply them to solve certain problems.
 
-# Parameters in Callback Functions
+### Parameters in Callback Functions
 A callback function can accept parameters. The values for the parameters are provided by the function, that calls the callback function (the "higher order function").
 
 In this example the callback function can accept a parameter to retrieve information about the occurred event:
