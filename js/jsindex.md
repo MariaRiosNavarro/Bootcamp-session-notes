@@ -1083,9 +1083,37 @@ button.addEventListener("click", (event) => {
 
 ### 13.-JS Array Methods ...
 
+Introduction to array methods
+All array methods presented here have a lot in common and can be used in the same way.
+
+You provide a callback function with one parameter
+The array method iterates over an array
+The provided callback function gets called for each element in the array
+With each call to the function the current array element gets passed as first argument
+This way you can write code and apply it to each element within an array
+
+
+
+
+
+
+
+
 <hr>
 
 ### 14.-JS npm and Linting Basics ...
+
+
+
+
+
+
+
+
+
+
+
+
 
 <hr>
 
