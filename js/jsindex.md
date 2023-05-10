@@ -32,13 +32,13 @@
 
 - [JS Callback Functions :](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-callback-functions/js-callback-functions.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-callback-functions/challenges-js-callback-functions.md).
 
-- [JS Array Methods:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-array-methods/js-array-methods.md)[Challenges]().
+- [JS Array Methods:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-array-methods/js-array-methods.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-array-methods/challenges-js-array-methods.md).
 
-- [npm and Linting Basics:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/npm-and-linting-basics/npm-and-linting-basics.md)[Challenges]().
+- [npm and Linting Basics:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/npm-and-linting-basics/npm-and-linting-basics.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/npm-and-linting-basics/challenges-npm-and-linting-basics.md).
 
-- [JS Structure :]()[Challenges]().
+- [JS Structure :](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-structure/js-structure.md)[Challenges]().
 
-- [JS Arrays Methods 2:]()[Challenges]().
+- [JS Arrays Methods 2:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-array-methods-2/js-array-methods-2.md)[Challenges]().
 
 - [JS Async Functions:]()[Challenges]().
 
