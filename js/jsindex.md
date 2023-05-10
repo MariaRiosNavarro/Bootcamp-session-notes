@@ -1093,25 +1093,217 @@ With each call to the function the current array element gets passed as first ar
 This way you can write code and apply it to each element within an array
 
 
+### .for each
+
+````
+const pets = ["bird", "cat", "dog", "ferret", "fish"];
+pets.forEach((pet) => {
+  const petElement = document.createElement("p");
+  petElement.textContent = pet;
+  document.body.append(petElement);
+});
+
+````
+
+The array method forEach executes some logic for each element within an array.❗️ The callback function provided to forEach must not use a return statement. forEach > does not return a new array.
+❗️ You should use forEach to use a side-effect, like document.createElement
+
+### .map
+
+```
+const pets = ["bird", "cat", "dog", "ferret", "fish"];
+const uppercasePets = pets.map((pet) => {
+  return pet.toUpperCase();
+});
+console.log(uppercasePets); // ['BIRD', 'CAT', 'DOG', 'FERRET', 'FISH']
+
+````
+
+The array method map is used to apply a transformation to each ***element of an array.***
+
+The transformed elements are stored in the newly created array returned by map. The elements in the original array are not being altered.
+
+You can define the kind of transformation applied to each element in the callback function and return the transformed element.
+
+The created and the original array have the same length. ❗️ The callback function provided to map must use a return statement to return a transformed element. map returns a new array.
+
+❗️ You should not use map to trigger a side-effect, like document.createElement
 
 
+### .filter
+
+```
+const pets = ["bird", "cat", "dog", "ferret", "fish"];
+const petsWithF = pets.filter((pet) => {
+  return pet.startsWith("f");
+});
+console.log(petsWithF); // ['ferret', 'fish']
+```
+
+The array method filter is used to create a new array with a subset of the elements of the original array.
+
+The callback function returns a boolean value to define, if an element is being included in the resulting array or not. The original array is not being altered.
+
+The created array is likely to have a shorter length than the original array. ❗️ The callback function provided to filter must use a return statement to return a boolean value.
 
 
+### Chaining array methods
+Often times you need to combine multiple array methods to achieve a desired result. Array methods like map and filter, that return a new array, can be chained. Instead of storing each array in a separated variable, the methods can be called directly after another. This reduces the amount of code and improves readable.
 
+````
+const pets = ["bird", "cat", "dog", "ferret", "fish"];
+const uppercasePetsWithF = pets
+  .filter((pet) => {
+    return pet.startsWith("f");
+  })
+  .map((pet) => {
+    return pet.toUpperCase();
+  });
+console.log(uppercasePetsWithF); // ['FERRET', 'FISH']
+
+````
+
+### document.querySelectorAll
+
+With document.querySelectorAll you can select a list of elements from the DOM. This is in contrast to document.querySelector, which provides only the first occurrence of an element matching the selector.
+````
+const pets = document.querySelectorAll('[data-js="pet"]');
+console.log(pets.length); // 5
+The NodeList returned by document.querySelectorAll is an array-like object. You can use the forEach method to iterate over the DOM elements.
+
+const pets = document.querySelectorAll('[data-js="pet"]');
+pets.forEach((pet) => {
+  pet.addEventListener("click", () => {
+    // [...]
+  });
+});
+
+````
+❗️ A NodeList is not an array! Other array methods like map or filter can't be used. If you need to use array methods, you can convert the NodeList to an array using ***Array.from()***
 
 <hr>
 
 ### 14.-JS npm and Linting Basics ...
 
+npm
+It's a package registry that works like an app store for your project.
+
+package.json
+Packages that are installed into your project are called dependencies. They are kept inside a package.json file in your project root. The package.json file also contains information about your project.
+
+A package.json may look something like this:
+
+```
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "A description of my app",
+  "scripts": {
+    "test": "npm run …"
+  },
+  "author": "Alex Newfish",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "my-dependency": "^10.4.1",
+    "my-other-dependency": "^2.0.0"
+  },
+  "devDependencies": {
+    "my-dev-dependency": "^8.0.105",
+    "my-other-dev-dependency": "^0.1.6"
+  }
+}
+```
+
+dependencies are packages that your application source code directly depends on, like libraries or frameworks.
+devDependencies are packages that help you while developing your application, like linters or build tools.
+Installing dependencies
+dependencies and devDependencies inside the package.json can be installed by running npm install (or just npm i for short).
+
+💡 Do not forget to run npm install after cloning a new repository that has a package.json file.
+
+When installing, npm creates a node_modules folder and a package-lock.json file.
+
+node_modules must always be in your .gitignore and must not be committed to your repository!
+package-lock.json should be commited to your repository.
 
 
+### Semantic Versioning
+
+A semantic version is updated whenever a package changes and a new version is published.
+
+It follows this schema: Major.Minor.Patch (e.g. 1.2.3)
+
+Major → major version, changes when the public api of a package changes (breaking change)
+Minor → minor version, changes when new features are added
+Patch → patch version, changes when bugs are fixed
+When defining dependencies in package.json npm uses version ranges to define which version of package should be installed. npm always installs the newest version of package that still matches the range description.
+
+^ (e.g. "^10.4.1") → Newer minor updates and patches can be installed, but major updates cannot.
+(Here version 10.5.6 would be installed but not 11.0.0)
+
+~ (e.g. "~10.4.1") → Newer patches can be installed, minor and major updates cannot.
+(Here version 10.4.8 would be installed but not 10.5.0)
+
+> (e.g. ">10.4.1") → Any newer version will be installed.
+(Here any version newer than 10.4.1 would be installed)
+
+Version ranges described with ^ are by far the most commmon choice because they are usally safe and won't break your application.
+
+Linters
+Linters are tools which analyze your code and show syntax errors, oversights like undeclared variables, bugs and stylistic errors. Some important linters are Prettier (Code formatter), HTMLHint (HTML), and ESLint (JavaScript).
+
+To run these linters, we can define a script inside of the package.json as in the following example:
+```
+	"scripts": {
+		"test": "npm run htmlhint && npm run prettier:check && npm run eslint",
+		"fix": "npm run htmlhint && npm run prettier:write && npm run eslint",
+		"htmlhint": "npx htmlhint \"**/*.html\"",
+		"prettier:check": "npx prettier --check .",
+		"prettier:write": "npx prettier --write .",
+		"eslint": "npx eslint \"**/*.js\""
+	}
+```
+###Prettier
+Prettier makes sure that your code / the code of your team is formatted in the exact same way. There are two important ways to use it:
+
+npx prettier --check . (checks for stylistic errors)
+npx prettier --write . (fixes stylistic errors)
+The command npx (x = execute) starts prettier; the dot . at the end tells prettier to go through all files. You can also choose to check only specific files or folders.
+
+The flags --check and --write decide whether to only check for errors or immediately fixing them.
+
+We can also use the scripts called "prettier:check" and "prettier:write" in the package.json above via npm run prettier:check or npm run prettier:write. It will do the exact same thing as npx prettier [...].
+
+###HTMLHint
+HTMLHint analyzes your HTML. You can use
+
+npx htmlhint index.html (analyzes the index.html file) or the script
+npm run htmlhint.
+Note that, according to the above package.json, the script will run npx htmlhint \"**/*.html\" and thus analyze all files ending with .html.
+
+###ESLint
+ESLint analyzes your JavaScript and highlights errors. You can use
+
+npx eslint index.js (analyzes the index.js file) or the script
+npm run eslint.
+Note that, according to the above package.json, the script will run npx eslint \"**/*.js\" and thus analyze all files ending with .js.
 
 
+###Combining Scripts
+We can write a script using several other scripts and thus running all linters at once. See the above mentioned scripts npm run test and npm run fix which will run htmlhint, prettier and eslint.
 
+The && means that the script will run one after another. The next script only is executed if the one before found no issues.
 
+###Setup Files for Linters
+All linters come with a built-in ruleset, but we can configure these rules. We do this with files at the root of our project called .eslintrc.js, .htmlhintrc.json, or .prettierrc. You can recognize them by the "rc", but the file ending might differ.
 
+We can also say which files the linter will ignore. This is done inside of .eslintignore or .prettierignore.
 
+Error messages are your friends
 
+💡 Error messages are your friends, that kindly point you towards errors. Learning to correctly read error messages is one of the most important skills you'll pick up as a developer.
+
+If you come across an error message, take your time to fully understand what it is saying. Then navigate to the place in code where it found the issue. This way you know exactly what to fix and where.
 
 
 
