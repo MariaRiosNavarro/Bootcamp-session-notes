@@ -1249,7 +1249,8 @@ When defining dependencies in package.json npm uses version ranges to define whi
 
 Version ranges described with ^ are by far the most commmon choice because they are usally safe and won't break your application.
 
-Linters
+### Linters
+
 Linters are tools which analyze your code and show syntax errors, oversights like undeclared variables, bugs and stylistic errors. Some important linters are Prettier (Code formatter), HTMLHint (HTML), and ESLint (JavaScript).
 
 To run these linters, we can define a script inside of the package.json as in the following example:
@@ -1263,7 +1264,8 @@ To run these linters, we can define a script inside of the package.json as in th
 		"eslint": "npx eslint \"**/*.js\""
 	}
 ```
-###Prettier
+### Prettier
+
 Prettier makes sure that your code / the code of your team is formatted in the exact same way. There are two important ways to use it:
 
 npx prettier --check . (checks for stylistic errors)
@@ -1274,14 +1276,16 @@ The flags --check and --write decide whether to only check for errors or immedia
 
 We can also use the scripts called "prettier:check" and "prettier:write" in the package.json above via npm run prettier:check or npm run prettier:write. It will do the exact same thing as npx prettier [...].
 
-###HTMLHint
+### HTMLHint
+
 HTMLHint analyzes your HTML. You can use
 
 npx htmlhint index.html (analyzes the index.html file) or the script
 npm run htmlhint.
 Note that, according to the above package.json, the script will run npx htmlhint \"**/*.html\" and thus analyze all files ending with .html.
 
-###ESLint
+### ESLint
+
 ESLint analyzes your JavaScript and highlights errors. You can use
 
 npx eslint index.js (analyzes the index.js file) or the script
@@ -1289,12 +1293,14 @@ npm run eslint.
 Note that, according to the above package.json, the script will run npx eslint \"**/*.js\" and thus analyze all files ending with .js.
 
 
-###Combining Scripts
+### Combining Scripts
+
 We can write a script using several other scripts and thus running all linters at once. See the above mentioned scripts npm run test and npm run fix which will run htmlhint, prettier and eslint.
 
 The && means that the script will run one after another. The next script only is executed if the one before found no issues.
 
-###Setup Files for Linters
+### Setup Files for Linters
+
 All linters come with a built-in ruleset, but we can configure these rules. We do this with files at the root of our project called .eslintrc.js, .htmlhintrc.json, or .prettierrc. You can recognize them by the "rc", but the file ending might differ.
 
 We can also say which files the linter will ignore. This is done inside of .eslintignore or .prettierignore.
