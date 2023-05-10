@@ -1317,6 +1317,42 @@ If you come across an error message, take your time to fully understand what it 
 
 ### 15.-JS Structure ...
 
+### JavaScript Modules
+JavaScript modules (sometimes also called "ECMAScript Modules" or "ESM") are a way to organize code into separate files. To use modules you have to let the browser know that you are using modules. This is done by adding the type="module" attribute to the <script> tag.
+
+<script type="module" src="./my-module.js"></script>
+	
+💡 Modules allow you to use import and export statements but also change a few other things about how the browser treats your code that differ from standard scripts: They have their own scope and are not accessible from the global scope (unless exported). They also do not require the defer attribute as they are deferred by default. The scripts are executed in the more modern strict mode automatically.
+
+💡 When reading about modules online you might stumble upon the file extension .mjs which is sometimes used for JavaScript modules. For modules both .js and .mjs work fine but we've decided to use the .js extension for consistency. There is a great section discussing .js vs .mjs on mdn.
+
+### Exporting using export Statements
+	
+Using the export statement you can export a variable or function to make it available to other modules. You can use named exports to export multiple variables or functions or one default export per module to export the main functionality of the module.
+
+### Named Exports
+	
+Usally named exports are created by using the keyword export dircectly before const, let or function.
+
+export const name = "Alex";
+export const age = 26;
+export function sayHello() {
+  console.log("Hello");
+}
+It is also possible to export functions or variables after they have been declared.
+
+const name = "Alex";
+const age = 26;
+function sayHello() {
+  console.log("Hello");
+}
+
+export { name, age, sayHello };
+
+
+
+
+
 <hr>
 
 
