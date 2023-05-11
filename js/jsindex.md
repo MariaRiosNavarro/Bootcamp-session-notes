@@ -1320,7 +1320,8 @@ If you come across an error message, take your time to fully understand what it 
 ### JavaScript Modules
 JavaScript modules (sometimes also called "ECMAScript Modules" or "ESM") are a way to organize code into separate files. To use modules you have to let the browser know that you are using modules. This is done by adding the type="module" attribute to the <script> tag.
 
-<script type="module" src="./my-module.js"></script>
+````<script type="module" src="./my-module.js"></script>````
+	
 	
 💡 Modules allow you to use import and export statements but also change a few other things about how the browser treats your code that differ from standard scripts: They have their own scope and are not accessible from the global scope (unless exported). They also do not require the defer attribute as they are deferred by default. The scripts are executed in the more modern strict mode automatically.
 
@@ -1334,13 +1335,13 @@ Using the export statement you can export a variable or function to make it avai
 	
 Usally named exports are created by using the keyword export dircectly before const, let or function.
 
-````
+```
 export const name = "Alex";
 export const age = 26;
 export function sayHello() {
   console.log("Hello");
 }
-````
+```
 	
 It is also possible to export functions or variables after they have been declared.
 	
@@ -1376,19 +1377,22 @@ export default "Alex";
 	
 	
 This is the same for arrow functions.	
-	
+
+````
 export default () => {
   console.log("Hello");
 };	
+````
 	
 💡 Notice that there is no const name = or const sayHello = in the code above. Default exports are nameless and constant by default.
 
 Just like with named exports you can export the default export after it has been declared.
-	
-	
+
+	````
 const name = "Alex";
 
 export default name;
+	````
 	
 💡 Notice that since default exports have no clear name the should semantically correspond to the name of the module. The above example should have a module name like name.js.
 	
@@ -1396,12 +1400,12 @@ export default name;
 ### Mixing Named and default Exports
 You can mix named and default exports.
 	
-	
+	````
 export const name = "Alex";
 export default function sayHello() {
   console.log("Hello");
 }
-
+````
 	
 ### Importing using import Statements
 	
@@ -1410,26 +1414,47 @@ Code from other modules can be imported using the import statement. Import state
 ### Importing Named Exports
 	
 If another module exports a named export you can import it as such.
-
+	
+````
 import { name, age } from "./my-module.js";
+	
+````
+	
+	
 Now name and age are available in the current module.
 
 ### Importing default Exports
 	
 If another module exports a default export you have to give it a name when importing it.
+	
+	````
 
-import myModule from "./my-module.js";
+	import myModule from "./my-module.js";
+	
+	````
 💡 Notice that the name you give it does not nessesarily have to match the name of the module or the original name of the thing that was exported. For example myModule could have the value of the sayHello function which is not clear from the name. Since you could import the same module in multiple files you can also give it a different name every time.
 
 ### Mixing Named and default Imports
 	
 You can mix named and default imports.
+	
+	````
 
 import myModule, { name, age } from "./my-module.js";
-Renaming Named Imports
+	
+	
+	````
+	
+### Renaming Named Imports
+	
+	
 You can rename named imports explicitly by using the as syntax.
 
-import { name as firstName, age as yearsSinceBorn } from "./my-module.js";
+````
+	import { name as firstName, age as yearsSinceBorn } from "./my-module.js";
+	
+````
+	
 The variables firstName and yearsSinceBorn are now available in the current module. This can be useful if the name of an import conflicts with a local variable name.
 
 In contrast to default imports, you have to be explicit that you are renaming and what the original names were.
@@ -1470,14 +1495,18 @@ Whatever style you choose, make sure you are consistent per project.
 
 Here is an example of a component that creates a button:
 
+	````
 export function Button(props) {
   const button = document.createElement("button");
   button.classList.add("button");
   button.textContent = props.text;
   return button;
 }
+	
+	````
 An advanced use case are components that call other components (composition):
 
+	````
 import { Button } from "../Button/Button.js";
 
 export function ButtonGroup(props) {
@@ -1489,7 +1518,12 @@ export function ButtonGroup(props) {
   }
   return buttonGroup;
 }
+	
+	````
+	
 Here is how these components could be used in another file:
+	
+	````
 
 import { ButtonGroup } from "./ButtonGroup/ButtonGroup.js";
 import { Button } from "./Button/Button.js";
@@ -1501,6 +1535,8 @@ document.body.append(myButtonGroup);
 
 const myButton = Button({ text: "Button" });
 document.body.append(myButton);
+	
+	````
 	
 	
 	
