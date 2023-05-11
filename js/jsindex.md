@@ -36,13 +36,13 @@
 
 - [npm and Linting Basics:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/npm-and-linting-basics/npm-and-linting-basics.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/npm-and-linting-basics/challenges-npm-and-linting-basics.md).
 
-- [JS Structure :](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-structure/js-structure.md)[Challenges]().
+- [JS Structure :](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-structure/js-structure.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-structure/challenges-js-structure.md).
 
-- [JS Arrays Methods 2:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-array-methods-2/js-array-methods-2.md)[Challenges]().
+- [JS Arrays Methods 2:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-array-methods-2/js-array-methods-2.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-array-methods-2/challenges-js-array-methods-2.md).
 
-- [JS Async Functions:]()[Challenges]().
+- [JS Async Functions:](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-async-functions/js-async-functions.md)[Challenges]().
 
-- [JS Fetch]()[Challenges]().
+- [JS Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/js-fetch/js-fetch.md)[Challenges]().
 
 - [JS Modern Syntax]()[Challenges]().
 
@@ -1388,19 +1388,23 @@ export default () => {
 
 Just like with named exports you can export the default export after it has been declared.
 
-	````
+````
 const name = "Alex";
 
 export default name;
-	````
+````
+	
 	
 💡 Notice that since default exports have no clear name the should semantically correspond to the name of the module. The above example should have a module name like name.js.
 	
 	
 ### Mixing Named and default Exports
-You can mix named and default exports.
 	
-	````
+	
+You can mix named and default exports.
+		
+	
+````
 export const name = "Alex";
 export default function sayHello() {
   console.log("Hello");
@@ -1415,6 +1419,7 @@ Code from other modules can be imported using the import statement. Import state
 	
 If another module exports a named export you can import it as such.
 	
+	
 ````
 import { name, age } from "./my-module.js";
 	
@@ -1427,33 +1432,38 @@ Now name and age are available in the current module.
 	
 If another module exports a default export you have to give it a name when importing it.
 	
-	````
-
-	import myModule from "./my-module.js";
 	
-	````
+	
+````
+
+import myModule from "./my-module.js";
+	
+````
+	
+	
 💡 Notice that the name you give it does not nessesarily have to match the name of the module or the original name of the thing that was exported. For example myModule could have the value of the sayHello function which is not clear from the name. Since you could import the same module in multiple files you can also give it a different name every time.
 
 ### Mixing Named and default Imports
 	
 You can mix named and default imports.
 	
-	````
-
+	
+	
+````
 import myModule, { name, age } from "./my-module.js";
+````
 	
-	
-	````
 	
 ### Renaming Named Imports
 	
 	
 You can rename named imports explicitly by using the as syntax.
+	
 
 ````
-	import { name as firstName, age as yearsSinceBorn } from "./my-module.js";
-	
+import { name as firstName, age as yearsSinceBorn } from "./my-module.js";
 ````
+	
 	
 The variables firstName and yearsSinceBorn are now available in the current module. This can be useful if the name of an import conflicts with a local variable name.
 
@@ -1495,18 +1505,21 @@ Whatever style you choose, make sure you are consistent per project.
 
 Here is an example of a component that creates a button:
 
-	````
+````
 export function Button(props) {
   const button = document.createElement("button");
   button.classList.add("button");
   button.textContent = props.text;
   return button;
 }
+````
 	
-	````
+	
 An advanced use case are components that call other components (composition):
+	
+	
 
-	````
+````
 import { Button } from "../Button/Button.js";
 
 export function ButtonGroup(props) {
@@ -1518,13 +1531,12 @@ export function ButtonGroup(props) {
   }
   return buttonGroup;
 }
-	
-	````
+````
 	
 Here is how these components could be used in another file:
 	
-	````
-
+	
+````
 import { ButtonGroup } from "./ButtonGroup/ButtonGroup.js";
 import { Button } from "./Button/Button.js";
 
@@ -1535,14 +1547,12 @@ document.body.append(myButtonGroup);
 
 const myButton = Button({ text: "Button" });
 document.body.append(myButton);
-	
-	````
-	
+````
 	
 	
 	
-	
-	
+		
+		
 	
 	
 
