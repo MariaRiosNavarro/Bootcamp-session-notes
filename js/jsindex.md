@@ -1334,13 +1334,18 @@ Using the export statement you can export a variable or function to make it avai
 	
 Usally named exports are created by using the keyword export dircectly before const, let or function.
 
+````
 export const name = "Alex";
 export const age = 26;
 export function sayHello() {
   console.log("Hello");
 }
+````
+	
 It is also possible to export functions or variables after they have been declared.
+	
 
+````
 const name = "Alex";
 const age = 26;
 function sayHello() {
@@ -1348,16 +1353,200 @@ function sayHello() {
 }
 
 export { name, age, sayHello };
+	
+````
+	
+	
+	
+### default Exports
+	
+Default exports are created by using the keyword export default. You can only have one default export per module.
 
+Before a function declaration the syntax is similar to named exports.
 
+````
+export default function sayHello() {
+  console.log("Hello");
+}
+````	
+For directly exporting variables as default you only declare the value of the thing you're exporting.
+	
+	
+export default "Alex";
+	
+	
+This is the same for arrow functions.	
+	
+export default () => {
+  console.log("Hello");
+};	
+	
+💡 Notice that there is no const name = or const sayHello = in the code above. Default exports are nameless and constant by default.
 
+Just like with named exports you can export the default export after it has been declared.
+	
+	
+const name = "Alex";
 
+export default name;
+	
+💡 Notice that since default exports have no clear name the should semantically correspond to the name of the module. The above example should have a module name like name.js.
+	
+	
+### Mixing Named and default Exports
+You can mix named and default exports.
+	
+	
+export const name = "Alex";
+export default function sayHello() {
+  console.log("Hello");
+}
+
+	
+### Importing using import Statements
+	
+Code from other modules can be imported using the import statement. Import statements should always be placed at the top of the file. Everything that can be exported from a module can also be imported from another module.
+
+### Importing Named Exports
+	
+If another module exports a named export you can import it as such.
+
+import { name, age } from "./my-module.js";
+Now name and age are available in the current module.
+
+### Importing default Exports
+	
+If another module exports a default export you have to give it a name when importing it.
+
+import myModule from "./my-module.js";
+💡 Notice that the name you give it does not nessesarily have to match the name of the module or the original name of the thing that was exported. For example myModule could have the value of the sayHello function which is not clear from the name. Since you could import the same module in multiple files you can also give it a different name every time.
+
+### Mixing Named and default Imports
+	
+You can mix named and default imports.
+
+import myModule, { name, age } from "./my-module.js";
+Renaming Named Imports
+You can rename named imports explicitly by using the as syntax.
+
+import { name as firstName, age as yearsSinceBorn } from "./my-module.js";
+The variables firstName and yearsSinceBorn are now available in the current module. This can be useful if the name of an import conflicts with a local variable name.
+
+In contrast to default imports, you have to be explicit that you are renaming and what the original names were.
+
+### Structuring JavaScript Code
+	
+Utility Functions and Constants
+Utility functions are functions that are used in multiple places in your code. They are usually smaller functions that are used to perform a specific task. They should be be pure and not have any side effects.
+
+Shared constants are constants that are used in multiple places in your code.
+
+Functions and constants can be grouped into files that are named after the functionality they provide. For example math.js could contain functions like add, subtract, multiply and divide.
+
+The file should have a named export for each function.
+
+We recommend to create a utils folder in your project and put all utility functions in there.
+
+### Vanilla JavaScript Components
+	
+Vanilla JavaScript means that you are not using a framework like React (from vanilla being the most basic variant of ice cream).
+
+Even though there is no set standard for structuring vanilla JavaScript components, we recommend the following:
+
+### Create a folder for each component
+	
+Make your component file and function names uppercase (PascalCase)
+Each component has a named export for the component function (e.g. export function ButtonGroup())
+Components can take arguments that are called props or properties a convention (e.g. export function ButtonGroup(props))
+Components should not depend on the outside world and create their own DOM elements
+Components should return a single DOM element
+💡 These are just recommendations
+
+Another common convention is to use kabap-case names for component files. This way they are named after the BEM block class name. For example you could use button-group/button-group.js and button-group/button-group.css for a component that has a .button-group class. This is the same organizational style you are used to when working with just CSS.
+
+The name of the component function could also be createButtonGroup() or even createButtonGroupElement() to make it is clear that it is a function that creates a DOM element.
+
+Whatever style you choose, make sure you are consistent per project.
+
+Here is an example of a component that creates a button:
+
+export function Button(props) {
+  const button = document.createElement("button");
+  button.classList.add("button");
+  button.textContent = props.text;
+  return button;
+}
+An advanced use case are components that call other components (composition):
+
+import { Button } from "../Button/Button.js";
+
+export function ButtonGroup(props) {
+  const buttonGroup = document.createElement("div");
+  buttonGroup.classList.add("button-group");
+  for (const buttonProps of props.buttons) {
+    const button = Button(buttonProps);
+    buttonGroup.append(button);
+  }
+  return buttonGroup;
+}
+Here is how these components could be used in another file:
+
+import { ButtonGroup } from "./ButtonGroup/ButtonGroup.js";
+import { Button } from "./Button/Button.js";
+
+const myButtonGroup = ButtonGroup({
+  buttons: [{ text: "Button 1" }, { text: "Button 2" }, { text: "Button 3" }],
+});
+document.body.append(myButtonGroup);
+
+const myButton = Button({ text: "Button" });
+document.body.append(myButton);
+	
+	
+	
+	
+	
+	
+	
+	
 
 <hr>
 
 
 ### 16.-JS Arrays Methods 2: ...
 
+
+	ARRAY METHODS
+
+
+-`Arrax.forEach` - run logic on the array
+-`Array.map()` -transforms the array
+-`Array.filter() - to create a new array with a subset of the elements from the original array
+  				(you need a filter on the object, xj .startsWith etc)
+
+
+- `Array.includes()` - V or F - checks if the array contains the specified value.
+- `Array.find()` - to receive the first element of the array that satisfies the provided check function. Otherwise, returns undefined.
+- Array.findIndex()` - to receive the index of the first element of the array satisfying the provided hash function. If no such element exists, -1 is returned.
+
+
+- `Array.slice()` - It is important to note that some array methods, such as sort(), do not create a new array, but mutate the original. slice makes a copy.
+- `Array.sort()` - to sort the elements of an array. You need to provide a callback function to indicate how the array is sorted.
+                          - two things inside the callback function: lowercase both strings before comparing them (uppercase also works)
+			   using if statements, be explicit about the return values that depend on the result of the comparison (nameA < 				nameB and nameA > nameB)
+
+
+- `Array.some()` - T or F - Use some() to check if at least one element of the array passes the test provided.
+- `Array.every()` - V or F - Use every() to check if all elements pass the test.
+- `Array.reverse()` - To reverse an array, simply use array.reverse(). This can also be combined with sort():
+- `Array.reduce()` -the end result is a single value. This is an array method for reducing a list of values to a single value.
+	1- it 	executes the callback on each element of the array, 
+	2- the return value of each calculation is passed to the next calculation (i.e. it becomes the new starting value for the next 	iteration through the array). Its main use case is to calculate the sum of an array of numbers.
+
+- `String.startsWith()`.
+- `String.endWith()`.
+	
+	
 <hr>
 
 ### 17.-JS Async Functions ...
