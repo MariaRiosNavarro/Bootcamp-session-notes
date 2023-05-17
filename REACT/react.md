@@ -1,6 +1,6 @@
 REACT
 
-1.[React basics](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-basics/react-basics.md) [Challenges](Challenges)
+1.[React basics](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-basics/react-basics.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-basics/challenges-react-basics.md)
 
 2.[React props](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-props/react-props.md) [Challenges](Challenges)
 
@@ -15,30 +15,29 @@ REACT
 
 ### React Basics
 
-Reagieren Sie auf die Grundlagen
-Lernziele
-Verstehen, was React ist und warum es verwendet wird
-JSX und Unterschiede zu HTML verstehen
-Den deklarativen Ansatz von React verstehen
-React-Komponenten erstellen
-Rendering mit React verstehen
-Kenntnisse über das React-Ökosystem
+
 Was ist React und warum verwenden wir es?
-React ist eine JavaScript-Bibliothek mit dem Ziel, das Leben des Entwicklers zu erleichtern: In den meisten Fällen müssen Sie nicht direkt mit der DOM-API (z. B. createElement) arbeiten. Sie schreiben einfach einfacheren (deklarativen) Code, der beschreibt, wie die Benutzeroberfläche aussehen soll, und React kümmert sich um das DOM unter der Haube.
+
+React ist eine ***JavaScript-Bibliothek*** mit dem Ziel, das Leben des Entwicklers zu erleichtern: In den meisten Fällen müssen Sie nicht direkt mit der DOM-API (z. B. createElement) arbeiten. Sie schreiben einfach einfacheren (deklarativen) Code, der beschreibt, wie die Benutzeroberfläche aussehen soll, und React kümmert sich um das DOM unter der Haube.
 
 Um deklarativen Code für React zu schreiben, verwenden Sie JSX.
 
-Verwendung von JSX
+### Verwendung von JSX
 
 JSX ist eine Syntaxerweiterung für JavaScript. JSX ist weder ein String noch HTML, wie wir es kennen. JSX-Ausdrücke können überall dort verwendet werden, wo ein JavaScript-Ausdruck verwendet werden kann.
 
+```
 const element = <p>Some Text</p>;
+```
+
 Wir verwenden JSX, um React-Elemente zu erstellen. React-Elemente sind ein Zwischenformat, das React während des Rendervorgangs in DOM-Elemente konvertiert. Dadurch können wir unsere Benutzeroberfläche deklarativ mit JSX beschreiben.
 
-Elemente erstellen
+### Elemente erstellen
 
 Genau wie in HTML werden JSX-Elemente durch öffnende und schließende Tags beschrieben. Das öffnende Tag enthält den Tag-Namen oder den Komponententyp (siehe Verwenden von Komponenten ) und etwaige Attribute. Das schließende Tag enthält denselben Tag-Namen oder denselben Komponententyp wie das öffnende Tag und sonst nichts. Die untergeordneten Elemente des Elements werden zwischen dem öffnenden und schließenden Tag platziert. Wenn das Element keine untergeordneten Elemente hat, kann das schließende Tag weggelassen werden und das Element ist selbstschließend.
 
+
+```
 // Element with children
 //
 //              opening tag         children
@@ -61,14 +60,15 @@ const input = <input type="text" />;
 //             |     attribute name
 //             tag name or component type
 
+```
 
 💡Elemente, die keine schließenden Tags in HTML unterstützen, wie <br>oder <input>müssen in JSX selbstschließend sein (wie <br />oder <input type="text" />).
 
 
-💡Im Gegensatz zu HTML, das gegenüber fehlenden schließenden Tags resistent ist, ist dies bei JSX nicht der Fall. Wenn Sie vergessen, ein Tag zu schließen, erhalten Sie eine Fehlermeldung.
+💡Im Gegensatz zu HTML, *** das gegenüber fehlenden schließenden Tags resistent ist, ist dies bei JSX nicht der Fall *** . Wenn Sie vergessen, ein Tag zu schließen, erhalten Sie eine Fehlermeldung.
 
 
-Komponenten verwenden
+### komponenten Verwenden
 
 Um ein Element aus einer Komponente zu erstellen , können wir einfach über den Funktionsnamen in JSX darauf verweisen und es wie jede integrierte Komponente behandeln:
 
