@@ -227,3 +227,91 @@ Der Bundler erstellt einen Entwicklungsserver, wenn wir ihn npm run startlokal a
 
 
 ### React Props
+
+
+Reagieren Sie auf Requisiten
+Lernziele
+Verstehen, was Requisiten sind
+Verstehen, wie Requisiten an eine Komponente übergeben werden
+Verstehen, wie Requisiten in einer Komponente verwendet werden
+Verstehen, wie man bedingt rendert
+Verwendung von Requisiten
+Props ist die Abkürzung für Properties. Sie sind eine Möglichkeit, Daten an eine untergeordnete Komponente zu übergeben. Als ersten Funktionsparameter erhält eine Komponente ein Props-Objekt.
+
+Requisiten werden als Attribute an eine Komponente übergeben .
+
+function UserCard(props) {
+  return <div>{props.name}</div>;
+}
+Der Einfachheit halber wird das props-Objekt häufig im Funktionsparameter destrukturiert.
+
+function UserCard({ name }) {
+  return <div>{name}</div>;
+}
+Sie können beliebige Namen für Ihre Requisiten wählen.
+
+💡Es gibt jedoch einige Namenskonventionen. Boolesche Requisiten werden oft mit is, hasoder als Präfix versehen should. Zum Beispiel isDisabled, hasErroroder shouldShow. Requisiten, die Funktionen übernehmen, wird oft das Präfix vorangestellt on. Zum Beispiel onClick, onSubmitoder onHover. Das Befolgen dieser Konventionen erleichtert das Verständnis des Zwecks der Requisite.
+
+Requisiten können jeden Typs haben (String, Zahl, Array, Objekt, Funktion, ...).
+
+Sie sollten das Requisitenobjekt als unveränderlich und schreibgeschützt behandeln.
+
+Übergeben von Requisiten an eine Komponente
+Requisiten werden als Attribute an eine Komponente übergeben.
+
+<UserCard name="Alex" />
+Sie können jede Art von Daten als Requisite übergeben.
+
+<UserCard
+  name="Alex"
+  age={25}
+  onContact={() => console.log("let's chat!")}
+  isFavorite={true}
+  favoriteFoods={["Pasta", "Salad"]}
+  contactDetails={{ email: "alex@neuefische.de", phone: "123456789" }}
+/>
+String-Requisiten können in doppelten Anführungszeichen übergeben werden. Alle anderen Requisiten müssen in geschweiften Klammern übergeben werden.
+
+💡Beachten Sie die doppelten geschweiften Klammern für das Objekt. Dies liegt daran, dass die äußeren geschweiften Klammern zur Kennzeichnung eines JavaScript-Ausdrucks verwendet werden. Die inneren geschweiften Klammern werden zur Definition eines Objekts verwendet.
+
+💡Es gibt eine Kurzsyntax für boolesche Requisiten. Wenn der Wert sein soll, truekönnen Sie den Wert weglassen.
+
+<UserCard isFavorite />
+Das Weglassen eines Attributs führt zum Wert undefineddieser Requisite.
+
+📙Weitere Informationen zum Übergeben von Requisiten an eine Komponente finden Sie in den React-Dokumenten .
+
+Bedingtes Rendern
+Sie können Requisiten verwenden, um Teile einer Komponente bedingt zu rendern.
+
+function UserCard({ name, isFavorite }) {
+  return (
+    <div>
+      {name}
+      {isFavorite ? <span>🌟</span> : null}
+    </div>
+  );
+}
+💡In JSX nullgibt es eine Möglichkeit, nichts zu rendern.
+
+Sie können keine ifAnweisung innerhalb von JSX verwenden, da nur Ausdrücke zulässig sind. Sie können ifjedoch eine Anweisung außerhalb von JSX verwenden.
+
+function UserCard({ name, isFavorite }) {
+  let favoriteStar = null;
+  if (isFavorite) {
+    favoriteStar = <span>🌟</span>;
+  }
+
+  return (
+    <div>
+      {name}
+      {favoriteStar}
+    </div>
+  );
+}
+📙Weitere Informationen zum bedingten Rendering finden Sie in den React Docs .
+  
+  
+[passing-props-to-a-component](https://react.dev/learn/passing-props-to-a-component)
+  
+[conditional-rendering](https://react.dev/learn/conditional-rendering)
