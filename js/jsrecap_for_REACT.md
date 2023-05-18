@@ -38,12 +38,12 @@ Log to the console
 Select elements with querySelector
 Add, remove and toggle CSS classes on click with addEventListener
  
-```
-<script src="./index.js" defer></script>
-```
  
- 
-``` 
+```
+ <script src="./index.js" defer></script>
+```
+
+````
 const mainElement = document.querySelector('[data-js="main"]');
 ```
  
@@ -58,7 +58,7 @@ const mainElement = document.querySelector(".main");
 const mainElement = document.querySelector("#main");
 ````
  
-### ```addEventListener````
+###  ``` addEventListener ```
  
 const button = document.querySelector('[data-js="button"]');
 button.addEventListener("click", () => {
@@ -66,7 +66,7 @@ button.addEventListener("click", () => {
 });
  
  
-### ```.classList````
+###  ```.classList```` 
  
 Add/remove & toggle classes: .classList.
  
