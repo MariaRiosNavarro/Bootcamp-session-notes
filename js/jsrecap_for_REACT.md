@@ -3,30 +3,21 @@
  
 * all data types, basics of syntax
 
-
-* async/await
-
-
-* functions & callback functions
-
-
-* fetch
-
-
-* modern syntax
-
-
-* event handling
-
-
 * Conditions, if-statements, ternary operator
-
 
 * Loops
 
+* event handling
 
 * Array methods
 
+* async/await
+
+* functions & callback functions
+
+* fetch
+
+* modern syntax
 
 * Testing
 
@@ -348,6 +339,99 @@ As soon as a return statement is reached in a function call, the function execut
 }
   ````
 
+ 
+ This behavior can be used to our advantage as early return statements. Sometimes we want to execute certain parts of our code only if a condition applies. We can check this with an if else statement. When multiple conditions are in place, the code becomes harder to read and to understand. An alternative approach is to terminate the function with early return statements:
+ 
+ 
+ 
+ ````
+ //Version A -BAD:
+ 
+ function setBackgroundColor(color) {
+  if (typeof color === "String") {
+    if (color.startsWith("#")) {
+      if (color.length >= 7) {
+        document.body.style.backgroundColor = color;
+      }
+    }
+  }
+}
+ 
+ //Version B-early return- Better
+ 
+ function setBackgroundColor(color) {
+	// first condition
+	if(typeof color !== 'String') {
+		return;
+	}
+
+	// second condition
+	if(!color.startsWith('#')) {
+		return;
+	}
+
+	// third condition
+	if(color.length < 7) {
+		return;
+	}
+
+	// only if all 3 conditions are passed the final line of code is executed.
+	body.style.backgroundColor = color;
+}
+
+//Hint: A return statement can be left empty, the returned value is then undefined.                     
+                     
+```` 
+ 
+                     
+ ### ARROW FUNCTIONS
+                     
+   The function is saved like a variable with the keyword const. The parameters are written normally in round brackets followed by an fat arrow =>. Then the function body is written in curly brackets.
+                    
+  ````
+const addNumbers = (first, second) => {
+  return first + second;
+};
+   ````
+                
+ 
+ ### Implicit Return Statements
+The advantage of arrow functions are possible shorter notations when certain criteria apply:
+ 
+ 
+1. - Omit the round brackets around the parameters: This is possible, if there is only one input:
+ 
+ ````
+const addOne = (number) => {
+  return number + 1;
+};
+ ````
+ 
+2.- Implicit return statements: If the function consists only of a return statement, the curly brackets and the return keyword can be omitted:
+ 
+```` 
+const addNumbers = (first, second) => {
+  return first + second;
+};
+```` 
+ 
+can be rewritten as:
+ 
+```` 
+const addNumbers = (first, second) => first + second;
+````
+ 
+ We will use with:
+ 
+ ````
+ button.addEventListener('click',() => {
+	...
+})
+ ```` 
+ 
+ <hr>
+ <div style="text-aling: center">(end first JS Week)</div>
+ <hr>
  
 
  
