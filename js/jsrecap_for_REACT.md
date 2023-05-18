@@ -39,15 +39,17 @@ Select elements with querySelector
 Add, remove and toggle CSS classes on click with addEventListener
  
  
-```
+````
  <script src="./index.js" defer></script>
-```
+````
 
 ````
 const mainElement = document.querySelector('[data-js="main"]');
-```
  
- better as:
+````
+ 
+ - Better as:
+ 
  
 ````
 // tag as identifier
@@ -58,17 +60,23 @@ const mainElement = document.querySelector(".main");
 const mainElement = document.querySelector("#main");
 ````
  
-###  ``` addEventListener ```
  
+ 
+###   ``` addEventListener ```
+ 
+ 
+```` 
 const button = document.querySelector('[data-js="button"]');
 button.addEventListener("click", () => {
   console.log("Yeah");
 });
+```` 
  
  
-###  ```.classList```` 
+###   ``` .classList ```` 
  
 Add/remove & toggle classes: .classList.
+ 
  
 ````
  const main = document.querySelector('[data-js="main"]');
@@ -77,8 +85,7 @@ const button = document.querySelector('[data-js="button"]');
 button.addEventListener("click", () => {
   main.classList.add("page--primary");
 });
- 
-`````
+````
  
  
 <hr>
