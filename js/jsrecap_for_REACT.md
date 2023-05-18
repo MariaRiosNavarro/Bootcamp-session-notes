@@ -402,12 +402,12 @@ The advantage of arrow functions are possible shorter notations when certain cri
 1. - Omit the round brackets around the parameters: This is possible, if there is only one input:
  
  ````
-const addOne = (number) => {
+const addOne = number => {
   return number + 1;
 };
  ````
  
-2.- Implicit return statements: If the function consists only of a return statement, the curly brackets and the return keyword can be omitted:
+2. - Implicit return statements: If the function consists only of a return statement, the curly brackets and the return keyword can be omitted:
  
 ```` 
 const addNumbers = (first, second) => {
@@ -430,7 +430,7 @@ const addNumbers = (first, second) => first + second;
  ```` 
  
  <hr>
- <div style="text-aling: center">(end first JS Week)</div>
+ <div align="center">(end first JS Week)</div>
  <hr>
  
 
