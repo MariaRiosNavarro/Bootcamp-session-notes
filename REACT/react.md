@@ -700,6 +700,7 @@ Um Elemente aus einem Array in React zu rendern, verwenden wir die Array-Methode
 
 Die Array-Methode .map()wird verwendet, um eine Transformation auf alle Elemente eines Arrays anzuwenden. Beim Rendern eines Arrays in JSX möchten wir genau das tun. Wir wandeln gerne jedes Element eines Arrays in ein JSX-Tag um. Aus diesem Grund verwenden wir .map().
 
+```
 function Drinks() {
   const drinks = ["water", "lemonade", "coffee", "tee"];
 
@@ -711,7 +712,10 @@ function Drinks() {
     </ul>
   );
 }
+```
+
 Schlüsseleigenschaft
+
 Im obigen Beispiel fehlt ein kleiner, aber sehr wichtiger Teil: die keyRequisite!
 
 Ohne die keyRequisite wird in der Konsole ein Fehler angezeigt:
@@ -722,6 +726,7 @@ Beim Rendern eines Arrays in JSX müssen Sie einen eindeutigen Bezeichner als We
 
 Daher müssen Sie immer sicherstellen, dass Ihr Array eine eindeutige ID pro Element enthält. Sie können dies sicherstellen, indem Sie Objekte verwenden, um die Daten in Ihren Arrays zu definieren.
 
+```
 function Drinks() {
   const drinks = [
     { id: 0, name: "water" },
@@ -738,15 +743,20 @@ function Drinks() {
     </ul>
   );
 }
-📙Wenn Sie daran interessiert sind, die Details dahinter zu verstehen, können Sie in den React Docs mehr über die keyRequisite lesen .
 
-💡Wenn Sie die keyRequisite an eine Komponente übergeben, können Sie in der Komponente nicht darauf zugreifen. Es handelt sich um eine spezielle Requisite, die React nur intern verwendet.
+```
+
+> 📙 If you are interested in understanding the details behind this, you can read about
+> [**the `key` prop** in the React Docs](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key).
+
+💡Wenn Sie die key Prop an eine Komponente übergeben, können Sie in der Komponente nicht darauf zugreifen. Es handelt sich um eine spezielle Prop, die React nur intern verwendet.
 
 function Drink({ name, key }) {
   console.log(key); // → undefined
   return <li>{name}</li>;
 }
 
+```
 function Drinks() {
   const drinks = [
     { id: 0, name: "water" },
@@ -763,12 +773,16 @@ function Drinks() {
     </ul>
   );
 }
+
+```
 Wenn Sie in diesem Beispiel auf das zugreifen möchten, idkönnen Sie es erneut als Requisite übergeben:
-<Drink key={id} id={id} name={name} />.
+```<Drink key={id} id={id} name={name} />.```
 
 Schlüsselfragmente
+
 Wenn Sie eine Liste von Elementen rendern, die nicht in ein einzelnes JSX-Tag eingeschlossen sind, können Sie <Fragment>die Elemente mit a umschließen.
 
+```
 import { Fragment } from "react";
 
 function Drinks() {
@@ -790,7 +804,11 @@ function Drinks() {
     </dl>
   );
 }
+ ```
+  
 💡<>…</>Hier können Sie nicht die kurze Syntax ( ) für verwenden, da Sie die Requisite an <Fragment>übergeben müssen . Die kurze Syntax erlaubt keine Übergabe von Requisiten.key<Fragment>
+  
+  
+## Resources
 
-Ressourcen
-React Docs: Rendering-Listen
+- [React Docs: Rendering Lists](https://react.dev/learn/rendering-lists)
