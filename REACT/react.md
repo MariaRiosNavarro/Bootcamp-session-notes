@@ -4,9 +4,13 @@ REACT
 
 2.[React props](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-props/react-props.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-props/challenges-react-props.md)
 
-2.[React nesting](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-nesting/react-nesting.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-nesting/challenges-react-nesting.md)
+3.[React nesting](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-nesting/react-nesting.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-nesting/challenges-react-nesting.md)
 
-2.[React setup](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-project-setup/react-project-setup.md) [Challenges](https://github.com/neuefische/web-exercises/tree/main/sessions/react-project-setup/journal-app)
+4.[React setup](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-project-setup/react-project-setup.md) [Challenges](https://github.com/neuefische/web-exercises/tree/main/sessions/react-project-setup/journal-app)
+
+5.[React setup](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state/react-state.md) [Challenges]()
+
+6.[React setup](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-arrays/react-with-arrays.md) [Challenges]()
 
 
 
@@ -515,3 +519,358 @@ Ordnerstruktur in den Create React App-Dokumenten
 Verfügbare Skripte in den Create React App-Dokumenten
 Hinzufügen eines Stylesheets zu den Create React App-Dokumenten
 Hinzufügen von Bildern, Schriftarten und Dateien zu den Create React App-Dokumenten
+
+
+
+
+###React Nesting
+
+3.[React nesting](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-nesting/react-nesting.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-nesting/challenges-react-nesting.md)
+
+Verschachtelung reagieren
+Lernziele
+Das Konzept der Verschachtelung verstehen
+Erstellen Sie mehrere benutzerdefinierte Komponenten, um eine Hierarchie zu erstellen
+Verwenden der childrenRequisite zum Rendern von JSX aus der übergeordneten Komponente
+Komposition als eine Möglichkeit zum Aufbau komplexer Komponenten verstehen
+JSX als Requisiten übergeben
+Von JSX erstellte Elemente sind nur Objekte. Sie können wie jedes andere Objekt herumgereicht werden: zum Beispiel als Requisiten.
+
+function UserCard({ avatar }) {
+  return <div className="card">{avatar}</div>;
+}
+function App() {
+  return <UserCard avatar={<Avatar />} />;
+}
+Die childrenStütze
+Mit der Verschachtelung integrierter Browser-Tags sind Sie bereits vertraut:
+
+<div>
+  <img />
+</div>
+Oft möchten Sie, dass auch Ihre eigenen Komponenten verschachtelbar sind.
+
+<UserCard>
+  <Avatar />
+</UserCard>
+Wenn Sie eine Komponente in einer anderen Komponente verschachteln, wird die verschachtelte Komponente als Requisite an die übergeordnete Komponente übergeben. Diese besondere Requisite heißt children.
+
+function UserCard({ children }) {
+  return <div className="card">{children}</div>;
+}
+Diese Komponente rendert die verschachtelten Elemente als untergeordnete Elemente des divElements.
+
+💡Die verschachtelten Elemente können ein einzelnes Element, mehrere Elemente oder sogar eine Zeichenfolge oder Zahl sein.
+
+📙Weitere Informationen zum Übergeben von JSX als untergeordnete Elemente finden Sie in den React Docs .
+
+Fragmente
+Manchmal möchten Sie mehrere Elemente von einer Komponentenfunktion zurückgeben, ohne sie in das eine divoder andere Element einzuschließen. Sie können hierfür ein Fragment( <></>oder ) verwenden.<Fragment></Fragment>
+
+Dies ist notwendig, da React-Komponenten nur ein einzelnes Element aus einer Komponentenfunktion zurückgeben können.
+
+function UserList() {
+  return (
+    <>
+      <UserCard>
+        <Avatar />
+      </UserCard>
+      <UserCard>
+        <Avatar />
+      </UserCard>
+    </>
+  );
+}
+Dies entspricht dem Folgenden, im Allgemeinen wird jedoch die obige Kurzfassung bevorzugt.
+
+import { Fragment } from "react";
+
+function UserList() {
+  return (
+    <Fragment>
+      <UserCard>
+        <Avatar />
+      </UserCard>
+      <UserCard>
+        <Avatar />
+      </UserCard>
+    </Fragment>
+  );
+}
+💡Die <Fragment></Fragment>Syntax ist nur erforderlich, wenn Sie die spezielle Requisite an das Fragment übergeben möchten key, was wichtig wird, wenn Sie mit der Arbeit mit Listen beginnen.
+
+💡Wenn Sie recherchieren, sehen Sie manchmal <React.Fragment></React.Fragment>, was dasselbe ist.
+
+📙Lesen Sie mehr über Fragment (<>...</>) in den React Docs .
+
+Komposition
+Wenn wir React-Anwendungen erstellen, möchten wir häufig komplexe Komponenten aus einfacheren Komponenten erstellen. Dies nennt man Komposition.
+
+Dazu müssen Sie Ihre Anwendung in Komponenten zerlegen. Sie können diese Komponenten dann zusammenstellen, um komplexere Komponenten zu erstellen.
+
+Es ist wichtig herauszufinden, welche Komponenten Sie benötigen und wie diese zusammengesetzt sein sollten. Dies nennt man Anwendungsdesign.
+
+📙Lesen Sie Thinking in React in den React Docs bis einschließlich Schritt 2. Spätere Schritte erfordern einen Status, den wir in einer zukünftigen Sitzung behandeln werden.
+
+Ressourcen
+Übergabe von JSX als untergeordnete Elemente in den React Docs
+Fragment (<>...</>) in den React Docs
+Denken in React in den React Docs
+
+
+### React Setup
+
+4.[React setup](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-project-setup/react-project-setup.md) [Challenges](https://github.com/neuefische/web-exercises/tree/main/sessions/react-project-setup/journal-app)
+
+Projekt-Setup reagieren
+Lernziele
+Sie verfügen über ein allgemeines Verständnis für Projektgerüste
+Erfahren Sie, wie Sie mit der Create React App arbeiten
+Den Zweck eines Bundlers kennen
+npmGängige Skripte verstehen
+publicDen Unterschied zwischen und srcOrdner kennen
+Projektgerüst
+Unter Project Scaffolding versteht man den Prozess der Erstellung eines neuen Projekts. Sie verwenden das Tool „React App erstellen“ , um automatisch ein neues React-Projekt zu erstellen.
+
+💡Im Prinzip könnten Sie ein neues React-Projekt von Grund auf erstellen. Allerdings wäre das mit viel Arbeit verbunden und wir müssten viele Dinge selbst einrichten. Beispielsweise müssten Sie einen Entwicklungsserver, einen Build-Prozess und einen Testläufer einrichten. Sie müssten außerdem einen Modul-Bündeler und einen Transpiler konfigurieren. Das ist eine Menge Arbeit und Sie müssten es jedes Mal tun, wenn Sie ein neues Projekt erstellen möchten.
+
+💡Create React App funktioniert übrigens ganz ähnlich wie das ghcdTool, das Sie wahrscheinlich bereits verwendet haben.
+
+Erstellen Sie eine Reaktions-App
+Create React App ist ein Tool, mit dem Sie ein React-Projekt mit einem einzigen Befehl erstellen können. Es ist ein großartiges Tool, um mit React zu beginnen.
+
+📙Lesen Sie „Erste Schritte“ in den Dokumenten zur „Create React App“, um zu erfahren, wie Sie ein neues Projekt mit erstellen npx.
+
+Ordnerstruktur
+Create React App erstellt für Sie eine Ordnerstruktur mit vielen Dateien und Ordnern.
+
+📙Weitere Informationen zur Ordnerstruktur finden Sie in den Dokumenten zum Erstellen einer React-App .
+
+Verfügbare Skripte
+Create React App verfügt über ein paar weitere NPM-Skripte als die, die Sie bisher gesehen haben. Neben dem Starten eines Entwicklungsservers und dem Ausführen von Tests können Sie damit auch Ihre App erstellen.
+
+💡Sie sollten das Skript niemals verwenden müssen eject. Es handelt sich um einen einseitigen Vorgang, den Sie nicht rückgängig machen können. Es wird verwendet, um die Konfiguration Ihrer App anzupassen.
+
+📙Weitere Informationen zu verfügbaren Skripten finden Sie in den Create React App-Dokumenten .
+
+Hinzufügen eines Stylesheets
+Sie können CSS-Dateien direkt in Ihre JavaScript-Dateien importieren.
+
+Es ist ein gängiges Muster, Ihr CSS zusammen mit Ihren Komponenten anzuordnen. Dies bedeutet, dass Sie über eine CSS-Datei mit demselben Namen wie die Komponente verfügen, die in die JavaScript-Komponentendatei importiert wird. Es empfiehlt sich, die BEM-Namenskonvention für Ihre CSS-Klassen zu verwenden, um Namenskonflikte zwischen Komponenten zu vermeiden.
+
+📙Weitere Informationen zum Hinzufügen eines Stylesheets finden Sie in den Create React App-Dokumenten .
+
+Hinzufügen von Bildern, Schriftarten und Dateien
+Sie können Bilddateien oder Schriftarten direkt in Ihre JavaScript-Dateien importieren.
+
+Dies ist besonders nützlich für SVG-Dateien, die Sie als React-Komponenten importieren können.
+
+📙Weitere Informationen zum Hinzufügen von Bildern, Schriftarten und Dateien finden Sie in den Create React App-Dokumenten .
+
+Ressourcen
+Erste Schritte mit den Create React App-Dokumenten
+Ordnerstruktur in den Create React App-Dokumenten
+Verfügbare Skripte in den Create React App-Dokumenten
+Hinzufügen eines Stylesheets zu den Create React App-Dokumenten
+Hinzufügen von Bildern, Schriftarten und Dateien zu den Create React App-Dokumenten
+
+### React State
+
+5.[React setup](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state/react-state.md) [Challenges]() 
+
+React State
+Lernziele
+Wissen, wie man Ereignisse in React anhängt
+Den Begriff „Staat“ verstehen
+Wird verwendet useState(), um den Status in React zu verarbeiten
+Den React-Lebenszyklus verstehen
+Was ist Staat?
+Bei einem Zustand handelt es sich um Daten, die sich im Laufe der Zeit ändern. Denken Sie an die Lampe auf Ihrem Schreibtisch. Es kann ein- oder ausgeschaltet werden. Die Lampe befindet sich zu einem bestimmten Zeitpunkt in einem bestimmten Zustand und dieser Zustand kann sich im Laufe der Zeit ändern.
+
+Ein anderes Beispiel könnte der Geldbetrag in Ihrer Handtasche sein. Sie haben jederzeit einen bestimmten Geldbetrag in Ihrer Handtasche, der Geldbetrag kann sich jedoch ändern. Der Zustand Ihres Geldbeutels kann sich ändern. Der Gang zum Lebensmittelgeschäft verringert den Geldbetrag, der Gang zum Geldautomaten hingegen erhöht ihn.
+
+Dieses Konzept gilt auch für Software. Ihre App kann Daten enthalten, die sich im Laufe der Zeit ändern.
+
+Denken Sie an einen Beitrag in einer Social-Media-App. Möglicherweise hat Ihnen ein bestimmter Beitrag gefallen oder auch nicht. Der „Gefällt mir“-Status eines Beitrags kann ein- oder ausgeschaltet sein, wie die Lampe auf Ihrem Schreibtisch.
+
+Die Website Ihrer Bank verweist auf Ihre Geldbörse in der analogen Welt. Die Banking-Software zeigt jederzeit den aktuellen Kontostand, den aktuellen Stand, an. Sie können diesen Status mithilfe der Banking-Software ändern. Sie könnten beispielsweise Geld auf ein anderes Konto überweisen, um den im Status „Saldo“ gespeicherten Betrag zu verringern.
+
+Oftmals ändern sich solche zustandsbehafteten Daten nach einer Benutzerinteraktion, beispielsweise einem Klick auf eine Schaltfläche.
+
+Zustand in Reaktion
+In React arbeiten wir mit dem Status, indem wir die Hook-Funktion verwenden useState.
+
+Wir rufen die useStateFunktion auf und übergeben den Anfangszustandswert als Argument. Dies ist der Wert, der in unserer App verwendet wird, bis sich etwas ändert.
+
+Der Aufruf der useStateFunktion gibt uns im Gegenzug zwei Dinge:
+
+eine Variable mit dem aktuellen Zustand als Wert
+Die setFunktion zum Festlegen eines neuen Status
+import { useState } from "react";
+
+function SocialMediaPost() {
+  const [liked, setLiked] = useState(false);
+
+  function toggleLiked() {
+    setLiked(!liked);
+  }
+
+  return (
+    <article>
+      <p>Liked: {liked ? "Yes" : "No"}</p>
+      <button type="button" onClick={toggleLiked}>
+        {liked ? "Remove like" : "Add like"}
+      </button>
+    </article>
+  );
+}
+💡Es gibt eine Namenskonvention für React-Apps, dass die Zustandsvariable und die Funktion immer dem Muster von xund folgensetX
+
+📙Weitere Informationen zum Zustandskonzept finden Sie in den React Docs .
+
+Im React-Status wird jede Instanz einer Komponente gekapselt. Stellen Sie sich einen Feed in einer Social-Media-App vor. Der Feed ist eine Liste von Beiträgen. Jeder Beitrag ist eine einzelne Instanz der SocialMediaPostKomponente mit jeweils eigenem Status. Wenn Sie den „Gefällt mir“-Status eines bestimmten Beitrags ändern, bleiben alle anderen Beiträge unverändert.
+
+Eine React-Komponente kann mehrere Zustände haben. useStateSie können die Funktion so oft nutzen , wie Sie benötigen.
+
+Sie können alle Arten von Daten im Zustand speichern (wie boolesche Werte, Zahlen, Zeichenfolgen, Objekte oder Arrays).
+
+import { useState } from "react";
+
+function SocialMediaPost() {
+  const [liked, setLiked] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [views, setViews] = useState(0);
+
+  /* ... */
+
+  return <article>{/* ... */}</article>;
+}
+Was passiert, wenn sich der Zustand ändert?
+Um den Status in React zu verwalten, können wir nicht einfach eine „normale“ Variable verwenden und einen neuen Wert zuweisen. React muss darüber informiert werden, dass die Daten geändert wurden.
+
+Dies hängt mit dem Renderzyklus von React-Komponenten zusammen.
+
+Wenn React eine Komponente rendert, führt es die Komponentenfunktion aus, die JSX zurückgibt. Wenn die JSX eine Statusvariable enthält, verwendet sie den Wert der Variablen zu diesem Zeitpunkt, um sie in der JSX zu platzieren. Durch den Aufruf der setFunktion mit einem neuen Wert wird React darüber informiert, dass sich der Status geändert hat.
+
+💡Das Ändern eines Status löst ein erneutes Rendern der Komponente aus.
+
+Beim erneuten Rendern der Komponente führt React die Komponentenfunktion erneut von oben nach unten aus, wodurch erneut JSX zurückgegeben wird. Diesmal hat die Variable jedoch einen neuen Wert – den Wert, der beim Aufruf der setFunktion übergeben wurde. Dies bedeutet, dass der zurückgegebene JSX den neuen Wert enthält.
+
+📙Weitere Informationen zu Statusaktualisierungen und Neu-Rendering finden Sie in den React Docs .
+
+Ressourcen
+React Docs: Interaktivität hinzufügen
+React Docs: Auf Ereignisse reagieren
+React Docs: Eine einfache Variable reicht nicht aus
+React Docs: Rendern und Festschreiben
+MDN: Auf Ereignisse und Status reagieren
+
+
+### React with Arrays
+
+6.[React setup](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-arrays/react-with-arrays.md) [Challenges]()
+
+Reagieren Sie mit Arrays
+Lernziele
+Wissen, wie man .map()Listen in JSX rendert
+Verstehen, wie Elemente aus einem Array von Objekten gerendert werden
+Wissen, wie man einen eindeutigen Schlüssel für Listenelemente hinzufügt
+Arrays in JSX
+Um Elemente aus einem Array in React zu rendern, verwenden wir die Array-Methode .map().
+
+Die Array-Methode .map()wird verwendet, um eine Transformation auf alle Elemente eines Arrays anzuwenden. Beim Rendern eines Arrays in JSX möchten wir genau das tun. Wir wandeln gerne jedes Element eines Arrays in ein JSX-Tag um. Aus diesem Grund verwenden wir .map().
+
+function Drinks() {
+  const drinks = ["water", "lemonade", "coffee", "tee"];
+
+  return (
+    <ul>
+      {drinks.map((drink) => (
+        <li>{drink}</li>
+      ))}
+    </ul>
+  );
+}
+Schlüsseleigenschaft
+Im obigen Beispiel fehlt ein kleiner, aber sehr wichtiger Teil: die keyRequisite!
+
+Ohne die keyRequisite wird in der Konsole ein Fehler angezeigt:
+
+Warning: Each child in a list should have a unique "key" prop.
+
+Beim Rendern eines Arrays in JSX müssen Sie einen eindeutigen Bezeichner als Wert für die keyRequisite des ersten zurückgegebenen JSX-Tags übergeben .map(). Dies ist wichtig, damit React Änderungen verfolgen kann, die beim erneuten Rendern an den Daten auftreten.
+
+Daher müssen Sie immer sicherstellen, dass Ihr Array eine eindeutige ID pro Element enthält. Sie können dies sicherstellen, indem Sie Objekte verwenden, um die Daten in Ihren Arrays zu definieren.
+
+function Drinks() {
+  const drinks = [
+    { id: 0, name: "water" },
+    { id: 1, name: "lemonade" },
+    { id: 2, name: "coffee" },
+    { id: 3, name: "tea" },
+  ];
+
+  return (
+    <ul>
+      {drinks.map(({ id, name }) => (
+        <li key={id}>{name}</li>
+      ))}
+    </ul>
+  );
+}
+📙Wenn Sie daran interessiert sind, die Details dahinter zu verstehen, können Sie in den React Docs mehr über die keyRequisite lesen .
+
+💡Wenn Sie die keyRequisite an eine Komponente übergeben, können Sie in der Komponente nicht darauf zugreifen. Es handelt sich um eine spezielle Requisite, die React nur intern verwendet.
+
+function Drink({ name, key }) {
+  console.log(key); // → undefined
+  return <li>{name}</li>;
+}
+
+function Drinks() {
+  const drinks = [
+    { id: 0, name: "water" },
+    { id: 1, name: "lemonade" },
+    { id: 2, name: "coffee" },
+    { id: 3, name: "tea" },
+  ];
+
+  return (
+    <ul>
+      {drinks.map(({ id, name }) => (
+        <Drink key={id} name={name} />
+      ))}
+    </ul>
+  );
+}
+Wenn Sie in diesem Beispiel auf das zugreifen möchten, idkönnen Sie es erneut als Requisite übergeben:
+<Drink key={id} id={id} name={name} />.
+
+Schlüsselfragmente
+Wenn Sie eine Liste von Elementen rendern, die nicht in ein einzelnes JSX-Tag eingeschlossen sind, können Sie <Fragment>die Elemente mit a umschließen.
+
+import { Fragment } from "react";
+
+function Drinks() {
+  const drinks = [
+    { id: 0, name: "water", description: "very wet" },
+    { id: 1, name: "lemonade", description: "quite sweet" },
+    { id: 2, name: "coffee", description: "cold brew" },
+    { id: 3, name: "tea", description: "earl grey, hot" },
+  ];
+
+  return (
+    <dl>
+      {drinks.map(({ id, name, description }) => (
+        <Fragment key={id}>
+          <dt>{name}</dt>
+          <dd>{description}</dd>
+        </Fragment>
+      ))}
+    </dl>
+  );
+}
+💡<>…</>Hier können Sie nicht die kurze Syntax ( ) für verwenden, da Sie die Requisite an <Fragment>übergeben müssen . Die kurze Syntax erlaubt keine Übergabe von Requisiten.key<Fragment>
+
+Ressourcen
+React Docs: Rendering-Listen
