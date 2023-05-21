@@ -587,13 +587,7 @@ Dies ist besonders nützlich für SVG-Dateien, die Sie als React-Komponenten imp
 
 5.[React State](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state/react-state.md) [Challenges]() 
 
-React State
-Lernziele
-Wissen, wie man Ereignisse in React anhängt
-Den Begriff „Staat“ verstehen
-Wird verwendet useState(), um den Status in React zu verarbeiten
-Den React-Lebenszyklus verstehen
-Was ist Staat?
+
 Bei einem Zustand handelt es sich um Daten, die sich im Laufe der Zeit ändern. Denken Sie an die Lampe auf Ihrem Schreibtisch. Es kann ein- oder ausgeschaltet werden. Die Lampe befindet sich zu einem bestimmten Zeitpunkt in einem bestimmten Zustand und dieser Zustand kann sich im Laufe der Zeit ändern.
 
 Ein anderes Beispiel könnte der Geldbetrag in Ihrer Handtasche sein. Sie haben jederzeit einen bestimmten Geldbetrag in Ihrer Handtasche, der Geldbetrag kann sich jedoch ändern. Der Zustand Ihres Geldbeutels kann sich ändern. Der Gang zum Lebensmittelgeschäft verringert den Geldbetrag, der Gang zum Geldautomaten hingegen erhöht ihn.
@@ -606,15 +600,18 @@ Die Website Ihrer Bank verweist auf Ihre Geldbörse in der analogen Welt. Die Ba
 
 Oftmals ändern sich solche zustandsbehafteten Daten nach einer Benutzerinteraktion, beispielsweise einem Klick auf eine Schaltfläche.
 
-Zustand in Reaktion
-In React arbeiten wir mit dem Status, indem wir die Hook-Funktion verwenden useState.
+### State
 
-Wir rufen die useStateFunktion auf und übergeben den Anfangszustandswert als Argument. Dies ist der Wert, der in unserer App verwendet wird, bis sich etwas ändert.
+In React arbeiten wir mit dem State, indem wir die Hook-Funktion verwenden useState.
+
+Wir rufen die useState Funktion auf und übergeben den Anfangszustandswert als Argument. Dies ist der Wert, der in unserer App verwendet wird, ***bis sich etwas ändert***.
 
 Der Aufruf der useStateFunktion gibt uns im Gegenzug zwei Dinge:
 
 eine Variable mit dem aktuellen Zustand als Wert
 Die setFunktion zum Festlegen eines neuen Status
+
+```
 import { useState } from "react";
 
 function SocialMediaPost() {
@@ -633,16 +630,21 @@ function SocialMediaPost() {
     </article>
   );
 }
-💡Es gibt eine Namenskonvention für React-Apps, dass die Zustandsvariable und die Funktion immer dem Muster von xund folgensetX
 
-📙Weitere Informationen zum Zustandskonzept finden Sie in den React Docs .
+```
+
+💡Es gibt eine Namenskonvention für React-Apps, dass die Zustandsvariable und die Funktion immer dem Muster von ```x``` und folgen ```setX```
+
+> 📙 Read more about the
+> [**concept of state** in the React Docs](https://react.dev/learn/adding-interactivity).
 
 Im React-Status wird jede Instanz einer Komponente gekapselt. Stellen Sie sich einen Feed in einer Social-Media-App vor. Der Feed ist eine Liste von Beiträgen. Jeder Beitrag ist eine einzelne Instanz der SocialMediaPostKomponente mit jeweils eigenem Status. Wenn Sie den „Gefällt mir“-Status eines bestimmten Beitrags ändern, bleiben alle anderen Beiträge unverändert.
 
-Eine React-Komponente kann mehrere Zustände haben. useStateSie können die Funktion so oft nutzen , wie Sie benötigen.
+Eine React-Komponente kann mehrere Zustände haben. ```useState``` Sie können die Funktion so oft nutzen , wie Sie benötigen.
 
 Sie können alle Arten von Daten im Zustand speichern (wie boolesche Werte, Zahlen, Zeichenfolgen, Objekte oder Arrays).
 
+```
 import { useState } from "react";
 
 function SocialMediaPost() {
@@ -654,7 +656,10 @@ function SocialMediaPost() {
 
   return <article>{/* ... */}</article>;
 }
-Was passiert, wenn sich der Zustand ändert?
+```
+
+### Was passiert, wenn sich der Zustand ändert?
+
 Um den Status in React zu verwalten, können wir nicht einfach eine „normale“ Variable verwenden und einen neuen Wert zuweisen. React muss darüber informiert werden, dass die Daten geändert wurden.
 
 Dies hängt mit dem Renderzyklus von React-Komponenten zusammen.
@@ -665,14 +670,18 @@ Wenn React eine Komponente rendert, führt es die Komponentenfunktion aus, die J
 
 Beim erneuten Rendern der Komponente führt React die Komponentenfunktion erneut von oben nach unten aus, wodurch erneut JSX zurückgegeben wird. Diesmal hat die Variable jedoch einen neuen Wert – den Wert, der beim Aufruf der setFunktion übergeben wurde. Dies bedeutet, dass der zurückgegebene JSX den neuen Wert enthält.
 
-📙Weitere Informationen zu Statusaktualisierungen und Neu-Rendering finden Sie in den React Docs .
+> 📙 Read more about
+> [**state updates and re-rendering** in the React Docs](https://react.dev/learn/render-and-commit).
 
-Ressourcen
-React Docs: Interaktivität hinzufügen
-React Docs: Auf Ereignisse reagieren
-React Docs: Eine einfache Variable reicht nicht aus
-React Docs: Rendern und Festschreiben
-MDN: Auf Ereignisse und Status reagieren
+---
+
+## Resources
+
+- [React Docs: Adding Interactivity](https://react.dev/learn/adding-interactivity)
+- [React Docs: Responding to Events](https://react.dev/learn/responding-to-events)
+- [React Docs: A simple variable is not enough](https://react.dev/learn/state-a-components-memory#when-a-regular-variable-isnt-enough)
+- [React Docs: Render and commit](https://react.dev/learn/render-and-commit)
+- [MDN: react events and state](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_interactivity_events_state)
 
 ---
 
