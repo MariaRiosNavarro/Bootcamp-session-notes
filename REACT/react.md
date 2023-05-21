@@ -255,8 +255,10 @@ Ein Bundler ist ein Tool, das alle Dateien unserer Codebasis in einer Datei zusa
 
 Der Bundler erstellt einen Entwicklungsserver, wenn wir ihn npm run startlokal ausführen. CodeSandbox erledigt dies automatisch für uns.
 
+---
 
-### React Props
+###  React Props
+
 
 2.[React props](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-props/react-props.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-props/challenges-react-props.md)
 
@@ -520,7 +522,7 @@ Verfügbare Skripte in den Create React App-Dokumenten
 Hinzufügen eines Stylesheets zu den Create React App-Dokumenten
 Hinzufügen von Bildern, Schriftarten und Dateien zu den Create React App-Dokumenten
 
-
+---
 
 
 ###React Nesting
@@ -674,7 +676,9 @@ Verfügbare Skripte in den Create React App-Dokumenten
 Hinzufügen eines Stylesheets zu den Create React App-Dokumenten
 Hinzufügen von Bildern, Schriftarten und Dateien zu den Create React App-Dokumenten
 
-### React State
+---
+
+###  React State
 
 5.[React State](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state/react-state.md) [Challenges]() 
 
@@ -765,8 +769,10 @@ React Docs: Eine einfache Variable reicht nicht aus
 React Docs: Rendern und Festschreiben
 MDN: Auf Ereignisse und Status reagieren
 
+---
 
-### React with Arrays
+
+###  React with Arrays
 
 6.[React with Arrays](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-arrays/react-with-arrays.md) [Challenges]()
 
