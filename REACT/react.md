@@ -392,7 +392,6 @@ function UserCard({ name, isFavorite }) {
 
 ### React NESTINGS
 
-###React Nesting
 
 3.[React nesting](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-nesting/react-nesting.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-nesting/challenges-react-nesting.md)
 
@@ -525,57 +524,62 @@ Es ist wichtig herauszufinden, welche Komponenten Sie benötigen und wie diese z
 
 4.[React setup](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-project-setup/react-project-setup.md) [Challenges](https://github.com/neuefische/web-exercises/tree/main/sessions/react-project-setup/journal-app)
 
-Projekt-Setup reagieren
-Lernziele
-Sie verfügen über ein allgemeines Verständnis für Projektgerüste
-Erfahren Sie, wie Sie mit der Create React App arbeiten
-Den Zweck eines Bundlers kennen
-npmGängige Skripte verstehen
-publicDen Unterschied zwischen und srcOrdner kennen
-Projektgerüst
-Unter Project Scaffolding versteht man den Prozess der Erstellung eines neuen Projekts. Sie verwenden das Tool „React App erstellen“ , um automatisch ein neues React-Projekt zu erstellen.
 
-💡Im Prinzip könnten Sie ein neues React-Projekt von Grund auf erstellen. Allerdings wäre das mit viel Arbeit verbunden und wir müssten viele Dinge selbst einrichten. Beispielsweise müssten Sie einen Entwicklungsserver, einen Build-Prozess und einen Testläufer einrichten. Sie müssten außerdem einen Modul-Bündeler und einen Transpiler konfigurieren. Das ist eine Menge Arbeit und Sie müssten es jedes Mal tun, wenn Sie ein neues Projekt erstellen möchten.
+Unter Project Scaffolding versteht man den Prozess der Erstellung eines neuen Projekts. Sie verwenden das Tool [Create React App](https://create-react-app.dev/docs/getting-started), um automatisch ein neues React-Projekt zu erstellen.
 
-💡Create React App funktioniert übrigens ganz ähnlich wie das ghcdTool, das Sie wahrscheinlich bereits verwendet haben.
+💡Im Prinzip könnten Sie ein neues React-Projekt von scratch auf erstellen. Allerdings wäre das mit viel Arbeit verbunden und wir müssten viele Dinge selbst einrichten. Beispielsweise müssten Sie einen Entwicklungsserver, einen Build-Prozess und einen Testläufer einrichten. Sie müssten außerdem einen Modul-Bündeler und einen Transpiler konfigurieren. Das ist eine Menge Arbeit und Sie müssten es jedes Mal tun, wenn Sie ein neues Projekt erstellen möchten.
 
-Erstellen Sie eine Reaktions-App
+💡Create React App funktioniert übrigens ganz ähnlich wie das `ghcd` Tool, das Sie wahrscheinlich bereits verwendet haben.
+
+### Erstellen Sie eine React-App
+
 Create React App ist ein Tool, mit dem Sie ein React-Projekt mit einem einzigen Befehl erstellen können. Es ist ein großartiges Tool, um mit React zu beginnen.
 
-📙Lesen Sie „Erste Schritte“ in den Dokumenten zur „Create React App“, um zu erfahren, wie Sie ein neues Projekt mit erstellen npx.
+> 📙 Read
+> [**Getting Started** on the Create React App Docs](https://create-react-app.dev/docs/getting-started)
+> to learn how to create a new project using `npx`.
 
-Ordnerstruktur
+### Ordnerstruktur
+
 Create React App erstellt für Sie eine Ordnerstruktur mit vielen Dateien und Ordnern.
 
-📙Weitere Informationen zur Ordnerstruktur finden Sie in den Dokumenten zum Erstellen einer React-App .
+> 📙 Read more about
+> [**Folder Structure** on the Create React App Docs](https://create-react-app.dev/docs/folder-structure)..
 
-Verfügbare Skripte
+### Verfügbare Skripte
+
 Create React App verfügt über ein paar weitere NPM-Skripte als die, die Sie bisher gesehen haben. Neben dem Starten eines Entwicklungsservers und dem Ausführen von Tests können Sie damit auch Ihre App erstellen.
 
 💡Sie sollten das Skript niemals verwenden müssen eject. Es handelt sich um einen einseitigen Vorgang, den Sie nicht rückgängig machen können. Es wird verwendet, um die Konfiguration Ihrer App anzupassen.
 
-📙Weitere Informationen zu verfügbaren Skripten finden Sie in den Create React App-Dokumenten .
+> 📙 Read more about
+> [**Available Scripts** on the Create React App Docs](https://create-react-app.dev/docs/available-scripts)..
 
-Hinzufügen eines Stylesheets
+### Hinzufügen eines Stylesheets
+
 Sie können CSS-Dateien direkt in Ihre JavaScript-Dateien importieren.
 
 Es ist ein gängiges Muster, Ihr CSS zusammen mit Ihren Komponenten anzuordnen. Dies bedeutet, dass Sie über eine CSS-Datei mit demselben Namen wie die Komponente verfügen, die in die JavaScript-Komponentendatei importiert wird. Es empfiehlt sich, die BEM-Namenskonvention für Ihre CSS-Klassen zu verwenden, um Namenskonflikte zwischen Komponenten zu vermeiden.
 
-📙Weitere Informationen zum Hinzufügen eines Stylesheets finden Sie in den Create React App-Dokumenten .
+> 📙 Read more about
+> [**Adding a Stylesheet** on the Create React App Docs](https://create-react-app.dev/docs/adding-a-stylesheet)..
 
-Hinzufügen von Bildern, Schriftarten und Dateien
+### Hinzufügen von Bildern, Schriftarten und Dateien
 Sie können Bilddateien oder Schriftarten direkt in Ihre JavaScript-Dateien importieren.
 
 Dies ist besonders nützlich für SVG-Dateien, die Sie als React-Komponenten importieren können.
 
-📙Weitere Informationen zum Hinzufügen von Bildern, Schriftarten und Dateien finden Sie in den Create React App-Dokumenten .
+> 📙 Read more about
+> [**Adding Images, Fonts and Files** on the Create React App Docs](https://create-react-app.dev/docs/adding-images-fonts-and-files).
 
-Ressourcen
-Erste Schritte mit den Create React App-Dokumenten
-Ordnerstruktur in den Create React App-Dokumenten
-Verfügbare Skripte in den Create React App-Dokumenten
-Hinzufügen eines Stylesheets zu den Create React App-Dokumenten
-Hinzufügen von Bildern, Schriftarten und Dateien zu den Create React App-Dokumenten
+
+## Resources
+
+- [Getting Started on the Create React App Docs](https://create-react-app.dev/docs/getting-started)
+- [Folder Structure on the Create React App Docs](https://create-react-app.dev/docs/folder-structure)
+- [Available Scripts on the Create React App Docs](https://create-react-app.dev/docs/available-scripts)
+- [Adding a Stylesheet on the Create React App Docs](https://create-react-app.dev/docs/adding-a-stylesheet)
+- [Adding Images, Fonts and Files on the Create React App Docs](https://create-react-app.dev/docs/adding-images-fonts-and-files)
 
 ---
 
