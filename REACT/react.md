@@ -85,7 +85,8 @@ In Bezug auf Attribute und untergeordnete Elemente funktioniert das Erstellen vo
 
 💡JSX unterscheidet zwischen integrierten (HTML-)Tag-Namen und Komponenten anhand des ersten Zeichens im JSX-Tag. Wenn es in Kleinbuchstaben geschrieben ist, wird es als integrierter Tag-Name behandelt. Wenn es in Großbuchstaben geschrieben ist, wird nach einer definierten JavaScript-Funktion mit diesem Namen gesucht. Deshalb ist es wichtig, PascalCase für Komponentennamen zu verwenden.
 
-📙Weitere Informationen zum Schreiben von Markup mit JSX finden Sie in den React Docs .
+> 📙 Read more about [**Writing Markup with JSX**
+> in the React Docs](https://react.dev/learn/writing-markup-with-jsx).
 
 
 Attribute
@@ -136,17 +137,17 @@ const element = (
 
 ```
 
-💡Sie können Ausdrücke nur innerhalb von JSX verwenden. Aussagen wie ifoder forsind nicht erlaubt.
+💡Sie können Ausdrücke nur innerhalb von JSX verwenden. Aussagen wie ```if``` oder ```for``` sind nicht erlaubt.
 
 💡Informationen zum Interpolieren von JavaScript-Ausdrücken innerhalb von JSX-Attributen finden Sie im Abschnitt „Attribute“ .
 
-
-📙Lesen Sie mehr über JavaScript in JSX mit geschweiften Klammern in den React Docs .
+> 📙 Read more about [**JavaScript in JSX with Curly Braces**
+> in the React Docs](https://react.dev/learn/javascript-in-jsx-with-curly-braces).
 
 
 ### Komponenten reagieren
 
-Reaktionsanwendungen werden mithilfe von Komponenten erstellt. Eine Komponente ist ein unabhängiger und wiederverwendbarer Teil der Benutzeroberfläche, der eine eigene Struktur, Logik und möglicherweise einen eigenen Stil enthält.
+React Apps werden mithilfe von Komponenten erstellt. Eine Komponente ist ein unabhängiger und wiederverwendbarer Teil der Benutzeroberfläche, der eine eigene Struktur, Logik und möglicherweise einen eigenen Stil enthält.
 
 React-Komponenten sind JavaScript-Funktionen, die React-Elemente zurückgeben. Diese Elemente werden dann während des Rendervorgangs von React in DOM-Elemente umgewandelt.
 
@@ -168,11 +169,12 @@ Dies ist ein sehr leistungsfähiges Konzept, da es uns ermöglicht, dieselbe Kom
 
 💡Es gibt kaum Einschränkungen, wie „klein“ eine Komponente (z. B. eine Schaltfläche) oder wie „groß“ (z. B. eine ganze Seite) sein kann.
 
-📙Lesen Sie mehr über Ihre erste Komponente in den React Docs .
+[**Your First Component**
+> in the React Docs](https://react.dev/learn/your-first-component).
 
 Hinweis : Das Exportieren der Komponente sowie das Verschachteln und Organisieren von Komponenten sind in dieser ersten Sitzung nicht möglich.
 
-Imperative vs. deklarative Programmierung
+### Imperative vs. deklarative Programmierung
 
 Der Hauptunterschied zwischen imperativem und deklarativem Code besteht darin, dass imperativer Code beschreibt, wie etwas erstellt werden soll, und deklarativer Code beschreibt, was erstellt werden muss.
 
@@ -255,6 +257,17 @@ Ein Bundler ist ein Tool, das alle Dateien unserer Codebasis in einer Datei zusa
 
 Der Bundler erstellt einen Entwicklungsserver, wenn wir ihn npm run startlokal ausführen. CodeSandbox erledigt dies automatisch für uns.
 
+
+## Resources
+
+- [What is React: A Visual Introduction For Beginners on learnreact.design](https://learnreact.design/posts/what-is-react)
+- [Writing Markup with JSX in the React Docs](https://react.dev/learn/writing-markup-with-jsx)
+- [JavaScript in JSX with Curly Braces in the React Docs](https://react.dev/learn/javascript-in-jsx-with-curly-braces)
+- [Your First Component in the React Docs](https://react.dev/learn/your-first-component)
+- [Difference between a Framework and a Library on freecodecamp](https://www.freecodecamp.org/news/the-difference-between-a-framework-and-a-library-bd133054023f/)
+
+
+
 ---
 
 ###  React Props
@@ -285,17 +298,17 @@ function UserCard({ name }) {
 
 ```
 
-Sie können beliebige Namen für Ihre Requisiten wählen.
+Sie können beliebige Namen für Ihre Props wählen.
 
-💡Es gibt jedoch einige Namenskonventionen. Boolesche Requisiten werden oft mit is, has oder als Präfix versehen should. Zum Beispiel isDisabled, hasErroroder shouldShow. Props, die Funktionen übernehmen, wird oft das Präfix vorangestellt on. Zum Beispiel onClick, onSubmitoder onHover. Das Befolgen dieser Konventionen erleichtert das Verständnis des Zwecks der Requisite.
+💡Es gibt jedoch einige Namenskonventionen. Boolesche Requisiten werden oft mit is, has oder als Präfix versehen should. Zum Beispiel isDisabled, hasErroroder shouldShow. Props, die Funktionen übernehmen, wird oft das Präfix vorangestellt on. Zum Beispiel onClick, onSubmit oder onHover. Das Befolgen dieser Konventionen erleichtert das Verständnis des Zwecks der Props.
 
 PROPS können jeden Typs haben (String, Zahl, Array, Objekt, Funktion, ...).
 
-Sie sollten das Requisitenobjekt als unveränderlich und schreibgeschützt behandeln.
+Sie sollten das PROPS als unveränderlich und schreibgeschützt behandeln.
 
-### Übergeben von Requisiten an eine Komponente
+###  Übergeben von PROPS an eine Komponente
 
-Requisiten werden als Attribute an eine Komponente übergeben.
+PROPS werden als Attribute an eine Komponente übergeben.
 
 <UserCard name="Alex" />
 
@@ -312,7 +325,7 @@ Sie können jede Art von Daten als PRops übergeben.
 />
 ```
 
-String-Requisiten können in doppelten Anführungszeichen übergeben werden. Alle anderen Requisiten müssen in geschweiften Klammern übergeben werden.
+String-Props können in doppelten Anführungszeichen übergeben werden. Alle anderen Requisiten müssen in geschweiften Klammern übergeben werden.
 
 💡Beachten Sie die doppelten geschweiften Klammern für das Objekt. Dies liegt daran, dass die äußeren geschweiften Klammern zur Kennzeichnung eines JavaScript-Ausdrucks verwendet werden. Die inneren geschweiften Klammern werden zur Definition eines Objekts verwendet.
 
@@ -323,9 +336,10 @@ String-Requisiten können in doppelten Anführungszeichen übergeben werden. All
 <UserCard isFavorite /> 
 ```
   
-Das Weglassen eines Attributs führt zum Wert undefineddieser Props.
+Das Weglassen eines Attributs führt zum Wert undefined dieser Props.
 
-📙Weitere Informationen zum Übergeben von PROPS an eine Komponente finden Sie in den React-Dokumenten .
+> 📙 Read more about [**Passing props to a Component**
+> in the React Docs](https://react.dev/learn/passing-props-to-a-component).
 
 Bedingtes Rendern
 Sie können Requisiten verwenden, um Teile einer Komponente bedingt zu rendern.
@@ -364,213 +378,79 @@ function UserCard({ name, isFavorite }) {
 }
   
 ```  
-📙Weitere Informationen zum bedingten Rendering finden Sie in den React Docs .
-  
-  
-[passing-props-to-a-component](https://react.dev/learn/passing-props-to-a-component)
-  
-[conditional-rendering](https://react.dev/learn/conditional-rendering)
+
+> 📙 Read more about [**Conditional Rendering**
+> in the React Docs](https://react.dev/learn/conditional-rendering).
 
 
+## Resources
 
-### Verschachtelung reagieren
-
-
-Lernziele
-Das Konzept der Verschachtelung verstehen
-Erstellen Sie mehrere benutzerdefinierte Komponenten, um eine Hierarchie zu erstellen
-Verwenden der childrenRequisite zum Rendern von JSX aus der übergeordneten Komponente
-Komposition als eine Möglichkeit zum Aufbau komplexer Komponenten verstehen
-JSX als Requisiten übergeben
-Von JSX erstellte Elemente sind nur Objekte. Sie können wie jedes andere Objekt herumgereicht werden: zum Beispiel als Requisiten.
-
-function UserCard({ avatar }) {
-  return <div className="card">{avatar}</div>;
-}
-function App() {
-  return <UserCard avatar={<Avatar />} />;
-}
-Die childrenStütze
-Mit der Verschachtelung integrierter Browser-Tags sind Sie bereits vertraut:
-
-<div>
-  <img />
-</div>
-Oft möchten Sie, dass auch Ihre eigenen Komponenten verschachtelbar sind.
-
-<UserCard>
-  <Avatar />
-</UserCard>
-Wenn Sie eine Komponente in einer anderen Komponente verschachteln, wird die verschachtelte Komponente als Requisite an die übergeordnete Komponente übergeben. Diese besondere Requisite heißt children.
-
-function UserCard({ children }) {
-  return <div className="card">{children}</div>;
-}
-Diese Komponente rendert die verschachtelten Elemente als untergeordnete Elemente des divElements.
-
-💡Die verschachtelten Elemente können ein einzelnes Element, mehrere Elemente oder sogar eine Zeichenfolge oder Zahl sein.
-
-📙Weitere Informationen zum Übergeben von JSX als untergeordnete Elemente finden Sie in den React Docs .
-
-Fragmente
-Manchmal möchten Sie mehrere Elemente von einer Komponentenfunktion zurückgeben, ohne sie in das eine divoder andere Element einzuschließen. Sie können hierfür ein Fragment( <></>oder ) verwenden.<Fragment></Fragment>
-
-Dies ist notwendig, da React-Komponenten nur ein einzelnes Element aus einer Komponentenfunktion zurückgeben können.
-
-function UserList() {
-  return (
-    <>
-      <UserCard>
-        <Avatar />
-      </UserCard>
-      <UserCard>
-        <Avatar />
-      </UserCard>
-    </>
-  );
-}
-Dies entspricht dem Folgenden, im Allgemeinen wird jedoch die obige Kurzfassung bevorzugt.
-
-import { Fragment } from "react";
-
-function UserList() {
-  return (
-    <Fragment>
-      <UserCard>
-        <Avatar />
-      </UserCard>
-      <UserCard>
-        <Avatar />
-      </UserCard>
-    </Fragment>
-  );
-}
-💡Die <Fragment></Fragment>Syntax ist nur erforderlich, wenn Sie die spezielle Requisite an das Fragment übergeben möchten key, was wichtig wird, wenn Sie mit der Arbeit mit Listen beginnen.
-
-💡Wenn Sie recherchieren, sehen Sie manchmal <React.Fragment></React.Fragment>, was dasselbe ist.
-
-📙Lesen Sie mehr über Fragment (<>...</>) in den React Docs .
-
-Komposition
-Wenn wir React-Anwendungen erstellen, möchten wir häufig komplexe Komponenten aus einfacheren Komponenten erstellen. Dies nennt man Komposition.
-
-Dazu müssen Sie Ihre Anwendung in Komponenten zerlegen. Sie können diese Komponenten dann zusammenstellen, um komplexere Komponenten zu erstellen.
-
-Es ist wichtig herauszufinden, welche Komponenten Sie benötigen und wie diese zusammengesetzt sein sollten. Dies nennt man Anwendungsdesign.
-
-📙Lesen Sie Thinking in React in den React Docs bis einschließlich Schritt 2. Spätere Schritte erfordern einen Status, den wir in einer zukünftigen Sitzung behandeln werden.
-
-Ressourcen
-Übergabe von JSX als untergeordnete Elemente in den React Docs
-Fragment (<>...</>) in den React Docs
-Denken in React in den React Docs
-
-
-
-
-Beschuldigen
-82 Zeilen (55 Zeilen) · 3,47 KB
-Projekt-Setup reagieren
-Lernziele
-Sie verfügen über ein allgemeines Verständnis für Projektgerüste
-Erfahren Sie, wie Sie mit der Create React App arbeiten
-Den Zweck eines Bundlers kennen
-npmGängige Skripte verstehen
-publicDen Unterschied zwischen und srcOrdner kennen
-Projektgerüst
-Unter Project Scaffolding versteht man den Prozess der Erstellung eines neuen Projekts. Sie verwenden das Tool „React App erstellen“ , um automatisch ein neues React-Projekt zu erstellen.
-
-💡Im Prinzip könnten Sie ein neues React-Projekt von Grund auf erstellen. Allerdings wäre das mit viel Arbeit verbunden und wir müssten viele Dinge selbst einrichten. Beispielsweise müssten Sie einen Entwicklungsserver, einen Build-Prozess und einen Testläufer einrichten. Sie müssten außerdem einen Modul-Bündeler und einen Transpiler konfigurieren. Das ist eine Menge Arbeit und Sie müssten es jedes Mal tun, wenn Sie ein neues Projekt erstellen möchten.
-
-💡Create React App funktioniert übrigens ganz ähnlich wie das ghcdTool, das Sie wahrscheinlich bereits verwendet haben.
-
-Erstellen Sie eine Reaktions-App
-Create React App ist ein Tool, mit dem Sie ein React-Projekt mit einem einzigen Befehl erstellen können. Es ist ein großartiges Tool, um mit React zu beginnen.
-
-📙Lesen Sie „Erste Schritte“ in den Dokumenten zur „Create React App“, um zu erfahren, wie Sie ein neues Projekt mit erstellen npx.
-
-Ordnerstruktur
-Create React App erstellt für Sie eine Ordnerstruktur mit vielen Dateien und Ordnern.
-
-📙Weitere Informationen zur Ordnerstruktur finden Sie in den Dokumenten zum Erstellen einer React-App .
-
-Verfügbare Skripte
-Create React App verfügt über ein paar weitere NPM-Skripte als die, die Sie bisher gesehen haben. Neben dem Starten eines Entwicklungsservers und dem Ausführen von Tests können Sie damit auch Ihre App erstellen.
-
-💡Sie sollten das Skript niemals verwenden müssen eject. Es handelt sich um einen einseitigen Vorgang, den Sie nicht rückgängig machen können. Es wird verwendet, um die Konfiguration Ihrer App anzupassen.
-
-📙Weitere Informationen zu verfügbaren Skripten finden Sie in den Create React App-Dokumenten .
-
-Hinzufügen eines Stylesheets
-Sie können CSS-Dateien direkt in Ihre JavaScript-Dateien importieren.
-
-Es ist ein gängiges Muster, Ihr CSS zusammen mit Ihren Komponenten anzuordnen. Dies bedeutet, dass Sie über eine CSS-Datei mit demselben Namen wie die Komponente verfügen, die in die JavaScript-Komponentendatei importiert wird. Es empfiehlt sich, die BEM-Namenskonvention für Ihre CSS-Klassen zu verwenden, um Namenskonflikte zwischen Komponenten zu vermeiden.
-
-📙Weitere Informationen zum Hinzufügen eines Stylesheets finden Sie in den Create React App-Dokumenten .
-
-Hinzufügen von Bildern, Schriftarten und Dateien
-Sie können Bilddateien oder Schriftarten direkt in Ihre JavaScript-Dateien importieren.
-
-Dies ist besonders nützlich für SVG-Dateien, die Sie als React-Komponenten importieren können.
-
-📙Weitere Informationen zum Hinzufügen von Bildern, Schriftarten und Dateien finden Sie in den Create React App-Dokumenten .
-
-Ressourcen
-Erste Schritte mit den Create React App-Dokumenten
-Ordnerstruktur in den Create React App-Dokumenten
-Verfügbare Skripte in den Create React App-Dokumenten
-Hinzufügen eines Stylesheets zu den Create React App-Dokumenten
-Hinzufügen von Bildern, Schriftarten und Dateien zu den Create React App-Dokumenten
+- [Passing props to a Component in the React Docs](https://react.dev/learn/passing-props-to-a-component)
+- [Conditional Rendering in the React Docs](https://react.dev/learn/conditional-rendering)
 
 ---
 
+### React NESTINGS
 
 ###React Nesting
 
 3.[React nesting](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-nesting/react-nesting.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-nesting/challenges-react-nesting.md)
 
-Verschachtelung reagieren
-Lernziele
-Das Konzept der Verschachtelung verstehen
-Erstellen Sie mehrere benutzerdefinierte Komponenten, um eine Hierarchie zu erstellen
-Verwenden der childrenRequisite zum Rendern von JSX aus der übergeordneten Komponente
-Komposition als eine Möglichkeit zum Aufbau komplexer Komponenten verstehen
-JSX als Requisiten übergeben
-Von JSX erstellte Elemente sind nur Objekte. Sie können wie jedes andere Objekt herumgereicht werden: zum Beispiel als Requisiten.
+JSX als Props übergeben
 
+Von JSX erstellte Elemente sind nur Objekte. Sie können wie jedes andere Objekt herumgereicht werden: zum Beispiel als Props.
+
+```
 function UserCard({ avatar }) {
   return <div className="card">{avatar}</div>;
 }
 function App() {
   return <UserCard avatar={<Avatar />} />;
 }
-Die childrenStütze
+
+```
+
+Die children Stütze
+
 Mit der Verschachtelung integrierter Browser-Tags sind Sie bereits vertraut:
 
+```
 <div>
   <img />
 </div>
+```
+
 Oft möchten Sie, dass auch Ihre eigenen Komponenten verschachtelbar sind.
 
+```
 <UserCard>
   <Avatar />
 </UserCard>
+```
+
 Wenn Sie eine Komponente in einer anderen Komponente verschachteln, wird die verschachtelte Komponente als Requisite an die übergeordnete Komponente übergeben. Diese besondere Requisite heißt children.
 
+```
 function UserCard({ children }) {
   return <div className="card">{children}</div>;
 }
+```
+
 Diese Komponente rendert die verschachtelten Elemente als untergeordnete Elemente des divElements.
 
 💡Die verschachtelten Elemente können ein einzelnes Element, mehrere Elemente oder sogar eine Zeichenfolge oder Zahl sein.
 
-📙Weitere Informationen zum Übergeben von JSX als untergeordnete Elemente finden Sie in den React Docs .
 
-Fragmente
+> 📙 Read more about [**Passing JSX as children**
+> in the React Docs](https://react.dev/learn/passing-props-to-a-component#passing-jsx-as-children).
+
+### Fragmente
+
 Manchmal möchten Sie mehrere Elemente von einer Komponentenfunktion zurückgeben, ohne sie in das eine divoder andere Element einzuschließen. Sie können hierfür ein Fragment( <></>oder ) verwenden.<Fragment></Fragment>
 
 Dies ist notwendig, da React-Komponenten nur ein einzelnes Element aus einer Komponentenfunktion zurückgeben können.
 
+```
 function UserList() {
   return (
     <>
@@ -583,8 +463,12 @@ function UserList() {
     </>
   );
 }
+
+```
 Dies entspricht dem Folgenden, im Allgemeinen wird jedoch die obige Kurzfassung bevorzugt.
 
+
+```
 import { Fragment } from "react";
 
 function UserList() {
@@ -599,25 +483,42 @@ function UserList() {
     </Fragment>
   );
 }
+
+```
+
+
 💡Die <Fragment></Fragment>Syntax ist nur erforderlich, wenn Sie die spezielle Requisite an das Fragment übergeben möchten key, was wichtig wird, wenn Sie mit der Arbeit mit Listen beginnen.
 
 💡Wenn Sie recherchieren, sehen Sie manchmal <React.Fragment></React.Fragment>, was dasselbe ist.
 
-📙Lesen Sie mehr über Fragment (<>...</>) in den React Docs .
 
-Komposition
+> 📙 Read more about [**Fragment (<>...</>)**
+> in the React Docs](https://react.dev/apis/react/Fragment).
+
+### Komposition
+
+
 Wenn wir React-Anwendungen erstellen, möchten wir häufig komplexe Komponenten aus einfacheren Komponenten erstellen. Dies nennt man Komposition.
 
 Dazu müssen Sie Ihre Anwendung in Komponenten zerlegen. Sie können diese Komponenten dann zusammenstellen, um komplexere Komponenten zu erstellen.
 
-Es ist wichtig herauszufinden, welche Komponenten Sie benötigen und wie diese zusammengesetzt sein sollten. Dies nennt man Anwendungsdesign.
+Es ist wichtig herauszufinden, welche Komponenten Sie benötigen und wie diese zusammengesetzt sein sollten. Dies nennt man Anwendungsdesign (Aplication Design).
 
-📙Lesen Sie Thinking in React in den React Docs bis einschließlich Schritt 2. Spätere Schritte erfordern einen Status, den wir in einer zukünftigen Sitzung behandeln werden.
 
-Ressourcen
-Übergabe von JSX als untergeordnete Elemente in den React Docs
-Fragment (<>...</>) in den React Docs
-Denken in React in den React Docs
+
+> 📙 Read [**Thinking in React**
+> in the React Docs](https://react.dev/learn/thinking-in-react) up to and including Step 2. Later steps require state, which we will cover in a future session.
+
+---
+
+## Resources
+
+- [Passing JSX as children in the React Docs](https://react.dev/learn/passing-props-to-a-component#passing-jsx-as-children)
+- [Fragment (<>...</>) in the React Docs](https://react.dev/apis/react/Fragment)
+- [Thinking in React in the React Docs](https://react.dev/learn/thinking-in-react)
+
+
+---
 
 
 ### React Setup
