@@ -602,6 +602,7 @@ Oftmals ändern sich solche zustandsbehafteten Daten nach einer Benutzerinterakt
 
 ### State
 
+
 In React arbeiten wir mit dem State, indem wir die Hook-Funktion verwenden useState.
 
 Wir rufen die useState Funktion auf und übergeben den Anfangszustandswert als Argument. Dies ist der Wert, der in unserer App verwendet wird, ***bis sich etwas ändert***.
@@ -682,6 +683,16 @@ Beim erneuten Rendern der Komponente führt React die Komponentenfunktion erneut
 - [React Docs: A simple variable is not enough](https://react.dev/learn/state-a-components-memory#when-a-regular-variable-isnt-enough)
 - [React Docs: Render and commit](https://react.dev/learn/render-and-commit)
 - [MDN: react events and state](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_interactivity_events_state)
+
+INFO von Resaurces:
+
+Sobald die Komponente zum ersten Mal gerendert wurde, können Sie weitere Renderings auslösen, indem Sie ihren Status mit der setFunktion aktualisieren. Durch die Aktualisierung des Status Ihrer Komponente wird automatisch ein Rendering in die Warteschlange gestellt.
+
+Bei nachfolgenden Renderings ruft React die Funktionskomponente auf, deren Statusaktualisierung das Rendering ausgelöst hat.
+
+hier weiter:
+
+https://react.dev/learn/state-a-components-memory
 
 ---
 
