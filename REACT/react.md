@@ -1299,9 +1299,12 @@ const [isAdult, setIsAdult] = useState(user.age >= 18);
 // ✅ GOOD
 const [user, setUser] = useState({ name: "Alex", age: 28 });
 const isAdult = user.age >= 18;
+
+```
 Vermeiden Sie Duplikate im Bundesstaat
 Vermeiden Sie es, denselben Wert an mehreren Stellen im Bundesstaat zu speichern. Dies kann zu Fehlern führen und die Aktualisierung des Status erschweren.
 
+```
 // ❌ BAD
 const [trees, setTrees] = useState([
   { id: 0, name: "Oak", height 7.5},
@@ -1313,7 +1316,9 @@ const [selectedTree, setSelectedTree] = useState(trees.find((tree) => tree.id ==
 
 // Somewhere else:
 setSelectedTree(trees.find((tree) => tree.id === 2));
+```
 
+```
 
 // ✅ GOOD
 const [trees, setTrees] = useState([
@@ -1328,9 +1333,13 @@ const selectedTree = trees.find((tree) => tree.id === selectedTreeId);
 
 // Somewhere else:
 setSelectedTreeId(2);
+
+```
 Vermeiden Sie doppelte Listen im Bundesstaat
+
 Wenn Sie eine Liste von Elementen im Status haben, sollten Sie es vermeiden, eine abgeleitete Version davon in einer anderen Statusvariablen zu speichern. Dies ist ein häufiger Fehler, wenn Sie eine gefilterte Version der Liste anzeigen möchten.
 
+```
 // ❌ BAD
 const [trees, setTrees] = useState([
   { id: 0, name: "Oak", height 7.5},
@@ -1354,6 +1363,9 @@ const [minHeight, setMinHeight] = useState(7);
 
 const filteredTrees = trees.filter((tree) => tree.height > minHeight);
 ```
+
+
+
 
 > 📙 Read more about [**Choosing the State Structure** in the React Docs](https://react.dev/learn/choosing-the-state-structure). The Docs have many more examples and explanations.
 
