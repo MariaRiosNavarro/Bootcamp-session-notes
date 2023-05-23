@@ -12,10 +12,13 @@ REACT
 
 6.[React with Arrays](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-arrays/react-with-arrays.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-arrays/challenges-react-with-arrays.md)
 
-7.[React State 2](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-2/react-state-2.md) [Challenges]()
+7.[React State 2](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-2/react-state-2.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-2/challenges-react-state-2.md)
 
-8.[React State 3](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/react-state-3.md) [Challenges]()
+8.[React State 3](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/react-state-3.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/challenges-react-state-3.md)
 
+9. [React Effects and Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/react-effects-and-fetch.md)[Challenges]
+
+10. [React with Local Storage](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/react-with-local-storage.md)[Challenges]
 
 
 
@@ -817,7 +820,7 @@ function Drinks() {
     </dl>
   );
 }
- ```
+```
   
 💡<>…</>Hier können Sie nicht die kurze Syntax ( ) für verwenden, da Sie die Requisite an <Fragment>übergeben müssen . Die kurze Syntax erlaubt keine Übergabe von Requisiten.key<Fragment>
   
@@ -829,7 +832,9 @@ function Drinks() {
   
 ---
   
-7.[React State 2](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-2/react-state-2.md) [Challenges]()
+### React State 2
+  
+7.[React State 2](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-2/react-state-2.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-2/challenges-react-state-2.md)
   
 ## Learning Objectives
 
@@ -839,7 +844,7 @@ Den Staat weitergeben
   
 Der Wert einer Zustandsvariablen und die Setter-Funktion können als Props an untergeordnete Komponenten weitergegeben werden. Da es sich um Funktionen und Werte handelt, können sie wie alle anderen Daten weitergegeben werden.
 
-```js
+```
 function Parent() {
   const [count, setCount] = useState(0);
 
@@ -851,7 +856,7 @@ function Parent() {
 }
 ```
 
-```js
+```
 function Child({ count, onIncrement }) {
   return (
     <>
@@ -871,7 +876,7 @@ Eine Zustandsvariable kann an mehrere untergeordnete Komponenten weitergegeben w
 Jede Zustandsvariable sollte so niedrig wie möglich im Komponentenbaum liegen, aber bei Bedarf hoch sein. Wenn das Ganze Appüber die Zustandsvariable Bescheid wissen muss, sollte diese in der AppKomponente vorhanden sein. Wenn nur untergeordnete Komponenten Articleüber die Zustandsvariable Bescheid wissen müssen, sollte diese in der ArticleKomponente leben.
 
 Betrachten Sie das folgende Beispiel:
-
+  
 <img src="lifting-state-up.png" width="616" height="694" />
 
 Here we find that a `Link` in the `Navigation` component needs to know about a state that previously
@@ -937,6 +942,7 @@ function SearchForm() {
   );
 }
 ```
+  
 In diesem Beispiel kennen Sie immer den Wert des eingegebenen Suchbegriffs. Da es sich um eine Zustandsvariable handelt, können Sie sie an anderen Stellen in Ihrer Anwendung verwenden. Wenn möglich, sollten Sie unkontrollierte Eingaben bevorzugen, manchmal müssen Sie jedoch eine kontrollierte Eingabe verwenden.
 
 ## Möglicherweise benötigen Sie eine kontrollierte Eingabe, wenn
@@ -983,7 +989,7 @@ Dieses Verhalten kann unerwartet sein, es ist jedoch wichtig zu verstehen, dass 
 
 Es gibt verschiedene Möglichkeiten, den obigen Code zu beheben. In diesem Beispiel könnten wir anrufen setCount(count + 2)und fertig. Wenn wir aus irgendeinem Grund zweimal aufrufen müssen setCount, können wir die funktionale Form der Setter-Funktion verwenden, die den aktuellen internen Wert der Zustandsvariablen als Argument bereitstellt.
 
-```js
+``` 
 // ⚠️ This code is unnecessary complicated, but it works!
 function Counter() {
   const [count, setCount] = useState(0); // count is 0 initially
@@ -1015,7 +1021,7 @@ function Counter() {
     </>
   );
 }
-```
+
 
 💡Hier wird das Präfix prevverwendet, um anzuzeigen, dass der Wert der vorherige Wert der Zustandsvariablen ist. Eine weitere gängige Konvention besteht darin, nur den ersten Buchstaben der Statusvariablen als Parameternamen zu verwenden: setCount(c => c + 1).
 
@@ -1047,6 +1053,269 @@ Rufen Sie Hooks nur von React-Funktionskomponenten oder benutzerdefinierten Hook
 - [Hooks at a Glance in the React Docs](https://reactjs.org/docs/hooks-overview.html)  
   
   
+
 ---  
   
-8.[React State 3](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/react-state-3.md) [Challenges]()
+8.[React State 3](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/react-state-3.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/challenges-react-state-3.md)
+
+### REACT STATE 3
+
+Wissen, wie mit Arrays und Objekten im Status umgegangen wird
+Wissen, was eine Zustandsmutation ist und wie man sie vermeidet
+Vermeidung von Zustandsmutationen
+Unabhängig davon, wie komplex der Zustand Ihrer Anwendung (Objekt, Array, Array von Objekten) ist, müssen Sie den Zustand immer als unveränderlich behandeln. Das bedeutet, dass Sie den Status nicht direkt ändern sollten, indem Sie ihm beispielsweise einen neuen Wert zuweisen.
+
+Um Mutationen beim Aktualisieren des Status zu vermeiden, müssen Sie dies tun
+
+ein neues Objekt/Array erstellen (oder eine Kopie des vorhandenen erstellen) und
+Verwenden Sie die Setter-Funktion mit der kürzlich erstellten/aktualisierten Kopie, um ein erneutes Rendern zu veranlassen.
+Objekte im Status aktualisieren
+Um eine Kopie eines Objekts zu erstellen und nur einige Eigenschaften zu ändern, können Sie die Spread-Syntax verwenden:
+
+```
+const [person, setPerson] = useState({
+  firstName: "John",
+  lastName: "Doe",
+});
+
+function handleChangeFirstName(firstName) {
+  setPerson({ ...person, firstName });
+}
+
+// Somewhere else:
+handleChangeFirstName("Jane");
+```
+
+❗️Wenn Sie einen neuen Wert direkt zuweisen würden, würden Sie den Zustand ändern. Das ist schlecht, weil wir den Staat als unveränderlich behandeln müssen. Dies kann zu schwer zu findenden Fehlern führen.
+
+// ⚠️ NEVER DO THIS
+function handleChangeFirstName(firstName) {
+  person.firstName = firstName;
+  setPerson(person);
+}
+> 📙 Learn more about [**Updating Objects in State** in the React Docs](https://react.dev/learn/updating-objects-in-state)..
+
+### Arrays im Status aktualisieren
+
+Wie Sie wissen, gibt es mehrere Möglichkeiten, Arrays zu aktualisieren. Einige von ihnen verändern jedoch das Array, andere nicht.
+
+
+|           | avoid (mutates the array)           | prefer (returns a new array) |
+| --------- | ----------------------------------- | ---------------------------- |
+| adding    | `push`, `unshift`                   | `[...arr]` spread syntax     |
+| removing  | `pop`, `shift`, `splice`            | `filter`                     |
+| replacing | `splice`, `arr[i] = ...` assignment | `map`                        |
+| sorting   | `reverse`, `sort`                   | copy the array first         |
+
+> 💡 It does not matter whether your array state contains only primitives or other objects / arrays;
+> in all cases, you should only use the preferred array methods.
+
+
+Zu einem Array hinzufügen
+
+Um einem Array ein Element hinzuzufügen, können Sie die Spread-Syntax verwenden:
+
+const [numbers, setNumbers] = useState([0, 1, 2]);
+
+function handleAppendNumber(number) {
+  setNumbers([...numbers, number]);
+}
+
+// Somewhere else:
+handleAppendNumber(3);
+
+function handlePrependNumber(number) {
+  setNumbers([number, ...numbers]);
+}
+
+// Somewhere else:
+handlePrependNumber(-1);
+Aus einem Array entfernen
+Um ein Element aus einem Array zu entfernen, können Sie die filterMethode verwenden:
+
+const [numbers, setNumbers] = useState([0, 1, 2]);
+
+function handleRemoveNumber(numberToRemove) {
+  setNumbers(numbers.filter((number) => number !== numberToRemove));
+}
+
+// Somewhere else:
+handleRemoveNumber(1);
+Ersetzen eines Array-Elements
+Um ein Element in einem Array zu ersetzen, können Sie die mapMethode verwenden:
+
+const [numbers, setNumbers] = useState([0, 1, 2]);
+
+function handleReplaceNumber(oldNumber, newNumber) {
+  setNumbers(
+    numbers.map((number) => {
+      if (number === oldNumber) return newNumber;
+      return number;
+    })
+  );
+}
+
+// Somewhere else:
+handleReplaceNumber(1, 1337);
+> 📙 Learn more about [**Updating arrays without mutation** in the React Docs](https://react.dev/learn/updating-arrays-in-state#updating-arrays-without-mutation).
+
+Aktualisieren von Arrays von Objekten im Status
+Meistens werden Sie in Ihrem Bundesstaat auf Arrays von Objekten stoßen.
+
+Ein neues Objekt hinzufügen
+Sie können dem Statusarray ein neues Objekt hinzufügen, indem Sie die Spread-Syntax verwenden:
+
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height 7.5},
+  { id: 1, name: "Beech", height 6},
+  { id: 2, name: "Pine", height 10}
+]);
+
+function handleAddTree(tree) {
+  setTrees([...trees, tree]);
+}
+
+// Somewhere else:
+handleAddTree({id: 3, name: "Spruce", height: 13})
+Entfernen eines Objekts
+Um ein Objekt zu entfernen, können Sie filterdas Array nach einer eindeutigen Kennung suchen. In den meisten Fällen liegt dieser Bezeichner im Gültigkeitsbereich, da das relevante Objekt über gerendert wird map.
+
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height 7.5},
+  { id: 1, name: "Beech", height 6},
+  { id: 2, name: "Pine", height 10}
+]);
+
+function handleRemoveTree(idToRemove) {
+  setTrees(trees.filter((tree) => tree.id !== idToRemove));
+}
+
+// Somewhere else:
+handleRemoveTree(0);
+Ersetzen eines Objekts
+Um ein Objekt zu ersetzen, können Sie mapmit dem aktualisierten Objekt ein neues Array erstellen. Denken Sie daran, zuerst eine Kopie des Objekts zu erstellen, da sonst der Status geändert wird.
+
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height 7.5},
+  { id: 1, name: "Beech", height 6},
+  { id: 2, name: "Pine", height 10}
+]);
+
+function handleSetNewHeightForTree(id, height) {
+  setTrees(
+    trees.map((tree) => {
+      if (tree.id === id) return { ...tree, height };
+      return tree;
+    })
+  );
+}
+
+// Somewhere else:
+handleSetNewHeightForTree(0, 8);
+Sortieren eines Arrays von Objekten
+Um ein Array von Objekten zu sortieren, können Sie sorteine Kopie des Arrays mit einer benutzerdefinierten Vergleichsfunktion verwenden. Die Vergleichsfunktion gibt eine Zahl zurück, die zur Bestimmung der Reihenfolge der Elemente verwendet wird.
+
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height 7.5},
+  { id: 1, name: "Beech", height 6},
+  { id: 2, name: "Pine", height 10}
+]);
+
+function handleSortTreesByHeight() {
+  setTrees([...trees].sort((a, b) => a.height - b.height));
+}
+> 📙 Learn more about [**Updating objects inside Arrays** in the React Docs](https://react.dev/learn/updating-arrays-in-state#updating-objects-inside-arrays).
+
+Wahl der Staatsstruktur
+Bei der Wahl Ihrer Staatsstruktur gibt es einige häufige Fallstricke.
+
+Gruppenbezogener Status
+Wenn Sie einen Status haben, der zusammengehört (und aktualisiert wird), gruppieren Sie ihn in einem einzigen Objekt. Dies erleichtert die Aktualisierung des Status.
+
+// ❌ MEH
+const [userName, setUserName] = useState("Alex");
+const [userAge, setUserAge] = useState(28);
+
+// ✅ BETTER
+const [user, setUser] = useState({ name: "Alex", age: 28 });
+Vermeiden Sie einen redundanten Zustand
+Wenn Sie einen Wert haben, der von einem Status abgeleitet ist, sollten Sie es vermeiden, ihn im Status zu speichern. Verwenden Sie stattdessen einfach eine normale Variable.
+
+Das Problem mit dem redundanten Status besteht darin, dass er nicht mehr mit der Quelle der Wahrheit synchronisiert sein kann, wenn Sie vergessen, ihn korrekt zu aktualisieren.
+
+// ❌ BAD
+const [user, setUser] = useState({ name: "Alex", age: 28 });
+const [isAdult, setIsAdult] = useState(user.age >= 18);
+
+// ✅ GOOD
+const [user, setUser] = useState({ name: "Alex", age: 28 });
+const isAdult = user.age >= 18;
+Vermeiden Sie Duplikate im Bundesstaat
+Vermeiden Sie es, denselben Wert an mehreren Stellen im Bundesstaat zu speichern. Dies kann zu Fehlern führen und die Aktualisierung des Status erschweren.
+
+// ❌ BAD
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height 7.5},
+  { id: 1, name: "Beech", height 6},
+  { id: 2, name: "Pine", height 10}
+]);
+
+const [selectedTree, setSelectedTree] = useState(trees.find((tree) => tree.id === 0));
+
+// Somewhere else:
+setSelectedTree(trees.find((tree) => tree.id === 2));
+
+
+// ✅ GOOD
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height 7.5},
+  { id: 1, name: "Beech", height 6},
+  { id: 2, name: "Pine", height 10}
+]);
+
+const [selectedTreeId, setSelectedTreeId] = useState(0);
+
+const selectedTree = trees.find((tree) => tree.id === selectedTreeId);
+
+// Somewhere else:
+setSelectedTreeId(2);
+Vermeiden Sie doppelte Listen im Bundesstaat
+Wenn Sie eine Liste von Elementen im Status haben, sollten Sie es vermeiden, eine abgeleitete Version davon in einer anderen Statusvariablen zu speichern. Dies ist ein häufiger Fehler, wenn Sie eine gefilterte Version der Liste anzeigen möchten.
+
+// ❌ BAD
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height 7.5},
+  { id: 1, name: "Beech", height 6},
+  { id: 2, name: "Pine", height 10}
+]);
+
+const [filteredTrees, setFilteredTrees] = useState(trees.filter((tree) => tree.height > 7));
+
+// Somewhere else:
+setFilteredTrees(trees.filter((tree) => tree.height > 9));
+
+// ✅ GOOD
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height 7.5},
+  { id: 1, name: "Beech", height 6},
+  { id: 2, name: "Pine", height 10}
+]);
+
+const [minHeight, setMinHeight] = useState(7);
+
+const filteredTrees = trees.filter((tree) => tree.height > minHeight);
+
+> 📙 Read more about [**Choosing the State Structure** in the React Docs](https://react.dev/learn/choosing-the-state-structure). The Docs have many more examples and explanations.
+
+---
+
+## Resources
+
+- [Updating Objects in State (React Docs)](https://react.dev/learn/updating-objects-in-state)
+- [Updating Arrays in State (React Docs)](https://react.dev/learn/updating-arrays-in-state)
+
+
+
+9. [React Effects and Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/react-effects-and-fetch.md)[Challenges]
+
+10. [React with Local Storage](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/react-with-local-storage.md)[Challenges]
