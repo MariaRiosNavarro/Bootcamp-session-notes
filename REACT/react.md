@@ -1021,7 +1021,10 @@ function Counter() {
     </>
   );
 }
+``` 
+öööö
 
+``` 
 
 💡Hier wird das Präfix prevverwendet, um anzuzeigen, dass der Wert der vorherige Wert der Zustandsvariablen ist. Eine weitere gängige Konvention besteht darin, nur den ersten Buchstaben der Statusvariablen als Parameternamen zu verwenden: setCount(c => c + 1).
 
@@ -1115,6 +1118,7 @@ Zu einem Array hinzufügen
 
 Um einem Array ein Element hinzuzufügen, können Sie die Spread-Syntax verwenden:
 
+```
 const [numbers, setNumbers] = useState([0, 1, 2]);
 
 function handleAppendNumber(number) {
@@ -1130,9 +1134,16 @@ function handlePrependNumber(number) {
 
 // Somewhere else:
 handlePrependNumber(-1);
+
+```
+
+
 Aus einem Array entfernen
+
 Um ein Element aus einem Array zu entfernen, können Sie die filterMethode verwenden:
 
+
+```
 const [numbers, setNumbers] = useState([0, 1, 2]);
 
 function handleRemoveNumber(numberToRemove) {
@@ -1141,9 +1152,14 @@ function handleRemoveNumber(numberToRemove) {
 
 // Somewhere else:
 handleRemoveNumber(1);
+
+```
+
 Ersetzen eines Array-Elements
+
 Um ein Element in einem Array zu ersetzen, können Sie die mapMethode verwenden:
 
+```
 const [numbers, setNumbers] = useState([0, 1, 2]);
 
 function handleReplaceNumber(oldNumber, newNumber) {
@@ -1154,17 +1170,25 @@ function handleReplaceNumber(oldNumber, newNumber) {
     })
   );
 }
+```
 
 // Somewhere else:
+
 handleReplaceNumber(1, 1337);
+
 > 📙 Learn more about [**Updating arrays without mutation** in the React Docs](https://react.dev/learn/updating-arrays-in-state#updating-arrays-without-mutation).
 
 Aktualisieren von Arrays von Objekten im Status
+
+
 Meistens werden Sie in Ihrem Bundesstaat auf Arrays von Objekten stoßen.
 
 Ein neues Objekt hinzufügen
+
+
 Sie können dem Statusarray ein neues Objekt hinzufügen, indem Sie die Spread-Syntax verwenden:
 
+```
 const [trees, setTrees] = useState([
   { id: 0, name: "Oak", height 7.5},
   { id: 1, name: "Beech", height 6},
@@ -1177,9 +1201,16 @@ function handleAddTree(tree) {
 
 // Somewhere else:
 handleAddTree({id: 3, name: "Spruce", height: 13})
+
+```
+
+
 Entfernen eines Objekts
+
+
 Um ein Objekt zu entfernen, können Sie filterdas Array nach einer eindeutigen Kennung suchen. In den meisten Fällen liegt dieser Bezeichner im Gültigkeitsbereich, da das relevante Objekt über gerendert wird map.
 
+```
 const [trees, setTrees] = useState([
   { id: 0, name: "Oak", height 7.5},
   { id: 1, name: "Beech", height 6},
@@ -1192,9 +1223,15 @@ function handleRemoveTree(idToRemove) {
 
 // Somewhere else:
 handleRemoveTree(0);
+
+```
+
+
 Ersetzen eines Objekts
+
 Um ein Objekt zu ersetzen, können Sie mapmit dem aktualisierten Objekt ein neues Array erstellen. Denken Sie daran, zuerst eine Kopie des Objekts zu erstellen, da sonst der Status geändert wird.
 
+```
 const [trees, setTrees] = useState([
   { id: 0, name: "Oak", height 7.5},
   { id: 1, name: "Beech", height 6},
@@ -1212,9 +1249,14 @@ function handleSetNewHeightForTree(id, height) {
 
 // Somewhere else:
 handleSetNewHeightForTree(0, 8);
+
+```
 Sortieren eines Arrays von Objekten
+
+
 Um ein Array von Objekten zu sortieren, können Sie sorteine Kopie des Arrays mit einer benutzerdefinierten Vergleichsfunktion verwenden. Die Vergleichsfunktion gibt eine Zahl zurück, die zur Bestimmung der Reihenfolge der Elemente verwendet wird.
 
+```
 const [trees, setTrees] = useState([
   { id: 0, name: "Oak", height 7.5},
   { id: 1, name: "Beech", height 6},
@@ -1224,14 +1266,19 @@ const [trees, setTrees] = useState([
 function handleSortTreesByHeight() {
   setTrees([...trees].sort((a, b) => a.height - b.height));
 }
+
+```
+
 > 📙 Learn more about [**Updating objects inside Arrays** in the React Docs](https://react.dev/learn/updating-arrays-in-state#updating-objects-inside-arrays).
 
 Wahl der Staatsstruktur
+
 Bei der Wahl Ihrer Staatsstruktur gibt es einige häufige Fallstricke.
 
 Gruppenbezogener Status
 Wenn Sie einen Status haben, der zusammengehört (und aktualisiert wird), gruppieren Sie ihn in einem einzigen Objekt. Dies erleichtert die Aktualisierung des Status.
 
+```
 // ❌ MEH
 const [userName, setUserName] = useState("Alex");
 const [userAge, setUserAge] = useState(28);
@@ -1240,9 +1287,11 @@ const [userAge, setUserAge] = useState(28);
 const [user, setUser] = useState({ name: "Alex", age: 28 });
 Vermeiden Sie einen redundanten Zustand
 Wenn Sie einen Wert haben, der von einem Status abgeleitet ist, sollten Sie es vermeiden, ihn im Status zu speichern. Verwenden Sie stattdessen einfach eine normale Variable.
+```
 
 Das Problem mit dem redundanten Status besteht darin, dass er nicht mehr mit der Quelle der Wahrheit synchronisiert sein kann, wenn Sie vergessen, ihn korrekt zu aktualisieren.
 
+```
 // ❌ BAD
 const [user, setUser] = useState({ name: "Alex", age: 28 });
 const [isAdult, setIsAdult] = useState(user.age >= 18);
@@ -1304,6 +1353,7 @@ const [trees, setTrees] = useState([
 const [minHeight, setMinHeight] = useState(7);
 
 const filteredTrees = trees.filter((tree) => tree.height > minHeight);
+```
 
 > 📙 Read more about [**Choosing the State Structure** in the React Docs](https://react.dev/learn/choosing-the-state-structure). The Docs have many more examples and explanations.
 
