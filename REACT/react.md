@@ -827,6 +827,226 @@ function Drinks() {
 - [React Docs: Rendering Lists](https://react.dev/learn/rendering-lists)
   
   
+---
   
 7.[React State 2](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-2/react-state-2.md) [Challenges]()
+  
+## Learning Objectives
+
+Status zwischen Komponenten teilen
+  
+Den Staat weitergeben
+  
+Der Wert einer Zustandsvariablen und die Setter-Funktion können als Props an untergeordnete Komponenten weitergegeben werden. Da es sich um Funktionen und Werte handelt, können sie wie alle anderen Daten weitergegeben werden.
+
+```js
+function Parent() {
+  const [count, setCount] = useState(0);
+
+  function handleIncrement() {
+    setCount(count + 1);
+  }
+
+  return <Child count={count} onIncrement={handleIncrement} />;
+}
+```
+
+```js
+function Child({ count, onIncrement }) {
+  return (
+    <>
+      <p>Count: {count}</p>
+      <button onClick={onIncrement}>increment</button>
+    </>
+  );
+}
+```
+
+### Lifting State Up
+
+Wenn wir über mehrere Komponenten verfügen, die einen gemeinsamen Status benötigen, können wir den Status auf die übergeordnete Komponente übertragen und ihn als Requisiten weitergeben. Dies wird als „Anheben des Status nach oben“ bezeichnet, da Sie normalerweise mit dem Status direkt in der untergeordneten Komponente beginnen und ihn dann bei Bedarf in immer mehr Komponenten in die übergeordneten Komponenten verschieben.
+
+Eine Zustandsvariable kann an mehrere untergeordnete Komponenten weitergegeben werden. Die untergeordneten Komponenten können dann die Statusvariable aktualisieren, indem sie die Setter-Funktion aufrufen.
+
+Jede Zustandsvariable sollte so niedrig wie möglich im Komponentenbaum liegen, aber bei Bedarf hoch sein. Wenn das Ganze Appüber die Zustandsvariable Bescheid wissen muss, sollte diese in der AppKomponente vorhanden sein. Wenn nur untergeordnete Komponenten Articleüber die Zustandsvariable Bescheid wissen müssen, sollte diese in der ArticleKomponente leben.
+
+Betrachten Sie das folgende Beispiel:
+
+<img src="" width="616" height="694" />
+
+Here we find that a `Link` in the `Navigation` component needs to know about a state that previously
+existed in the `Article` component. We can lift the state up to the `App` component and pass it down
+to the `Article` component as a prop.
+
+> 📙 Read more about
+> [**Sharing State Between Components** in the React docs](https://react.dev/learn/sharing-state-between-components).
+
+## Umgang mit Formulardaten
+  
+Formulardaten verwenden onSubmit
+  
+Wir können den onSubmitEvent-Handler verwenden, um Formulardaten zu verarbeiten. Der onSubmitEvent-Handler wird aufgerufen, wenn der Benutzer das Formular absendet. Wir können die Formulardaten (genau wie bei normalem JavaScript) vom eventObjekt abrufen.
+
+```js
+function SearchForm() {
+  function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const searchTerm = form.elements.searchTerm.value;
+    console.log("A new search term was submitted:", searchTerm);
+  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="searchTerm">Search</label>
+      <input name="searchTerm" id="searchTerm" />
+      <button>Search</button>
+    </form>
+  );
+}
+```
+  
+  
+
+
+In diesem Beispiel wird der Wert des Eingabeelements nicht manuell von React gesteuert: Die Eingabe ist eine „unkontrollierte Eingabe“. Der Wert wird vom Browser verwaltet. Im Submit-Event-Handler „schauen“ wir einfach auf das Eingabefeld und lesen den Wert aus dem DOM.
+
+### Verwendung kontrollierter Eingaben
+  
+Wir können React verwenden, um den Wert eines Eingabeelements zu steuern. Dies wird als „kontrollierte Eingabe“ bezeichnet. Das bedeutet, dass wir das Wertattribut des Eingabeelements manuell festlegen. Wir können eine Zustandsvariable mit dem Wertattribut des Eingabeelements verbinden. Auf diese Weise hat das Eingabeelement immer den gleichen Wert wie die Zustandsvariable. In Kombination mit dem onChangeEvent-Handler können wir die Statusvariable aktualisieren, wenn der Benutzer etwas in das Eingabefeld eingibt
+
+```js
+function SearchForm() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  function handleSubmit() {
+    event.preventDefault();
+    console.log("A new search term was submitted:", searchTerm);
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="searchTerm">Search</label>
+      <input
+        name="searchTerm"
+        id="searchTerm"
+        value={searchTerm}
+        onChange={(event) => setSearchTerm(event.target.value)}
+      />
+      <button>Search for {searchTerm}</button>
+    </form>
+  );
+}
+```
+In diesem Beispiel kennen Sie immer den Wert des eingegebenen Suchbegriffs. Da es sich um eine Zustandsvariable handelt, können Sie sie an anderen Stellen in Ihrer Anwendung verwenden. Wenn möglich, sollten Sie unkontrollierte Eingaben bevorzugen, manchmal müssen Sie jedoch eine kontrollierte Eingabe verwenden.
+
+## Möglicherweise benötigen Sie eine kontrollierte Eingabe, wenn
+
+Suchergebnisse anzeigen, während der Benutzer tippt,
+Automatische Vervollständigung der Benutzereingaben oder
+Validierung der Benutzereingaben.
+Statusaktualisierungen erfolgen nicht sofort
+Wenn wir die Setter-Funktion einer Zustandsvariablen aufrufen, aktualisiert React die Zustandsvariable nicht sofort. Stattdessen wird der interne Wert aktualisiert und ein erneutes Rendern der Komponente geplant.
+
+```js
+// ⚠️ This code is broken!
+function Counter() {
+  const [count, setCount] = useState(0); // count is 0 initially
+
+  function handleIncrement() {
+    // when this is first called, count is still 0
+    console.log(count); // → 0
+
+    // this will set reacts internal state to 1,
+    // but does not update the count variable
+    setCount(count + 1);
+    console.log(count); // → 0
+
+    // the count variable is still 0, thus count + 1 is still 1,
+    // so react's internal state will still be 1
+    setCount(count + 1);
+    console.log(count); // → 0
+
+    // since setter functions were called
+    // react will schedule a re-render of
+    // the component with the new count value of 1
+  }
+
+  return (
+    <>
+      <p>Count: {count}</p>
+      <button onClick={handleIncrement}>increment by 2</button>
+    </>
+  );
+}
+```
+Dieses Verhalten kann unerwartet sein, es ist jedoch wichtig zu verstehen, dass Zustandsvariablen nicht sofort aktualisiert werden.
+
+Es gibt verschiedene Möglichkeiten, den obigen Code zu beheben. In diesem Beispiel könnten wir anrufen setCount(count + 2)und fertig. Wenn wir aus irgendeinem Grund zweimal aufrufen müssen setCount, können wir die funktionale Form der Setter-Funktion verwenden, die den aktuellen internen Wert der Zustandsvariablen als Argument bereitstellt.
+
+```js
+// ⚠️ This code is unnecessary complicated, but it works!
+function Counter() {
+  const [count, setCount] = useState(0); // count is 0 initially
+
+  function handleIncrement() {
+    // when this is first called, count is still 0
+    console.log(count); // → 0
+
+    // this will set reacts internal state to 1,
+    // but does not update the count variable
+    setCount((prevCount) => prevCount + 1);
+    console.log(count); // → 0
+
+    // the internal value of count is 1,
+    // we get it as the the first parameter of the function we pass to the setter.
+    // 1 + 1 is 2, so react's internal state will now be _2_
+    setCount((prevCount) => prevCount + 1);
+    console.log(count); // → 0
+
+    // since setter functions were called
+    // react will schedule a re-render of
+    // the component with the new count value of _2_
+  }
+
+  return (
+    <>
+      <p>Count: {count}</p>
+      <button onClick={handleIncrement}>increment by 2</button>
+    </>
+  );
+}
+```
+
+💡Hier wird das Präfix prevverwendet, um anzuzeigen, dass der Wert der vorherige Wert der Zustandsvariablen ist. Eine weitere gängige Konvention besteht darin, nur den ersten Buchstaben der Statusvariablen als Parameternamen zu verwenden: setCount(c => c + 1).
+
+📙Lesen Sie mehr über das Aktualisieren des Status basierend auf dem vorherigen Status. Ich habe den Status aktualisiert, aber durch die Protokollierung erhalte ich den alten Wert in den React-Dokumenten.
+
+### Reagieren Sie auf Hooks
+
+Die useStateFunktion ist Teil einer breiteren Reihe von React-Funktionen, die Komponenten zusätzliche Kräfte verleihen.
+
+Hooks sind Funktionen, die es Komponentenfunktionen ermöglichen, sich in React-Funktionen (wie den Zustand) einzubinden und es Komponenten ermöglichen, mehr zu tun, als eine herkömmliche JavaScript-Funktion kann. Sie folgen der Namenskonvention useXzy.
+
+Häufige Haken, auf die Sie stoßen werden, sind useStateund useEffect.
+
+Bei der Verwendung von Hooks müssen Sie einige Regeln beachten:
+
+Rufen Sie Hooks nur auf der obersten Ebene auf. Rufen Sie Hooks nicht innerhalb von Schleifen, Bedingungen oder verschachtelten Funktionen auf.
+Rufen Sie Hooks nur von React-Funktionskomponenten oder benutzerdefinierten Hooks auf. Rufen Sie Hooks nicht über reguläre JavaScript-Funktionen auf.
+
+> 📙 Read more about [**Hooks** in the React Docs](https://reactjs.org/docs/hooks-overview.html)
+> from when they were introduced to React.
+
+---
+
+## Resources
+
+- [Sharing State Between Components in the React Docs](https://react.dev/learn/sharing-state-between-components)
+- [Updating state based on the previous state in the React Docs](https://react.dev/apis/react/useState#updating-state-based-on-the-previous-state)
+- [I’ve updated the state, but logging gives me the old value in the React Docs](https://react.dev/apis/react/useState#ive-updated-the-state-but-logging-gives-me-the-old-value)
+- [Hooks at a Glance in the React Docs](https://reactjs.org/docs/hooks-overview.html)  
+  
+  
+---  
+  
 8.[React State 3](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/react-state-3.md) [Challenges]()
