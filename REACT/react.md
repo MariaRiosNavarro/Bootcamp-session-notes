@@ -872,7 +872,7 @@ Jede Zustandsvariable sollte so niedrig wie möglich im Komponentenbaum liegen, 
 
 Betrachten Sie das folgende Beispiel:
 
-<img src="./lifting-state-up.png" width="616" height="694" />
+<img src="lifting-state-up.png" width="616" height="694" />
 
 Here we find that a `Link` in the `Navigation` component needs to know about a state that previously
 existed in the `Article` component. We can lift the state up to the `App` component and pass it down
