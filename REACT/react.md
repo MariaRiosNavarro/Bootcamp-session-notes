@@ -8,11 +8,13 @@ REACT
 
 4.[React setup](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-project-setup/react-project-setup.md) [Challenges](https://github.com/neuefische/web-exercises/tree/main/sessions/react-project-setup/journal-app)
 
-5.[React State](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state/react-state.md) [Challenges]()
+5.[React State](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state/react-state.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state/challenges-react-state.md)
 
-6.[React with Arrays](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-arrays/react-with-arrays.md) [Challenges]()
+6.[React with Arrays](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-arrays/react-with-arrays.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-arrays/challenges-react-with-arrays.md)
 
+7.[React State 2](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-2/react-state-2.md) [Challenges]()
 
+8.[React State 3](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/react-state-3.md) [Challenges]()
 
 
 
@@ -585,7 +587,7 @@ Dies ist besonders nützlich für SVG-Dateien, die Sie als React-Komponenten imp
 
 ###  React State
 
-5.[React State](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state/react-state.md) [Challenges]() 
+5.[React State](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state/react-state.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state/challenges-react-state.md)
 
 
 Bei einem Zustand handelt es sich um Daten, die sich im Laufe der Zeit ändern. Denken Sie an die Lampe auf Ihrem Schreibtisch. Es kann ein- oder ausgeschaltet werden. Die Lampe befindet sich zu einem bestimmten Zeitpunkt in einem bestimmten Zustand und dieser Zustand kann sich im Laufe der Zeit ändern.
@@ -699,7 +701,7 @@ https://react.dev/learn/state-a-components-memory
 
 ###  React with Arrays
 
-6.[React with Arrays](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-arrays/react-with-arrays.md) [Challenges]()
+6.[React with Arrays](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-arrays/react-with-arrays.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-arrays/challenges-react-with-arrays.md)
 
 Reagieren Sie mit Arrays
 Lernziele
@@ -823,3 +825,8 @@ function Drinks() {
 ## Resources
 
 - [React Docs: Rendering Lists](https://react.dev/learn/rendering-lists)
+  
+  
+  
+7.[React State 2](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-2/react-state-2.md) [Challenges]()
+8.[React State 3](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/react-state-3.md) [Challenges]()
