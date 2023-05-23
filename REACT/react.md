@@ -1022,9 +1022,7 @@ function Counter() {
   );
 }
 ``` 
-öööö
 
-``` 
 
 💡Hier wird das Präfix prevverwendet, um anzuzeigen, dass der Wert der vorherige Wert der Zustandsvariablen ist. Eine weitere gängige Konvention besteht darin, nur den ersten Buchstaben der Statusvariablen als Parameternamen zu verwenden: setCount(c => c + 1).
 
