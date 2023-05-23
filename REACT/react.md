@@ -16,9 +16,9 @@ REACT
 
 8.[React State 3](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/react-state-3.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/challenges-react-state-3.md)
 
-9.[React Effects and Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/react-effects-and-fetch.md)[Challenges]
+9.[React Effects and Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/react-effects-and-fetch.md)[Challenges]()
 
-10.[React with Local Storage](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/react-with-local-storage.md)[Challenges]
+10.[React with Local Storage](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/react-with-local-storage.md)[Challenges]()
 
 
 
