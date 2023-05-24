@@ -1676,9 +1676,125 @@ In Zukunft werden wir eine Datenabrufbibliothek verwenden, um diese Probleme anz
 - [React docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
 
 
+---
 
-
-
-
+### React with Local Storage
 
 10. [React with Local Storage](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/react-with-local-storage.md)[Challenges]
+
+
+Lernziele
+Das Konzept der dauerhaften Speicherung im Browser verstehen
+Den Unterschied zwischen localStorageund kennensessionStorage
+Mit den Methoden setItem()undgetItem()
+Verwenden einer Bibliothek zur Verwaltung des lokalen Speichers in React-Apps
+Die Web Storage API
+💡Beachten Sie, dass die Web Storage API nicht Teil von React ist. Es handelt sich um eine Browser-API, die in allen modernen Browsern verfügbar ist.
+
+Die Web Storage API bietet zwei Methoden zum Speichern von Daten auf dem Client:
+
+localStoragespeichert Daten ohne Ablaufdatum
+sessionStoragespeichert Daten für eine Sitzung (Daten gehen verloren, wenn der Browser-Tab geschlossen wird)
+Die Daten werden im Browser und pro Domain gespeichert, d. h. auf alle von gespeicherten Daten kann mit und example.comzugegriffen werden , nicht jedoch mit .www.example.comsubdomain.example.comothers.org
+
+Dadurch ist es möglich, Daten über das Neuladen von Seiten und Neustarts des Browsers hinweg auf sichere Weise zu speichern.
+
+Zum Speichern von Daten verwendet die API Schlüssel-Wert-Paare. Der Schlüssel ist eine Zeichenfolge und der Wert kann eine Zeichenfolge, eine Zahl oder ein boolescher Wert sein.
+
+💡Alle folgenden Beispiele verwenden, localStorageaber das Gleiche gilt für sessionStorage.
+
+📙Weitere Informationen zur Web Storage API finden Sie in den mdn-Webdokumenten .
+
+Daten speichern
+Um Daten zu speichern, verwenden Sie die setItem()Methode:
+
+localStorage.setItem("name", "Alex");
+localStorage.setItem("age", 28);
+localStorage.setItem("isOnline", true);
+Daten abrufen
+Um Daten abzurufen, verwenden Sie die getItem()Methode:
+
+const name = localStorage.getItem("name"); // → "Alex"
+const age = localStorage.getItem("age"); // → 28
+const isOnline = localStorage.getItem("isOnline"); // → true
+Der Aufruf getItemkehrt zurück null, wenn der Schlüssel nicht vorhanden ist.
+
+const nope = localStorage.getItem("nope"); // → null
+Daten entfernen
+Um Daten zu entfernen, verwenden Sie die removeItem()Methode:
+
+localStorage.removeItem("name");
+Alle Daten löschen
+Um alle Daten zu entfernen, verwenden Sie die clear()Methode:
+
+localStorage.clear();
+Komplexe Daten speichern
+Die Web Storage API unterstützt nur Zeichenfolgen, Zahlen und boolesche Werte. Um komplexere Daten zu speichern, müssen Sie diese zunächst serialisieren. Dies kann mit der Methode erfolgen JSON.stringify():
+
+const user = {
+  name: "Alex",
+  age: 28,
+  isOnline: true,
+};
+
+localStorage.setItem("user", JSON.stringify(user));
+Um die Daten abzurufen, müssen Sie sie mit der folgenden JSON.parse()Methode analysieren:
+
+const user = JSON.parse(localStorage.getItem("user"));
+Hilfsfunktionen
+Um die Arbeit mit der Web Storage API zu vereinfachen, können Sie Hilfsfunktionen erstellen, die die Serialisierung und Deserialisierung kapseln:
+
+// store data
+function setItem(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+// retrieve data
+function getItem(key) {
+  return JSON.parse(localStorage.getItem(key));
+}
+Diese Funktionen funktionieren mit einfachen Datentypen wie Zeichenfolgen und Zahlen sowie mit komplexen Datentypen:
+
+setItem("user", {
+  name: "Alex",
+  age: 28,
+  isOnline: true,
+});
+setItem("count", 42);
+
+const user = getItem("user");
+const count = getItem("count");
+Reagieren Sie mit lokalem Speicher
+Sie können auch die Web Storage API in React verwenden. Am häufigsten möchten Sie den Status im lokalen Speicher beibehalten, damit er das Neuladen der Seite übersteht.
+
+React bietet mehrere Möglichkeiten, den Status mit dem lokalen Speicher zu synchronisieren. Das allgemeine Konzept besteht darin, den Anfangszustand aus dem lokalen Speicher abzurufen und ihn bei jeder Änderung im lokalen Speicher zu speichern.
+
+Da es ziemlich schwierig wird, alle verschiedenen Teile selbst richtig zu verkabeln, sollten Sie eine Bibliothek verwenden, die dafür einen Haken bietet.
+
+use-local-storage-state
+Die use-local-storage-stateBibliothek bietet einen Hook, der es Ihnen ermöglicht, den Status im lokalen Speicher beizubehalten.
+
+Sie können es als Ersatz für den useStateHaken verwenden (im folgenden Beispiel auskommentiert):
+
+// import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
+
+function Counter() {
+  // const [count, setCount] = useState(0);
+  const [count, setCount] = useLocalStorageState("count", { defaultValue: 0 });
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+💡Beachten Sie, dass das erste Argument des useLocalStorageStateHooks der Schlüssel ist, der zum Speichern des Status im lokalen Speicher verwendet wird. Wenn Sie denselben Schlüssel für mehrere Komponenten verwenden, haben diese denselben Status.
+
+💡Mit können Sie sich nicht selbst um die Serialisierung oder das Parsen komplexer Daten kümmern use-local-storage-state. Die Bibliothek erledigt das im Hintergrund für Sie.
+
+📙Weitere Informationen zur Verwendung des use-local-storage-stateHooks finden Sie in den zugehörigen Dokumenten .
+
+
+
