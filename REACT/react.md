@@ -1703,7 +1703,7 @@ Zum Speichern von Daten verwendet die API Schlüssel-Wert-Paare. Der Schlüssel 
 
 💡Alle folgenden Beispiele verwenden, localStorageaber das Gleiche gilt für sessionStorage.
 
-📙Weitere Informationen zur Web Storage API finden Sie in den mdn-Webdokumenten .
+> 📙 Read more about the [**Web Storage API** on the mdn web docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API).
 
 Daten speichern
 Um Daten zu speichern, verwenden Sie die setItem()Methode:
@@ -1772,7 +1772,7 @@ React bietet mehrere Möglichkeiten, den Status mit dem lokalen Speicher zu sync
 Da es ziemlich schwierig wird, alle verschiedenen Teile selbst richtig zu verkabeln, sollten Sie eine Bibliothek verwenden, die dafür einen Haken bietet.
 
 use-local-storage-state
-Die use-local-storage-stateBibliothek bietet einen Hook, der es Ihnen ermöglicht, den Status im lokalen Speicher beizubehalten.
+The [`use-local-storage-state`](https://github.com/astoilkov/use-local-storage-state) library provides a hook that allows you to persist state in local storage.
 
 Sie können es als Ersatz für den useStateHaken verwenden (im folgenden Beispiel auskommentiert):
 
@@ -1794,7 +1794,14 @@ function Counter() {
 
 💡Mit können Sie sich nicht selbst um die Serialisierung oder das Parsen komplexer Daten kümmern use-local-storage-state. Die Bibliothek erledigt das im Hintergrund für Sie.
 
-📙Weitere Informationen zur Verwendung des use-local-storage-stateHooks finden Sie in den zugehörigen Dokumenten .
+> 📙 Read more about [**how to use the `use-local-storage-state` hook** in its docs](https://github.com/astoilkov/use-local-storage-state#usage).
+
+---
+
+## Resources
+
+- [Web Storage API on the mdn web docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)
+- [use-local-storage-state on GitHub](https://github.com/astoilkov/use-local-storage-state)
 
 
 
