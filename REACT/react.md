@@ -1376,6 +1376,309 @@ const filteredTrees = trees.filter((tree) => tree.height > minHeight);
 
 
 
+
+---
+
+### React Effects and Fecht
+
 9. [React Effects and Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/react-effects-and-fetch.md)[Challenges]
+
+Lernziele
+
+zu wissen dass Fetch ein Nebeneffekt
+Wissen, wie man den useEffect Hook benutzt
+Understanding the callback function of useEffect
+Understanding the dependency array of useEffect
+Understanding the cleanup function of useEffect
+Knowing other side effects and cases foruseEffect
+
+### Effekt in React
+
+Effekte sind eine Möglichkeit, React-Komponenten mit externen Systemen zu synchronisieren.
+
+Beispiele für Interaktionen mit externen Systemen sind:
+
+Direkte Manipulation des DOM (z. B. Festlegen des Dokumenttitels)
+Netzwerkanfragen stellen, um Daten abzurufen
+Arbeiten mit anderen Web-APIs
+Einrichten und Abbauen von Abonnements und globalen Event-Handlern
+Timer einstellen
+Integration mit Bibliotheken von Drittanbietern.
+
+
+Die Verwendung eines Effekts ist ein Ausweg aus der deklarativen Welt von React. Es handelt sich um eine Möglichkeit, zwingenden Code auszuführen, der nicht direkt mit der Darstellung der Benutzeroberfläche zusammenhängt. *** Während die Komponentenfunktion rein sein muss, ist dies bei Effektfunktionen konstruktionsbedingt nicht der Fall. Sie kapseln Nebenwirkungen ein.***
+
+
+Ein Effekt ist als eine Funktion definiert, die ausgeführt wird, nachdem die Komponente gerendert (und das DOM aktualisiert) wurde. Es kann so synchronisiert werden, dass es nicht nur beim Mounten ausgeführt wird, sondern auch dann, wenn sich alle oder nur bestimmte reaktive Werte innerhalb der Komponentenfunktion geändert haben.
+
+Effektfunktionen können eine Bereinigungsfunktion zurückgeben, die ausgeführt wird, bevor die Effektfunktion erneut ausgeführt wird oder wenn die Bereitstellung der Komponente aufgehoben wird.
+
+💡Ein reaktiver Wert ist ein Wert, der sich ändert: Requisiten, Zustand, Ableitungen davon oder Werte und Funktionen, die innerhalb einer Komponentenfunktion deklariert werden.
+
+💡 Mounten bedeutet, dass eine Komponente gerendert, im DOM abgelegt und zum ersten Mal auf dem Bildschirm angezeigt wird. Danach können verschiedene Aktualisierungen und erneute Renderings erfolgen (z. B. aufgrund von Statusänderungen). Unmounten bedeutet, dass die Komponente entfernt wird und nicht mehr auf dem Bildschirm angezeigt wird.
+
+```
+### useEffect
+````
+
+
+Der ```` useEffec````  tHook wird verwendet, um Effekte zu einer React-Komponente hinzuzufügen. Es braucht zwei Argumente:
+
+eine Funktion, die den Effekt definiert (normalerweise eine anonyme Funktion)
+ein Array von Variablen, von denen der Effekt abhängt
+Der folgende Code aktualisiert beispielsweise den Komponententitel auf den Wert der title Prop:
+
+
+````
+import { useEffect } from "react";
+
+function Title({ title }) {
+  useEffect(() => {
+    // updating the document title is a side effect
+    // that is not directly related to rendering the UI
+    document.title = title;
+  });
+
+  return <h1>{title}</h1>;
+}
+
+````
+
+### Wirkungsabhängigkeiten
+
+Der obige Effekt wird ausgeführt, nachdem die Komponente gerendert und das DOM aktualisiert wurde. Aber das kommt viel häufiger vor als nötig. Der Effekt sollte nur ausgeführt werden, wenn sich die titleRequisite ändert. Um dies zu erreichen, können wir dem useEffect()Hook ein Array reaktiver Werte übergeben. Der Effekt wird nur ausgeführt, wenn sich einer der reaktiven Werte im Array ändert.
+
+````
+
+import { useEffect } from "react";
+
+function Title({ title }) {
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+
+  return <h1>{title}</h1>;
+}
+
+````
+
+
+Dies wird wichtig, wenn die Komponentenfunktion mehr als eine Prop- oder Zustandsvariable hat. Stellen Sie sich vor, Sie hätten einen countZustand in der Komponente:
+
+
+````
+import { useEffect, useState } from "react";
+
+function Title({ title }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{count}</p>
+      <button type="button" onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}
+
+````
+
+
+Die Effektfunktion wird nur ausgeführt, wenn sich die titleVariable vom vorherigen Wert unterscheidet. Die countStatusvariable ist nicht Teil des Arrays, daher wird der Effekt nicht ausgeführt, wenn sich der countStatus ändert.
+
+💡Fügen Sie immer alle reaktiven Werte, die in der Effektfunktion verwendet werden, zum Array der Abhängigkeiten hinzu. React verfügt über ESLint-Regeln, die Sie warnen, wenn Sie vergessen, dem Abhängigkeitsarray eine Variable hinzuzufügen.
+
+Wenn der Effekt keine Abhängigkeiten hat, sollte das Abhängigkeitsarray leer sein:[] .
+
+Ein leeres Abhängigkeitsarray weist React an, diesen Effekt nur einmal auszuführen: wenn die Komponente zum ersten Mal auf dem Bildschirm erscheint.
+
+Bereinigungsfunktion
+
+
+Die Effektfunktion kann eine Bereinigungsfunktion zurückgeben, die ausgeführt wird, bevor die Effektfunktion erneut ausgeführt wird oder wenn die Komponente ausgehängt wird.
+
+
+````
+import { useEffect } from "react";
+
+function Title({ title }) {
+  useEffect(() => {
+    // make a copy of the old title
+    const oldTitle = document.title;
+
+    document.title = title;
+
+    // cleanup function
+    return () => {
+      // undo what we have done by setting the old title again
+      document.title = oldTitle;
+    };
+  }, [title]);
+
+  return <h1>{title}</h1>;
+}
+
+````
+
+
+Die Bereinigungsfunktion sollte die Nebenwirkungen der Effektfunktion rückgängig machen. Im obigen Beispiel setzt die Bereinigungsfunktion den Dokumenttitel auf den Standardwert zurück.
+
+Wenn die Effektfunktion zum Einrichten eines Abonnements oder eines globalen Ereignishandlers verwendet wird, sollte die Bereinigungsfunktion das Abonnement oder den Ereignishandler entfernen.
+
+````
+import { useEffect, useState } from "react";
+
+function WindowWidth() {
+  const [windowWidth, setWindowWidth] = useState();
+
+  useEffect(() => {
+    function handleResize(event) {
+      setWindowWidth(event.target.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    // cleanup function
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return <p>The window is {windowWidth}px wide. 📏</p>;
+}
+
+````
+Bei Timern sollte die Bereinigungsfunktion den Timer löschen.
+
+
+````
+
+
+import { useEffect, useState } from "react";
+
+function Timer() {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds((s) => s + 1);
+    }, 1000);
+
+    // cleanup function
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return <p>The timer is at {seconds} seconds. ⏱</p>;
+}
+
+````
+
+
+> 📙 Read more about [**Synchronizing with Effects** in the React docs](https://react.dev/learn/synchronizing-with-effects).
+
+> 📙 Even though effects can be incredibly useful, you might not actually need an effect to do what you want. Read more about [**You might not need an effect** in the React docs](https://react.dev/learn/you-might-not-need-an-effect).
+
+Fetch Data in React 
+
+Einer der häufigsten Anwendungsfälle für Effekte ist das Abrufen von Daten von einer externen API.
+
+Das Konzept ist wie folgt: Nachdem die Komponente zum ersten Mal gerendert wurde, wird eine Effektfunktion ausgeführt und ruft Daten von einer externen API ab. Sobald die Daten abgerufen wurden, wird innerhalb der Effektfunktion eine Statusvariable festgelegt. Wenn der Abruf von einer Requisiten- oder Zustandsvariablen abhängig ist, wird die Effektfunktion erneut ausgeführt, wenn sich die Variable ändert.
+
+Die Effektfunktion selbst kann nicht asynchron sein, sie kann jedoch asynchrone Funktionen aufrufen. Um dies zu umgehen, können Sie eine asynchrone Funktion innerhalb der Effektfunktion definieren und diese sofort aufrufen (ohne tatsächlich auf das Ergebnis zu warten).
+
+Das folgende Beispiel zeigt, wie man Daten von einer API abruft und die Daten in einer Komponente anzeigt:
+
+````
+import { useEffect, useState } from "react";
+
+function Jokes() {
+  const [jokes, setJokes] = useState([]);
+
+  useEffect(() => {
+    async function startFetching() {
+      const response = await fetch(
+        "https://example-apis.vercel.app/api/bad-jokes"
+      );
+      const jokes = await response.json();
+
+      setJokes(jokes);
+    }
+
+    startFetching();
+  }, []);
+
+  return (
+    <ul>
+      {jokes.map(({ id, joke }) => (
+        <li key={id}>{joke}</li>
+      ))}
+    </ul>
+  );
+}
+
+````
+Wenn die Daten, die Sie abrufen möchten, von einer Requisiten- oder Zustandsvariablen abhängig sind, müssen Sie sie dem Array von Variablen hinzufügen, von denen der Effekt abhängt:
+
+
+````
+import { useEffect, useState } from "react";
+
+function Joke({ id }) {
+  const [joke, setJoke] = useState();
+
+  useEffect(() => {
+    async function startFetching() {
+      const response = await fetch(
+        `https://example-apis.vercel.app/api/bad-jokes/${id}`
+      );
+      const joke = await response.json();
+
+      setJoke(joke);
+    }
+
+    startFetching();
+  }, [id]);
+
+  if (!joke) {
+    return null;
+  }
+
+  return <h2>{joke.joke}</h2>;
+}
+
+````
+
+Der obige Ansatz funktioniert für einfache Anwendungsfälle gut genug. Einige wichtige Funktionen werden jedoch nicht behandelt:
+
+Es behandelt keine Rennbedingungen. (Wenn der Benutzer die idRequisite ändert, bevor der erste Abruf abgeschlossen ist, besteht die Möglichkeit, dass der falsche Witz angezeigt wird.)
+Ladezustände werden nicht behandelt.
+Es werden keine Fehler behandelt. (Weder Netzwerkfehler noch Fehler von der API.)
+Es übernimmt kein Caching.
+In Zukunft werden wir eine Datenabrufbibliothek verwenden, um diese Probleme anzugehen.
+
+💡Selbst wenn Sie eine Datenabrufbibliothek verwenden, verwendet die Bibliothek useEffectunter der Haube Effekte (und den Hook), um Daten abzurufen.
+> 📙 Read more about [**Fetching Data** in the React docs](https://react.dev/learn/synchronizing-with-effects#fetching-data). The docs also describe a way to handle race conditions.
+
+---
+
+## Resources
+
+- [React docs: Synchronizing with Effects](https://react.dev/learn/synchronizing-with-effects)
+- [React docs: Fetching data example with useEffect](https://react.dev/learn/synchronizing-with-effects#fetching-dat)
+- [React docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
+
+
+
+
+
+
 
 10. [React with Local Storage](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/react-with-local-storage.md)[Challenges]
