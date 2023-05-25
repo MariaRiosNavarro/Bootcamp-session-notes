@@ -16,11 +16,11 @@ REACT
 
 8.[React State 3](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/react-state-3.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/challenges-react-state-3.md)
 
-9.[React Effects and Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/react-effects-and-fetch.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/challenges-react-effects-and-fetch.md)
+9.[React Effects and Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/react-effects-and-fetch.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/challenges-react-effects-and-fetch.md)
 
-10.[React with Local Storage](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/react-with-local-storage.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/challenges-react-with-local-storage.md)
+10.[React with Local Storage](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/react-with-local-storage.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/challenges-react-with-local-storage.md)
 
-11.[React Custom Hooks](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-custom-hooks/react-custom-hooks.md)[Challenges]()
+11.[React Custom Hooks](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-custom-hooks/react-custom-hooks.md) [Challenges]()
 
 
 
@@ -802,7 +802,9 @@ Schlüsselfragmente
 
 Wenn Sie eine Liste von Elementen rendern, die nicht in ein einzelnes JSX-Tag eingeschlossen sind, können Sie <Fragment>die Elemente mit a umschließen.
 
-```
+
+```js  
+  
 import { Fragment } from "react";
 
 function Drinks() {
@@ -824,7 +826,8 @@ function Drinks() {
     </dl>
   );
 }
-```
+````
+  
   
 💡<>…</>Hier können Sie nicht die kurze Syntax ( ) für verwenden, da Sie die Requisite an <Fragment>übergeben müssen . Die kurze Syntax erlaubt keine Übergabe von Requisiten.key<Fragment>
   
@@ -848,7 +851,8 @@ Den Staat weitergeben
   
 Der Wert einer Zustandsvariablen und die Setter-Funktion können als Props an untergeordnete Komponenten weitergegeben werden. Da es sich um Funktionen und Werte handelt, können sie wie alle anderen Daten weitergegeben werden.
 
-```
+
+```js
 function Parent() {
   const [count, setCount] = useState(0);
 
@@ -858,9 +862,7 @@ function Parent() {
 
   return <Child count={count} onIncrement={handleIncrement} />;
 }
-```
 
-```
 function Child({ count, onIncrement }) {
   return (
     <>
@@ -993,7 +995,8 @@ Dieses Verhalten kann unerwartet sein, es ist jedoch wichtig zu verstehen, dass 
 
 Es gibt verschiedene Möglichkeiten, den obigen Code zu beheben. In diesem Beispiel könnten wir anrufen setCount(count + 2)und fertig. Wenn wir aus irgendeinem Grund zweimal aufrufen müssen setCount, können wir die funktionale Form der Setter-Funktion verwenden, die den aktuellen internen Wert der Zustandsvariablen als Argument bereitstellt.
 
-``` 
+
+```js 
 // ⚠️ This code is unnecessary complicated, but it works!
 function Counter() {
   const [count, setCount] = useState(0); // count is 0 initially
@@ -1027,6 +1030,9 @@ function Counter() {
 }
 ``` 
 
+```js
+````
+
 
 💡Hier wird das Präfix prevverwendet, um anzuzeigen, dass der Wert der vorherige Wert der Zustandsvariablen ist. Eine weitere gängige Konvention besteht darin, nur den ersten Buchstaben der Statusvariablen als Parameternamen zu verwenden: setCount(c => c + 1).
 
@@ -1034,7 +1040,7 @@ function Counter() {
 
 ### Reagieren Sie auf Hooks
 
-Die useStateFunktion ist Teil einer breiteren Reihe von React-Funktionen, die Komponenten zusätzliche Kräfte verleihen.
+Die useState Funktion ist Teil einer breiteren Reihe von React-Funktionen, die Komponenten zusätzliche Kräfte verleihen.
 
 Hooks sind Funktionen, die es Komponentenfunktionen ermöglichen, sich in React-Funktionen (wie den Zustand) einzubinden und es Komponenten ermöglichen, mehr zu tun, als eine herkömmliche JavaScript-Funktion kann. Sie folgen der Namenskonvention useXzy.
 
@@ -1077,7 +1083,8 @@ Verwenden Sie die Setter-Funktion mit der kürzlich erstellten/aktualisierten Ko
 Objekte im Status aktualisieren
 Um eine Kopie eines Objekts zu erstellen und nur einige Eigenschaften zu ändern, können Sie die Spread-Syntax verwenden:
 
-```
+
+```js
 const [person, setPerson] = useState({
   firstName: "John",
   lastName: "Doe",
@@ -1120,7 +1127,8 @@ Zu einem Array hinzufügen
 
 Um einem Array ein Element hinzuzufügen, können Sie die Spread-Syntax verwenden:
 
-```
+
+```js
 const [numbers, setNumbers] = useState([0, 1, 2]);
 
 function handleAppendNumber(number) {
@@ -1136,7 +1144,6 @@ function handlePrependNumber(number) {
 
 // Somewhere else:
 handlePrependNumber(-1);
-
 ```
 
 
@@ -1258,7 +1265,8 @@ Sortieren eines Arrays von Objekten
 
 Um ein Array von Objekten zu sortieren, können Sie sorteine Kopie des Arrays mit einer benutzerdefinierten Vergleichsfunktion verwenden. Die Vergleichsfunktion gibt eine Zahl zurück, die zur Bestimmung der Reihenfolge der Elemente verwendet wird.
 
-```
+
+```js
 const [trees, setTrees] = useState([
   { id: 0, name: "Oak", height 7.5},
   { id: 1, name: "Beech", height 6},
@@ -1280,7 +1288,8 @@ Bei der Wahl Ihrer Staatsstruktur gibt es einige häufige Fallstricke.
 Gruppenbezogener Status
 Wenn Sie einen Status haben, der zusammengehört (und aktualisiert wird), gruppieren Sie ihn in einem einzigen Objekt. Dies erleichtert die Aktualisierung des Status.
 
-```
+
+```js
 // ❌ MEH
 const [userName, setUserName] = useState("Alex");
 const [userAge, setUserAge] = useState(28);
@@ -1293,7 +1302,8 @@ Wenn Sie einen Wert haben, der von einem Status abgeleitet ist, sollten Sie es v
 
 Das Problem mit dem redundanten Status besteht darin, dass er nicht mehr mit der Quelle der Wahrheit synchronisiert sein kann, wenn Sie vergessen, ihn korrekt zu aktualisieren.
 
-```
+
+```js
 // ❌ BAD
 const [user, setUser] = useState({ name: "Alex", age: 28 });
 const [isAdult, setIsAdult] = useState(user.age >= 18);
@@ -1306,7 +1316,8 @@ const isAdult = user.age >= 18;
 Vermeiden Sie Duplikate im Bundesstaat
 Vermeiden Sie es, denselben Wert an mehreren Stellen im Bundesstaat zu speichern. Dies kann zu Fehlern führen und die Aktualisierung des Status erschweren.
 
-```
+
+```js
 // ❌ BAD
 const [trees, setTrees] = useState([
   { id: 0, name: "Oak", height 7.5},
@@ -1320,7 +1331,7 @@ const [selectedTree, setSelectedTree] = useState(trees.find((tree) => tree.id ==
 setSelectedTree(trees.find((tree) => tree.id === 2));
 ```
 
-```
+```js
 
 // ✅ GOOD
 const [trees, setTrees] = useState([
@@ -1341,7 +1352,8 @@ Vermeiden Sie doppelte Listen im Bundesstaat
 
 Wenn Sie eine Liste von Elementen im Status haben, sollten Sie es vermeiden, eine abgeleitete Version davon in einer anderen Statusvariablen zu speichern. Dies ist ein häufiger Fehler, wenn Sie eine gefilterte Version der Liste anzeigen möchten.
 
-```
+
+```js
 // ❌ BAD
 const [trees, setTrees] = useState([
   { id: 0, name: "Oak", height 7.5},
@@ -1422,9 +1434,11 @@ Effektfunktionen können eine Bereinigungsfunktion zurückgeben, die ausgeführt
 
 💡 Mounten bedeutet, dass eine Komponente gerendert, im DOM abgelegt und zum ersten Mal auf dem Bildschirm angezeigt wird. Danach können verschiedene Aktualisierungen und erneute Renderings erfolgen (z. B. aufgrund von Statusänderungen). Unmounten bedeutet, dass die Komponente entfernt wird und nicht mehr auf dem Bildschirm angezeigt wird.
 
-```
+
+```js
 ### useEffect
-````
+
+```
 
 
 Der ```` useEffec````  tHook wird verwendet, um Effekte zu einer React-Komponente hinzuzufügen. Es braucht zwei Argumente:
@@ -1434,7 +1448,8 @@ ein Array von Variablen, von denen der Effekt abhängt
 Der folgende Code aktualisiert beispielsweise den Komponententitel auf den Wert der title Prop:
 
 
-````
+
+```js
 import { useEffect } from "react";
 
 function Title({ title }) {
@@ -1453,7 +1468,8 @@ function Title({ title }) {
 
 Der obige Effekt wird ausgeführt, nachdem die Komponente gerendert und das DOM aktualisiert wurde. Aber das kommt viel häufiger vor als nötig. Der Effekt sollte nur ausgeführt werden, wenn sich die titleRequisite ändert. Um dies zu erreichen, können wir dem useEffect()Hook ein Array reaktiver Werte übergeben. Der Effekt wird nur ausgeführt, wenn sich einer der reaktiven Werte im Array ändert.
 
-````
+
+```js
 
 import { useEffect } from "react";
 
@@ -1471,7 +1487,8 @@ function Title({ title }) {
 Dies wird wichtig, wenn die Komponentenfunktion mehr als eine Prop- oder Zustandsvariable hat. Stellen Sie sich vor, Sie hätten einen countZustand in der Komponente:
 
 
-````
+
+```js
 import { useEffect, useState } from "react";
 
 function Title({ title }) {
@@ -1509,7 +1526,8 @@ Bereinigungsfunktion
 Die Effektfunktion kann eine Bereinigungsfunktion zurückgeben, die ausgeführt wird, bevor die Effektfunktion erneut ausgeführt wird oder wenn die Komponente ausgehängt wird.
 
 
-````
+
+```js
 import { useEffect } from "react";
 
 function Title({ title }) {
@@ -1536,7 +1554,8 @@ Die Bereinigungsfunktion sollte die Nebenwirkungen der Effektfunktion rückgäng
 
 Wenn die Effektfunktion zum Einrichten eines Abonnements oder eines globalen Ereignishandlers verwendet wird, sollte die Bereinigungsfunktion das Abonnement oder den Ereignishandler entfernen.
 
-````
+
+```js
 import { useEffect, useState } from "react";
 
 function WindowWidth() {
@@ -1562,7 +1581,8 @@ function WindowWidth() {
 Bei Timern sollte die Bereinigungsfunktion den Timer löschen.
 
 
-````
+
+```js
 
 
 import { useEffect, useState } from "react";
@@ -1601,7 +1621,8 @@ Die Effektfunktion selbst kann nicht asynchron sein, sie kann jedoch asynchrone 
 
 Das folgende Beispiel zeigt, wie man Daten von einer API abruft und die Daten in einer Komponente anzeigt:
 
-````
+
+```js
 import { useEffect, useState } from "react";
 
 function Jokes() {
@@ -1633,7 +1654,8 @@ function Jokes() {
 Wenn die Daten, die Sie abrufen möchten, von einer Requisiten- oder Zustandsvariablen abhängig sind, müssen Sie sie dem Array von Variablen hinzufügen, von denen der Effekt abhängt:
 
 
-````
+
+```js
 import { useEffect, useState } from "react";
 
 function Joke({ id }) {
@@ -1712,29 +1734,54 @@ Zum Speichern von Daten verwendet die API Schlüssel-Wert-Paare. Der Schlüssel 
 Daten speichern
 Um Daten zu speichern, verwenden Sie die setItem()Methode:
 
+
+```js
 localStorage.setItem("name", "Alex");
 localStorage.setItem("age", 28);
 localStorage.setItem("isOnline", true);
+````
+
 Daten abrufen
+
 Um Daten abzurufen, verwenden Sie die getItem()Methode:
 
+
+
+```js
 const name = localStorage.getItem("name"); // → "Alex"
 const age = localStorage.getItem("age"); // → 28
 const isOnline = localStorage.getItem("isOnline"); // → true
+````
+
 Der Aufruf getItemkehrt zurück null, wenn der Schlüssel nicht vorhanden ist.
 
+
+```js
 const nope = localStorage.getItem("nope"); // → null
+````
+
 Daten entfernen
+
 Um Daten zu entfernen, verwenden Sie die removeItem()Methode:
 
+```js
 localStorage.removeItem("name");
+````
+
 Alle Daten löschen
+
 Um alle Daten zu entfernen, verwenden Sie die clear()Methode:
 
+```js
 localStorage.clear();
+````
+
 Komplexe Daten speichern
+
 Die Web Storage API unterstützt nur Zeichenfolgen, Zahlen und boolesche Werte. Um komplexere Daten zu speichern, müssen Sie diese zunächst serialisieren. Dies kann mit der Methode erfolgen JSON.stringify():
 
+
+```js
 const user = {
   name: "Alex",
   age: 28,
@@ -1742,10 +1789,18 @@ const user = {
 };
 
 localStorage.setItem("user", JSON.stringify(user));
+```
+
 Um die Daten abzurufen, müssen Sie sie mit der folgenden JSON.parse()Methode analysieren:
 
+
+```js
 const user = JSON.parse(localStorage.getItem("user"));
+
+```
+
 Hilfsfunktionen
+
 Um die Arbeit mit der Web Storage API zu vereinfachen, können Sie Hilfsfunktionen erstellen, die die Serialisierung und Deserialisierung kapseln:
 
 // store data
@@ -1759,6 +1814,8 @@ function getItem(key) {
 }
 Diese Funktionen funktionieren mit einfachen Datentypen wie Zeichenfolgen und Zahlen sowie mit komplexen Datentypen:
 
+
+```js
 setItem("user", {
   name: "Alex",
   age: 28,
@@ -1768,7 +1825,12 @@ setItem("count", 42);
 
 const user = getItem("user");
 const count = getItem("count");
+
+````
+
+
 Reagieren Sie mit lokalem Speicher
+
 Sie können auch die Web Storage API in React verwenden. Am häufigsten möchten Sie den Status im lokalen Speicher beibehalten, damit er das Neuladen der Seite übersteht.
 
 React bietet mehrere Möglichkeiten, den Status mit dem lokalen Speicher zu synchronisieren. Das allgemeine Konzept besteht darin, den Anfangszustand aus dem lokalen Speicher abzurufen und ihn bei jeder Änderung im lokalen Speicher zu speichern.
@@ -1776,9 +1838,14 @@ React bietet mehrere Möglichkeiten, den Status mit dem lokalen Speicher zu sync
 Da es ziemlich schwierig wird, alle verschiedenen Teile selbst richtig zu verkabeln, sollten Sie eine Bibliothek verwenden, die dafür einen Haken bietet.
 
 use-local-storage-state
+
 The [`use-local-storage-state`](https://github.com/astoilkov/use-local-storage-state) library provides a hook that allows you to persist state in local storage.
 
-Sie können es als Ersatz für den useStateHaken verwenden (im folgenden Beispiel auskommentiert):
+
+Sie können es als Ersatz für den useState Hook verwenden (im folgenden Beispiel auskommentiert):
+
+
+```js
 
 // import { useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
@@ -1794,6 +1861,8 @@ function Counter() {
     </div>
   );
 }
+````
+
 💡Beachten Sie, dass das erste Argument des useLocalStorageStateHooks der Schlüssel ist, der zum Speichern des Status im lokalen Speicher verwendet wird. Wenn Sie denselben Schlüssel für mehrere Komponenten verwenden, haben diese denselben Status.
 
 💡Mit können Sie sich nicht selbst um die Serialisierung oder das Parsen komplexer Daten kümmern use-local-storage-state. Die Bibliothek erledigt das im Hintergrund für Sie.
@@ -1809,5 +1878,302 @@ function Counter() {
 
 ---
 
+###React Custom Hooks
+
 11.[React Custom Hooks](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-custom-hooks/react-custom-hooks.md)[Challenges]()
 
+
+Reagieren Sie auf benutzerdefinierte Hooks
+Lernziele
+Verstehen, was ein benutzerdefinierter Hook ist und wie man einen erstellt
+Verstehen, dass benutzerdefinierte Hooks zustandsbehaftete Logik abstrahieren können ( useState, useEffect)
+Verstehen, wann ein benutzerdefinierter Hook erstellt werden muss
+Einführung
+React verfügt über einige grundlegende (aber dennoch nützliche ) Hooks. Wir haben etwas über ```useStateund``` gelernt ```useEffect```.
+
+Manchmal möchten Sie einen Hook, der für einen spezifischeren Anwendungsfall erstellt wird. Sie können Ihre eigenen benutzerdefinierten Hooks erstellen. Es handelt sich um Funktionen, die mit useanderen Hooks beginnen und diese verwenden können.
+
+Ein Zustand mit mehreren spezifischen Aktualisierungsfunktionen (z. B. value, increment(), decrement(), reset()→ useCount())
+Ein Zustand, der mit Fensterereignissen und -werten synchronisiert ist (z. B. useWindowWidth())
+Ein Status, der eine abgerufene Ressource darstellt (z. B. useFetch())
+Ein Zustand, der im lokalen Speicher des Browsers bestehen bleibt (z. B. useLocalStorageState())
+> 📙 Read more about [**Reusing Logic with Custom Hooks** in the React docs](https://react.dev/learn/reusing-logic-with-custom-hooks).
+
+Gegenbeispiel
+useCountSie könnten einen benutzerdefinierten Hook wie folgt definieren :
+
+
+```js
+import { useState } from "react";
+
+function useCount(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+
+  function increment() {
+    setCount(count + 1);
+  }
+
+  function decrement() {
+    setCount(count - 1);
+  }
+
+  function reset() {
+    setCount(initialValue);
+  }
+
+  return { count, increment, decrement, reset };
+}
+````
+
+Und verwenden Sie es so:
+
+
+```js
+import { useCount } from "./useCount";
+
+function Counter() {
+  const { count, increment, decrement, reset } = useCount(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+      <button onClick={reset}>Reset</button>
+    </div>
+  );
+}
+
+````
+
+💡Hier useCount wird der useState Hook intern verwendet. Deshalb muss es selbst ein Hook sein. Benutzerdefinierte Hooks müssen denselben Regeln folgen wie normale Hooks: Rufen Sie Hooks nur auf der obersten Ebene Ihrer Funktion auf und rufen Sie sie nur innerhalb einer React-Funktionskomponente oder eines benutzerdefinierten Hooks auf.
+
+Benutzerdefinierte Hook-Rückgabewerte
+
+Benutzerdefinierte Hooks können alles zurückgeben, was eine normale Funktion zurückgeben kann. Hier sind einige Beispiele für gängige Rückgabewerte:
+
+Einen einzelnen Wert zurückgeben
+
+Manchmal müssen Hooks nur einen einzelnen Wert zurückgeben.
+
+
+```js
+function useWindowWidth() {
+  const [width, setWidth] = useState();
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return width;
+}
+````
+
+Dieser Hook gibt nur die aktuelle Fensterbreite zurück. Es muss nichts anderes zurückgegeben werden. Bei Verwendung des Hooks kann dem Wert ein beliebiger Name gegeben werden.
+
+
+```js
+const currentWindowWidth = useWindowWidth();
+````
+
+Ein Array zurückgeben
+
+
+```js
+function useD6() {
+  const [value, setValue] = useState();
+
+  function roll() {
+    setValue(Math.floor(Math.random() * 6) + 1);
+  }
+
+  return [value, roll];
+}
+````
+
+Dieser Hook gibt ein Array mit dem aktuellen Wert und einer Funktion zum Würfeln zurück. Die Rückgabe eines Arrays ist ein gängiges Muster, da Sie damit die Array-Destrukturierung verwenden können, um die Werte analog zur Funktionsweise zu erhalten useState. Die Array-Destrukturierung hat den Vorteil, dass Sie die Werte einfach benennen können.
+
+
+```js
+
+const [firstDie, rollFirstDie] = useD6();
+const [secondDie, rollSecondDie] = useD6();
+````
+
+Ein Objekt zurückgeben
+
+
+```js
+function useCount(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+
+  function increment() {
+    setCount(count + 1);
+  }
+
+  function decrement() {
+    setCount(count - 1);
+  }
+
+  function reset() {
+    setCount(initialValue);
+  }
+
+  return { count, increment, decrement, reset };
+}
+````
+
+💡Die return-Anweisung verwendet die Kurzschreibweise von Objekten. Dies ist eine gute Möglichkeit, ein Objekt mit Eigenschaften zurückzugeben, die denselben Namen wie die Variable haben. Das Obige entspricht:
+
+```js
+return {
+  count: count,
+  increment: increment,
+  decrement: decrement,
+  reset: reset,
+};
+````
+
+Wenn ein Hook mehr Werte und Funktionen verfügbar macht, ist es üblich, ein Objekt zurückzugeben. Dadurch können Sie die Objektdestrukturierung verwenden, um die Werte abzurufen. Sie können die Eigenschaften, die Sie nicht benötigen, auch einfach aus der Destrukturierung weglassen.
+
+
+```js
+// Vorwärts immer, rückwärts nimmer…
+const { count, increment } = useCount(0);
+````
+
+Hook-Parameter
+
+Benutzerdefinierte Hook-Funktionen können Parameter wie normale Funktionen haben. Dadurch können Sie den Hook flexibler gestalten. Im useCount obigen Beispiel kann der Anfangswert als Parameter übergeben werden.
+
+
+```js
+function useCount(initialValue = 0) {
+  // …
+}
+
+const { count, increment, decrement, reset } = useCount(1337);
+````
+
+Hook und Module
+
+Benutzerdefinierte Hooks können in derselben Datei definiert werden wie die Komponente, die sie verwendet. Es ist aber auch üblich, diese in einer separaten Datei zu definieren und zu importieren.
+
+
+```js
+// useCount.js
+import { useState } from "react";
+
+export function useCount(initialValue = 0) {
+  // …
+}
+// Counter.js
+import { useCount } from "./useCount";
+
+function Counter() {
+  const { count, increment, decrement, reset } = useCount(0);
+  // …
+}
+````
+
+
+Abstrakte wiederkehrende Logik in benutzerdefinierte Hooks
+
+Ein einfacher useFetch Hook
+
+Da Fetch ein sehr häufiger Anwendungsfall ist, ist es ein guter Kandidat für einen benutzerdefinierten Hook. Hier ist ein einfacher useFetch Hook, der eine Ressource abruft und die analysierte Antwort zurückgibt.
+
+
+```js
+import { useState, useEffect } from "react";
+
+export function useFetch(url) {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    async function startFetching() {
+      const response = await fetch(url);
+      const data = await response.json();
+      setData(data);
+    }
+    startFetching();
+  }, [url]);
+
+  return data;
+}
+````
+
+Und verwenden Sie es so:
+
+
+
+```js
+import { useFetch } from "./useFetch";
+
+function App() {
+  const jokes = useFetch("https://example-apis.vercel.app/api/bad-jokes");
+
+  return (
+    <div>
+      <h1>Bad Jokes</h1>
+      <ul>
+        {jokes?.map(({ id, joke }) => (
+          <li key={id}>{joke}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+````
+
+💡Beachten Sie, dass dieser Hook keine erweiterten Funktionen wie die Behandlung von Rennbedingungen, Fehlerbehandlung, Ladezustände oder Caching implementiert.
+
+Ein usePokemonHaken, der verwendet useFetch
+
+Wenn wir nun einen einfach zu verwendenden Hook für einen ganz bestimmten Anwendungsfall haben möchten, beispielsweise das Abrufen eines einzelnen Pokémon aus dem Pokeapi, können wir einen usePokemonHook erstellen, der den useFetchHook intern verwendet.
+
+```js
+import { useFetch } from "./useFetch";
+
+export function usePokemon(name) {
+  const pokemon = useFetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+  return pokemon;
+}
+```
+
+Und verwenden Sie es so:
+
+```js
+import { usePokemon } from "./usePokemon";
+
+function App() {
+  const pokemon = usePokemon("pikachu");
+
+  return (
+    <div>
+      <h1>{pokemon?.name}</h1>
+      <img src={pokemon?.sprites.front_default} alt={pokemon?.name} />
+    </div>
+  );
+}
+````
+
+Hier verwenden wir einen benutzerdefinierten Hook ( useFetch) innerhalb eines anderen benutzerdefinierten Hooks ( usePokemon). Dies ermöglicht recht wirkungsvolle Abstraktionen.
+
+Wann sollten Sie einen benutzerdefinierten Hook erstellen?
+
+Benutzerdefinierte Hooks sind ein leistungsstarkes Werkzeug zum Abstrahieren wiederkehrender Logik. Sie sollten jedoch nur dann einen benutzerdefinierten Hook erstellen, wenn Sie die Logik in mehreren Komponenten wiederverwenden möchten. Wenn Sie die Logik nur in einer einzelnen Komponente benötigen, ist es besser, sie in der Komponente selbst zu belassen.
+
+Wenn Sie etwas nur einmal verwenden: Abstrahieren Sie es nicht. Wenn Sie etwas zweimal verwenden: Möglicherweise möchten Sie es abstrahieren.
+
+## Resources
+
+- [Reusing Logic with Custom Hooks in the React docs](https://react.dev/learn/reusing-logic-with-custom-hooks)
