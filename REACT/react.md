@@ -16,13 +16,17 @@ REACT
 
 8.[React State 3](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/react-state-3.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-state-3/challenges-react-state-3.md)
 
-9.[React Effects and Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/react-effects-and-fetch.md)[Challenges]()
+9.[React Effects and Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/react-effects-and-fetch.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/challenges-react-effects-and-fetch.md)
 
-10.[React with Local Storage](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/react-with-local-storage.md)[Challenges]()
+10.[React with Local Storage](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/react-with-local-storage.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/challenges-react-with-local-storage.md)
+
+11.[React Custom Hooks](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-custom-hooks/react-custom-hooks.md)[Challenges]()
 
 
 
 ### React Basics
+
+
 
 1.[React basics](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-basics/react-basics.md) [Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-basics/challenges-react-basics.md)
 
@@ -1379,9 +1383,10 @@ const filteredTrees = trees.filter((tree) => tree.height > minHeight);
 
 ---
 
+
 ### React Effects and Fecht
 
-9. [React Effects and Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/react-effects-and-fetch.md)[Challenges]
+9.[React Effects and Fetch](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/react-effects-and-fetch.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-effects-and-fetch/challenges-react-effects-and-fetch.md)
 
 Lernziele
 
@@ -1680,8 +1685,7 @@ In Zukunft werden wir eine Datenabrufbibliothek verwenden, um diese Probleme anz
 
 ### React with Local Storage
 
-10. [React with Local Storage](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/react-with-local-storage.md)[Challenges]
-
+10.[React with Local Storage](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/react-with-local-storage.md)[Challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-with-local-storage/challenges-react-with-local-storage.md)
 
 Lernziele
 Das Konzept der dauerhaften Speicherung im Browser verstehen
@@ -1803,5 +1807,7 @@ function Counter() {
 - [Web Storage API on the mdn web docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)
 - [use-local-storage-state on GitHub](https://github.com/astoilkov/use-local-storage-state)
 
+---
 
+11.[React Custom Hooks](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/react-custom-hooks/react-custom-hooks.md)[Challenges]()
 
