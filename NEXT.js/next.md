@@ -12,16 +12,25 @@
 
 
 Lernziele
+
+
 Den Unterschied zwischen einer Bibliothek und einem Framework kennen
+
 Verstehen, warum Next.js ein so beliebtes Framework ist
+
 Wissen, welche Funktionen während des Bootcamps genutzt werden
+
 Die Grundkonzepte von Next.js verstehen:
+
 Clientseitiges Routing
+
 Seitennavigation mitnext/link
+
 Bildoptimierung mitnext/image
 
 
 Unterschied zwischen einer Bibliothek und einem Framework
+
 
 Next.js ist ein React-Framework, das heißt, es baut auf der React-Bibliothek auf. Sowohl eine Bibliothek als auch ein Framework sind wiederverwendbarer Code, der von jemand anderem geschrieben wurde. Ihr Zweck besteht darin, Ihnen dabei zu helfen, häufig auftretende Probleme einfacher zu lösen.
 
@@ -35,17 +44,21 @@ Next.js ist ein React-Framework, das Ihnen Bausteine ​​zum Erstellen schnell
 > 📙 Read more about [N**ext.js** on the Next.js Homepage](https://nextjs.org/).
 
 Welche Features von Next.js werden wir im Bootcamp nutzen?
+
 Next.js hilft uns bei folgenden Themen:
 
 Eine Vorlage als Ausgangspunkt
+
 Ein Bundler, Transpiler und Entwicklungsserver
+
 Routing: Navigieren zwischen Seiten, dynamisches Routing
+
 Automatisch optimierte Bilder
+
 API-Routen
 
 > 📙 Next.js has a lot more to offer, which is why it is such a popular framework. To get an impression of all features, [have a quick look at the documentation](https://nextjs.org/docs).
 
-.
 
 Anleitung zu Next.js: Grundlagen
 
@@ -54,20 +67,24 @@ Unterschiede zum Erstellen einer React-App
 Hier sehen Sie einen Vergleich einiger relevanter Unterschiede zwischen Next.js und Create React App (CRA):
 
 Next.js (neu)	React App erstellen (alt)
-Starten Sie den lokalen Entwicklungsserver	npm run dev	npm run start
-Root-Komponente	_app.js	App.js
-Dokumentieren	_document.js	public/index.html
-Standardstil	CSS-Module*	CSS*
-Rendern	Server- und Clientseite	Client-Seite
-Routendefinition	Dateistruktur im pagesOrdner	n / A
-Clientseitige Links	<Link>Komponente	n / A
-Bildoptimierung	<Image>Komponente	n / A
-Ändern<head>	<Head>Komponente	n / A
-Laden der Schriftart	@next/fontPaket	n / A
-API-Routen	pages/apiOrdner	n / A
-ESLint	Next.js-spezifische Regeln	CRA-spezifische Regeln
-Bundler + Transpiler	Webpack/Turbopack + SWC	Webpack + Babel
-*Sowohl Next.js als auch CRA unterstützen alle modernen Styling-Lösungen.
+
+|                        | Next.js (new)                    | Create React App (old) |
+| ---------------------: | -------------------------------- | ---------------------- |
+| Start local dev server | `npm run dev`                    | `npm run start`        |
+|         Root component | `_app.js`                        | `App.js`               |
+|               Document | `_document.js`                   | `public/index.html`    |
+|        Default styling | CSS Modules\*                    | CSS\*                  |
+|              Rendering | Server and Client Side           | Client Side            |
+|       Route definition | file structure in `pages` folder | n/a                    |
+|      Client side links | `<Link>` component               | n/a                    |
+|     Image optimization | `<Image>` component              | n/a                    |
+|     Modifying `<head>` | `<Head>` component               | n/a                    |
+|           Font loading | `@next/font` package             | n/a                    |
+|             API routes | `pages/api` folder               | n/a                    |
+|                 ESLint | Next.js specific rules           | CRA specific rules     |
+|   Bundler + transpiler | Webpack/Turbopack + SWC          | Webpack + Babel        |
+
+\*Both Next.js and CRA support all modern styling solutions.
 
 Serverseitiges Rendering
 
@@ -77,7 +94,8 @@ Next.js verfügt über eine Funktion namens „serverseitiges Rendering“. Dies
 
 Dies ermöglicht viele Optimierungstechniken, die wir nicht diskutieren werden. Es gibt jedoch eine wichtige Implikation, die Sie kennen müssen:
 
-windowDa Ihr React-Code in einer Serverumgebung und nicht nur in einer Browserumgebung ausgeführt wird, müssen Sie bei der Verwendung von Browser-APIs (wie oder document) vorsichtig sein . Sie sind nur im Browser verfügbar und unterbrechen die App auf dem Server. Wenn Sie eine Browser-API verwenden, müssen Sie sicherstellen, dass Ihr Code nur auf dem Client ausgeführt wird. Beispielsweise useEffectwird Code innerhalb eines Hooks nur auf dem Client ausgeführt, da Effekte nicht auf dem Server, sondern nur auf dem Client ausgeführt werden. Auch Eventhandler wie onClickwerden nur auf dem Client ausgeführt.
+Da Ihr React-Code in einer Serverumgebung und nicht nur in einer Browserumgebung ausgeführt wird, müssen Sie bei der Verwendung von Browser-APIs (wie `window`oder `document`) vorsichtig sein . Sie sind nur im Browser verfügbar und unterbrechen die App auf dem Server. Wenn Sie eine Browser-API verwenden, müssen Sie sicherstellen, dass Ihr Code nur auf dem Client ausgeführt wird. Beispielsweise `useEffect` wird Code innerhalb eines Hooks nur auf dem Client ausgeführt, da Effekte nicht auf dem Server, sondern nur auf dem Client ausgeführt werden. Auch Eventhandler wie `onClick` werden nur auf dem Client ausgeführt.
+
 
 ```jsx
 useEffect(() => {
@@ -91,11 +109,11 @@ Routenführung
 
 Bisher zeigten unsere React-Anwendungen immer nur eine einzige Seite an. Der Vorgang des bedingten Renderns verschiedener Seiten basierend auf der URL (Pfadname) und des Navigierens zwischen diesen Seiten wird als Routing bezeichnet.
 
-Da eine gute Routing-Lösung nicht einfach zu erstellen ist, verlassen sich fast alle React-Entwickler auf eine externe Routing-Bibliothek. Ist zum Beispiel react-routereine sehr beliebte Lösung.
+Da eine gute Routing-Lösung nicht einfach zu erstellen ist, verlassen sich fast alle React-Entwickler auf eine externe Routing-Bibliothek. Ist zum Beispiel `react-router` eine sehr beliebte Lösung.
 
 Next.js bietet Routing als integrierte Funktion, sodass Sie keine weitere Bibliothek benötigen.
 
-Das Routing in Next.js basiert auf dem Dateisystem im pagesOrdner:
+Das Routing in Next.js basiert auf dem Dateisystem im `pages`Ordner:
 
 - `pages/index.js` → `/` (`index.js` always implies the root route of a folder)
 - `pages/about.js` → `/about`
@@ -108,13 +126,15 @@ Um komplexere Routen zu unterstützen, können Sie die entsprechende verschachte
 - `pages/about/some/long/route.js` → `/about/some/long/route`
 
 
+
 💡Sie können auch dynamische Routen (Routen mit dynamischen Parametern) definieren. Dies wird ein Thema einer zukünftigen Sitzung sein.
 
-💡Dateibasiertes Routing kann mehrdeutig sein. Die Dateien pages/about/index.jsund pages/about.jssind beide mit verknüpft /about. In der Praxis stellt dies selten ein Problem dar. Dennoch sollte man sich dessen bewusst sein.
+💡Dateibasiertes Routing kann mehrdeutig sein. Die Dateien `pages/about/index.js` und `pages/about.js` sind beide mit verknüpft `/about`. In der Praxis stellt dies selten ein Problem dar. Dennoch sollte man sich dessen bewusst sein.
 
  📙 Read more about [**Routing** in the Next.js Docs](https://nextjs.org/docs/routing/introduction)..
 
 ###  <link> Komponente
+
 Für clientseitige Übergänge zwischen Routen verwenden Sie die <Link>von next/link bereitgestellte Komponente. Gegeben ein pagesVerzeichnis mit
 
 - `pages/index.js`
