@@ -23,12 +23,12 @@ Bildoptimierung mitnext/image
 
 Unterschied zwischen einer Bibliothek und einem Framework
 
-
 Next.js ist ein React-Framework, das heißt, es baut auf der React-Bibliothek auf. Sowohl eine Bibliothek als auch ein Framework sind wiederverwendbarer Code, der von jemand anderem geschrieben wurde. Ihr Zweck besteht darin, Ihnen dabei zu helfen, häufig auftretende Probleme einfacher zu lösen.
 
 Wenn Sie eine Bibliothek verwenden, haben Sie die Kontrolle darüber, welche Teile des Codes Sie wann verwenden. Im Gegensatz dazu ist ein Framework wie Next.js starrer: Sie haben nur wenige begrenzte Möglichkeiten, wann und wie Sie den gegebenen Code verwenden möchten. Wenn Sie diese Einschränkungen akzeptieren, nimmt Ihnen ein Framework im Hintergrund viel Arbeit ab.
 
 Was ist Next.js?
+
 Next.js ist ein React-Framework, das Ihnen Bausteine ​​zum Erstellen schneller Webanwendungen bietet. Diese Bausteine ​​bieten vorgefertigte Lösungen für die Hauptkonzepte, denen Sie beim Erstellen moderner Anwendungen begegnen, wie z. B. Benutzeroberfläche, Routing, Datenabruf, Infrastruktur usw.
 
 > 📙 Read more about [N**ext.js** on the Next.js Homepage](https://nextjs.org/).
