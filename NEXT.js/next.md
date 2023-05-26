@@ -29,6 +29,7 @@ Wenn Sie eine Bibliothek verwenden, haben Sie die Kontrolle darüber, welche Tei
 
 Was ist Next.js?
 
+
 Next.js ist ein React-Framework, das Ihnen Bausteine ​​zum Erstellen schneller Webanwendungen bietet. Diese Bausteine ​​bieten vorgefertigte Lösungen für die Hauptkonzepte, denen Sie beim Erstellen moderner Anwendungen begegnen, wie z. B. Benutzeroberfläche, Routing, Datenabruf, Infrastruktur usw.
 
 > 📙 Read more about [N**ext.js** on the Next.js Homepage](https://nextjs.org/).
