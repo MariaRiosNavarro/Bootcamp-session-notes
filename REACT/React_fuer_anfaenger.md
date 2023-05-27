@@ -259,7 +259,10 @@ In React arbeiten wir mit dem Zustand (useState), indem wir die Funktion "useSta
 Wir rufen die Funktion "useState" auf und übergeben den Wert des anfänglichen Zustands als Argument. Dies ist der Wert, der in unserer App verwendet wird, bis etwas geändert wird.
 Das Aufrufen der Funktion "useState" gibt uns zwei Dinge zurück:
 
-eine Variable mit dem aktuellen Zustand als Wert (z. B. const [liked, setLiked] = useState(false);) die "set"-Funktion, um einen neuen Zustand festzulegen (z. B. setLiked(!liked);)
+-eine Variable mit dem aktuellen Zustand als Wert (z. B. const [liked, setLiked] = useState(false);) 
+
+-die "set"-Funktion, um einen neuen Zustand festzulegen (z. B. setLiked(!liked);)
+
 Hier ist ein Beispiel, wie "useState" in einer React-Komponente verwendet wird:
 
 ```js
