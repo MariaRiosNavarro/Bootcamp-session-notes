@@ -298,3 +298,38 @@ Dies hängt mit dem Renderzyklus von React-Komponenten zusammen.
 Wenn React eine Komponente rendert, führt es die Komponentenfunktion aus, die JSX zurückgibt. Wenn das JSX eine Zustandsvariable enthält, verwendet es den Wert der Variablen zu diesem Zeitpunkt, um ihn in das JSX einzufügen. Das Aufrufen der "set"-Funktion mit einem neuen Wert informiert React darüber, dass sich der Zustand geändert hat.
 
 Das Ändern eines Zustands (useState) löst eine erneute Rendervorgang der Komponente aus. Bei der erneuten Rendervorgang führt React die Komponentenfunktion erneut von oben nach unten aus, die dann JSX zurückgibt. Diesmal hat die Variable jedoch einen neuen Wert - den Wert, der mit dem Aufruf der "set"-Funktion übergeben wurde. Dies bedeutet, dass das zurückgegebene JSX den neuen Wert enthält.
+
+
+---
+
+# useState 2
+
+Das Teilen von Zuständen zwischen Komponenten:
+
+Wenn mehrere Komponenten denselben Zustand nutzen müssen, können wir den Zustand zur Elternkomponente "hochziehen" (lifting state up) und ihn als Prop an die Kindkomponenten weitergeben. Das bedeutet, dass der Zustand zunächst in der Kindkomponente vorhanden ist und dann nach oben in die Elternkomponenten verschoben wird, je nachdem, in welchen Komponenten er benötigt wird.
+
+Ein Zustandsvariablen (z.B. useState) kann an mehrere Kindkomponenten weitergegeben werden. Die Kindkomponenten können den Zustand dann aktualisieren, indem sie die Setter-Funktion (z.B. setCount) aufrufen.
+
+Es ist wichtig, dass eine Zustandsvariable so weit wie möglich unten im Komponentenbaum (component tree) leben sollte, aber so weit wie nötig nach oben. Wenn der gesamte "App"-Komponente über die Zustandsvariable Bescheid wissen muss, sollte sie in der "App"-Komponente leben. Wenn nur Kindkomponenten des "Article"-Komponente über die Zustandsvariable Bescheid wissen müssen, sollte sie in der "Article"-Komponente leben.
+
+Das Handling von Formulardaten:
+
+Verwendung von onSubmit für Formulardaten:
+Wir können das onSubmit-Ereignis verwenden, um Formulardaten zu handhaben. Das onSubmit-Ereignis wird aufgerufen, wenn der Benutzer das Formular absendet. Wir können die Formulardaten (genau wie in regulärem JavaScript) aus dem Event-Objekt erhalten.
+
+Verwendung von kontrollierten Eingabefeldern:
+
+Wir können React verwenden, um den Wert eines Eingabefeldes zu kontrollieren. Das nennt man einen "kontrollierten Eingabewert" (controlled input). Das bedeutet, dass wir das Wert-Attribut des Eingabefelds manuell festlegen. Wir können eine Zustandsvariable (z.B. useState) mit dem Wert-Attribut des Eingabefelds verbinden. Dadurch hat das Eingabefeld immer den gleichen Wert wie die Zustandsvariable. In Kombination mit dem onChange-Ereignis können wir die Zustandsvariable (z.B. setSearchTerm) aktualisieren, wenn der Benutzer in das Eingabefeld eingibt.
+
+State-Updates erfolgen nicht sofort:
+
+Wenn wir die Setter-Funktion einer Zustandsvariable (z.B. setCount) aufrufen, wird der Zustand nicht sofort aktualisiert. Stattdessen aktualisiert React seinen internen Wert und plant eine erneute Rendervorgang der Komponente.
+
+React Hooks:
+
+Die useState-Funktion (useState) ist Teil einer umfassenderen Funktionssammlung in React, die den Komponenten zusätzliche Funktionen ermöglicht. Hooks sind Funktionen, die Komponentenfunktionen erlauben, sich in React-Funktionen einzuklinken und ihnen ermöglichen, mehr zu tun als eine traditionelle JavaScript-Funktion. Sie folgen der Namenskonvention "useXyz".
+
+Beim Verwenden von Hooks müssen wir ein paar Regeln beachten:
+
+Rufe Hooks nur auf der obersten Ebene auf. Rufe Hooks nicht in Schleifen, Bedingungen oder verschachtelten Funktionen auf.
+Rufe Hooks nur in React-Funktionskomponenten oder benutzerdefinierten Hooks auf. Rufe Hooks nicht in regulären JavaScript-Funk
