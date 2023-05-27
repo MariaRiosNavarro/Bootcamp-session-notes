@@ -312,6 +312,47 @@ Ein Zustandsvariablen (z.B. useState) kann an mehrere Kindkomponenten weitergege
 
 Es ist wichtig, dass eine Zustandsvariable so weit wie möglich unten im Komponentenbaum (component tree) leben sollte, aber so weit wie nötig nach oben. Wenn der gesamte "App"-Komponente über die Zustandsvariable Bescheid wissen muss, sollte sie in der "App"-Komponente leben. Wenn nur Kindkomponenten des "Article"-Komponente über die Zustandsvariable Bescheid wissen müssen, sollte sie in der "Article"-Komponente leben.
 
+![]()
+
+Der Wert einer Zustandsvariablen und die Setter-Funktion können auch als Props an untergeordnete Komponenten weitergegeben werden. Da es sich um Funktionen und Werte handelt, können sie wie alle anderen Daten weitergegeben werden.
+
+```js
+
+function Parent() {
+  const [count, setCount] = useState(0);
+
+  function handleIncrement() {
+    setCount(count + 1);
+  }
+
+  return <Child count={count} onIncrement={handleIncrement} />;
+}
+
+
+function Child({ count, onIncrement }) {
+  return (
+    <>
+      <p>Count: {count}</p>
+      <button onClick={onIncrement}>increment</button>
+    </>
+  );
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Das Handling von Formulardaten:
 
 Verwendung von onSubmit für Formulardaten:
