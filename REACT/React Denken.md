@@ -8,7 +8,7 @@ Um eine Benutzeroberfläche in React zu implementieren, befolgen Sie normalerwei
 
 2.Nachdem Sie nun Ihre Komponentenhierarchie haben, ist es an der Zeit, Ihre App umzusetzen. Der einfachste Ansatz besteht darin, eine Version zu erstellen, die die Benutzeroberfläche aus Ihrem Datenmodell rendert, ohne jegliche Interaktivität hinzuzufügen... zumindest noch nicht! Es ist oft einfacher, zuerst die statische Version zu erstellen und später die Interaktivität hinzuzufügen. Das Erstellen einer statischen Version erfordert viel Tipparbeit und wenig Denken, während das Hinzufügen von Interaktivität viel Denken erfordert, aber weniger Tipparbeit
 
-<img src=""/>
+<img src="nurKomp"/>
 
 beispiel
 
