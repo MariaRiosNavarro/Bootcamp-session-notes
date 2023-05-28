@@ -387,7 +387,7 @@ BEISPIEL 3
 
 
 
-
+Die "Single Source of Truth" (SSOT) Architektur in der Informationstechnologie bedeutet, dass Informationen und Datenmodelle so strukturiert werden, dass jedes Datenfeld nur an einer Stelle bearbeitet wird. Dadurch entsteht eine einheitliche Datenstruktur, bei der Verknüpfungen zu anderen Bereichen nur über Referenzen erfolgen. Aktualisierungen an der primären Quelle werden im gesamten System übernommen und bieten Vorteile wie höhere Effizienz, einfache Vermeidung von Inkonsistenzen und vereinfachte Versionierung. Ohne SSOT-Architektur können häufige Duplikate zu Verwirrung und geringerer Produktivität führen.
 
 
 
