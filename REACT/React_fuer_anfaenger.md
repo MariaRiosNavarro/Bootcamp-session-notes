@@ -378,12 +378,12 @@ BEISPIEL 1
 
 BEISPIEL 2
 
-<img src="liftup2.png" width="616" height="694" />
+<img src="liftup3.png" width="616" height="694" />
 
 
 BEISPIEL 3
 
-<img src="liftup2.png" width="616" height="694" />
+<img src="liftup4.png" width="616" height="694" />
 
 
 
