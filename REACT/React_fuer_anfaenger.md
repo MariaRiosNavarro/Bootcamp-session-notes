@@ -253,9 +253,11 @@ Denke an einen Beitrag in einer Social-Media-App. Du könntest einen bestimmten 
 
 Die Website deiner Bank entspricht deinem Portemonnaie in der analogen Welt. Zu jedem Zeitpunkt zeigt die Banksoftware den aktuellen Kontostand, den aktuellen Zustand, an. Du kannst die Banksoftware verwenden, um diesen Zustand zu ändern. Zum Beispiel könntest du Geld auf ein anderes Konto überweisen, um die im "Kontostand"-Zustand gespeicherte Zahl (useState) zu verringern.
 
+
 # Zustand in React:
 
 In React arbeiten wir mit dem Zustand (useState), indem wir die Funktion "useState" verwenden.
+
 Wir rufen die Funktion "useState" auf und übergeben den Wert des anfänglichen Zustands als Argument. Dies ist der Wert, der in unserer App verwendet wird, bis etwas geändert wird.
 Das Aufrufen der Funktion "useState" gibt uns zwei Dinge zurück:
 
@@ -303,6 +305,83 @@ Wenn React eine Komponente rendert, führt es die Komponentenfunktion aus, die J
 
 Das Ändern eines Zustands (useState) löst eine erneute Rendervorgang der Komponente aus. Bei der erneuten Rendervorgang führt React die Komponentenfunktion erneut von oben nach unten aus, die dann JSX zurückgibt. Diesmal hat die Variable jedoch einen neuen Wert - den Wert, der mit dem Aufruf der "set"-Funktion übergeben wurde. Dies bedeutet, dass das zurückgegebene JSX den neuen Wert enthält.
 
+Beispiel 1
+
+```js
+import React, { useState } from 'react';
+
+export default function Parent() {
+  const [countState, setCountState] = useState(0);
+
+  function incrementCount() {
+    setCountState(countState + 1);
+  }
+
+  return (
+    <div>
+      <h2>Parent Component</h2>
+      <Child count={countState} increment={incrementCount} />
+    </div>
+  );
+}
+
+function Child({ count, increment }) {
+  return (
+    <div>
+      <h3>Child Component</h3>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+}
+
+
+```
+In diesem Beispiel wird der Zustand "countState" in der Parent-Komponente mit dem useState-Hook initialisiert. Die Parent-Komponente gibt den Wert von "countState" und die Funktion "incrementCount" als Props an die Child-Komponente weiter.
+
+Die Child-Komponente verwendet die übergebenen Props, um den Wert von "count" anzuzeigen und die "increment"-Funktion auszuführen, wenn der Button geklickt wird.
+
+Beispiel 2
+
+```js
+import React, { useState } from 'react';
+
+export default function Parent() {
+  const [nameState, setNameState] = useState(''); // Zustand "nameState" wird mit einem leeren String initialisiert
+
+  function updateName(newName) {
+    setNameState(newName); // Funktion zum Aktualisieren des Namenszustands
+  }
+
+  return (
+    <div>
+      <h2>Parent Component</h2>
+      <Child name={nameState} changeName={updateName} /> {/* Übergibt den Namenszustand und die "updateName"-Funktion als Props an das Child */}
+    </div>
+  );
+}
+
+function Child({ name, changeName }) {
+  function handleInputChange(event) {
+    const newName = event.target.value; // Liest den neuen Namen aus dem Texteingabefeld
+    changeName(newName); // Ruft die "changeName"-Funktion auf, um den Namen zu aktualisieren
+  }
+
+  return (
+    <div>
+      <h3>Child Component</h3>
+      <input type="text" value={name} onChange={handleInputChange} /> {/* Das Texteingabefeld zeigt den aktuellen Namen an und ruft die "handleInputChange"-Funktion auf, wenn sich der Wert ändert */}
+      <p>Name: {name}</p> {/* Zeigt den aktuellen Namen an */}
+    </div>
+  );
+}
+
+````
+Die Parent-Komponente verwaltet den Zustand nameState, der den aktuellen Namen speichert. Die Funktion updateName wird verwendet, um den Namen zu aktualisieren, indem sie den neuen Namen an setNameState übergibt.
+
+Die Parent-Komponente gibt den nameState und die updateName-Funktion als Props an das Child weiter.
+
+Das Child verwendet die übergebenen Props, um den aktuellen Namen anzuzeigen und die changeName-Funktion aufzurufen, wenn sich der Wert im Texteingabefeld ändert. Die handleInputChange-Funktion liest den neuen Namen aus dem Event-Objekt und ruft changeName auf, um den Namen zu aktualisieren.
 
 ---
 
