@@ -60,7 +60,6 @@ Fügen Sie dem Komponenten mit dem useState() Hook den Zustand hinzu. Hooks sind
 
 <img src="addState1.png" width="700"/>
 <img src="addState2.png" width="700"/>
-<img src="addState3.png" width="700"/>
 
 
 # 5.- Schritt: Umkehren des Datenflusses hinzufügen
