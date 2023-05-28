@@ -99,17 +99,17 @@ Hooks dienen dazu, den Zustand und das Verhalten in Funktionskomponenten zu verw
 
 Einige der häufig verwendeten Hooks in React sind:
 
-useState: Verwendet, um den Zustand in Funktionskomponenten zu speichern und zu aktualisieren.  
+- useState: Verwendet, um den Zustand in Funktionskomponenten zu speichern und zu aktualisieren.  
 
-useEffect: Verwendet, um Nebeneffekte auszuführen, wie das Abonnieren von Ereignissen oder das Laden von Daten, nachdem die Komponente gerendert wurde.
+- useEffect: Verwendet, um Nebeneffekte auszuführen, wie das Abonnieren von Ereignissen oder das Laden von Daten, nachdem die Komponente gerendert wurde.
 
-useContext: Verwendet, um den aktuellen Wert eines React-Kontexts in einer Komponente zu erhalten.
+- useContext: Verwendet, um den aktuellen Wert eines React-Kontexts in einer Komponente zu erhalten.
 
-useRef: Verwendet, um eine mutable Referenz auf ein DOM-Element oder einen anderen Wert zu erstellen, der über den Rendervorgang hinweg erhalten bleibt.
+- useRef: Verwendet, um eine mutable Referenz auf ein DOM-Element oder einen anderen Wert zu erstellen, der über den Rendervorgang hinweg erhalten bleibt.
 
-useMemo: Verwendet, um teure Berechnungen zu memoisieren und ihre Ergebnisse zwischen Rendervorgängen zu speichern.
+- useMemo: Verwendet, um teure Berechnungen zu memoisieren und ihre Ergebnisse zwischen Rendervorgängen zu speichern.
 
-useCallback: Verwendet, um eine memoisierte Version einer Callback-Funktion zu erstellen, die nur bei Bedarf neu erstellt wird.
+- useCallback: Verwendet, um eine memoisierte Version einer Callback-Funktion zu erstellen, die nur bei Bedarf neu erstellt wird.
 
 Es gibt noch weitere Hooks, die spezifische Funktionalitäten in React bieten. Hooks ermöglichen es Entwicklern, den Zustand und das Verhalten von Komponenten auf eine übersichtliche und deklarative Weise zu verwalten und erleichtern die Wiederverwendung von Logik zwischen verschiedenen Komponenten.
 
@@ -253,7 +253,7 @@ Denke an einen Beitrag in einer Social-Media-App. Du könntest einen bestimmten 
 
 Die Website deiner Bank entspricht deinem Portemonnaie in der analogen Welt. Zu jedem Zeitpunkt zeigt die Banksoftware den aktuellen Kontostand, den aktuellen Zustand, an. Du kannst die Banksoftware verwenden, um diesen Zustand zu ändern. Zum Beispiel könntest du Geld auf ein anderes Konto überweisen, um die im "Kontostand"-Zustand gespeicherte Zahl (useState) zu verringern.
 
-Zustand in React:
+# Zustand in React:
 
 In React arbeiten wir mit dem Zustand (useState), indem wir die Funktion "useState" verwenden.
 Wir rufen die Funktion "useState" auf und übergeben den Wert des anfänglichen Zustands als Argument. Dies ist der Wert, der in unserer App verwendet wird, bis etwas geändert wird.
@@ -292,10 +292,14 @@ Beachte, dass es eine Namenskonvention für React-Apps gibt, bei der die Zustand
 
 Eine React-Komponente kann mehrere Zustände haben. Du kannst die "useState"-Funktion so oft verwenden, wie du möchtest. Du kannst alle Arten von Daten im Zustand speichern, wie z. B. boolesche Werte, Zahlen, Zeichenketten, Objekte oder Arrays.
 
-Was passiert, wenn sich der Zustand ändert?
+# Was passiert, wenn sich der Zustand ändert?
+
 Um den Zustand in React zu handhaben, können wir nicht einfach eine "normale" Variable verwenden und ihr einen neuen Wert zuweisen. React muss darüber informiert werden, dass die Daten geändert wurden.
+
 Dies hängt mit dem Renderzyklus von React-Komponenten zusammen.
-Wenn React eine Komponente rendert, führt es die Komponentenfunktion aus, die JSX zurückgibt. Wenn das JSX eine Zustandsvariable enthält, verwendet es den Wert der Variablen zu diesem Zeitpunkt, um ihn in das JSX einzufügen. Das Aufrufen der "set"-Funktion mit einem neuen Wert informiert React darüber, dass sich der Zustand geändert hat.
+Wenn React eine Komponente rendert, führt es die Komponentenfunktion aus, die JSX zurückgibt. Wenn das JSX eine Zustandsvariable enthält, verwendet es den Wert der Variablen zu diesem Zeitpunkt, um ihn in das JSX einzufügen. 
+
+# ***Das Aufrufen der "set"-Funktion mit einem neuen Wert informiert React darüber, dass sich der Zustand geändert hat.***
 
 Das Ändern eines Zustands (useState) löst eine erneute Rendervorgang der Komponente aus. Bei der erneuten Rendervorgang führt React die Komponentenfunktion erneut von oben nach unten aus, die dann JSX zurückgibt. Diesmal hat die Variable jedoch einen neuen Wert - den Wert, der mit dem Aufruf der "set"-Funktion übergeben wurde. Dies bedeutet, dass das zurückgegebene JSX den neuen Wert enthält.
 
@@ -304,7 +308,9 @@ Das Ändern eines Zustands (useState) löst eine erneute Rendervorgang der Kompo
 
 # useState 2
 
-Das Teilen von Zuständen zwischen Komponenten:
+#  Das Teilen von Zuständen zwischen Komponenten:
+
+# lifting state up
 
 Wenn mehrere Komponenten denselben Zustand nutzen müssen, können wir den Zustand zur Elternkomponente "hochziehen" (lifting state up) und ihn als Prop an die Kindkomponenten weitergeben. Das bedeutet, dass der Zustand zunächst in der Kindkomponente vorhanden ist und dann nach oben in die Elternkomponenten verschoben wird, je nachdem, in welchen Komponenten er benötigt wird.
 
@@ -339,13 +345,10 @@ function Child({ count, onIncrement }) {
 }
 ```
 
+# Wie mache ich ein lifting state up:
 
 
-
-
-
-
-
+<img src="" width="616" height="694" />
 
 
 
