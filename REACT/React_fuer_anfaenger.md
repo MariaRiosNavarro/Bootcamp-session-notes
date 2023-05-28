@@ -371,11 +371,18 @@ Beim Schreiben einer Komponente sollten Sie darüber nachdenken, welche Informat
 Ihre App wird sich ändern, während Sie daran arbeiten. Es kommt häufig vor, dass Sie den Status nach unten oder oben verschieben, während Sie noch herausfinden, wo die einzelnen Teile des Status „leben“. Das ist alles Teil des Prozesses!
 
 BEISPIEL 1
+
 <img src="liftup1.png" width="616" height="694" />
 <img src="liftup2.png" width="616" height="694" />
+
+
 BEISPIEL 2
+
 <img src="liftup2.png" width="616" height="694" />
+
+
 BEISPIEL 3
+
 <img src="liftup2.png" width="616" height="694" />
 
 
