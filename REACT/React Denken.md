@@ -8,9 +8,12 @@ Um eine Benutzeroberfläche in React zu implementieren, befolgen Sie normalerwei
 
 2.Nachdem Sie nun Ihre Komponentenhierarchie haben, ist es an der Zeit, Ihre App umzusetzen. Der einfachste Ansatz besteht darin, eine Version zu erstellen, die die Benutzeroberfläche aus Ihrem Datenmodell rendert, ohne jegliche Interaktivität hinzuzufügen... zumindest noch nicht! Es ist oft einfacher, zuerst die statische Version zu erstellen und später die Interaktivität hinzuzufügen. Das Erstellen einer statischen Version erfordert viel Tipparbeit und wenig Denken, während das Hinzufügen von Interaktivität viel Denken erfordert, aber weniger Tipparbeit
 
-<img src="nurKomp"/>
 
-beispiel
+
+<img src="nurKomponenten1.png" width="700"/>
+<img src="nurKomponenten2.png" width="700"/>
+
+
 
 3.Schritt 3: Minimale, vollständige Darstellung des UI-Zustands finden
 
@@ -44,7 +47,9 @@ Entscheiden Sie, wo der Zustand lebt: Wir werden die Filtertext- und Checked-Zus
 Daher werden die Zustandswerte in FilterableProductTable leben.
 Fügen Sie dem Komponenten mit dem useState() Hook den Zustand hinzu. Hooks sind spezielle Funktionen, mit denen Sie sich an React "anhaken" können. Fügen Sie zwei Zustandsvariablen oben in FilterableProductTable hinzu und geben Sie ihren anfänglichen Zustand an.
 
-<img src=""/>
+<img src="addState1.png" width="700"/>
+<img src="addState2.png" width="700"/>
+<img src="addState3.png" width="700"/>
 
 Schritt 5: Umkehren des Datenflusses hinzufügen
 
@@ -77,3 +82,8 @@ Im Inneren SearchBarfügen Sie die onChangeEreignishandler hinzu und legen darau
   value={filterText} 
   placeholder="Search..." 
   onChange={(e) => onFilterTextChange(e.target.value)} />
+  
+  
+  <img src="addOnFunction1.png" width="700"/>
+  <img src="addOnFunction2.png" width="700"/>
+  <img src="addOnFunction3.png" width="700"/>
