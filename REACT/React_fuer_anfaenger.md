@@ -377,11 +377,25 @@ function Child({ name, changeName }) {
 }
 
 ````
-Die Parent-Komponente verwaltet den Zustand nameState, der den aktuellen Namen speichert. Die Funktion updateName wird verwendet, um den Namen zu aktualisieren, indem sie den neuen Namen an setNameState übergibt.
+Die Parent-Komponente verwendet den Zustand nameState, um den aktuellen Namen zu speichern. Durch die Funktion updateName kann der Name aktualisiert werden, indem sie den neuen Namen an setNameState übergibt.
 
-Die Parent-Komponente gibt den nameState und die updateName-Funktion als Props an das Child weiter.
+In der Parent-Komponente werden nameState und updateName als Props an das Child weitergegeben.
 
-Das Child verwendet die übergebenen Props, um den aktuellen Namen anzuzeigen und die changeName-Funktion aufzurufen, wenn sich der Wert im Texteingabefeld ändert. Die handleInputChange-Funktion liest den neuen Namen aus dem Event-Objekt und ruft changeName auf, um den Namen zu aktualisieren.
+Das Child-Komponente nutzt die übergebenen Props, um den aktuellen Namen anzuzeigen und die Funktion changeName aufzurufen, wenn sich der Wert im Texteingabefeld ändert. Die Funktion handleInputChange extrahiert den neuen Namen aus dem Event-Objekt und ruft dann changeName auf, um den Namen zu aktualisieren.
+
+In diesem Code wird die Funktion changeName in der Parent-Komponente definiert und anschließend als Prop an das Child übergeben. Die Funktion handleInputChange im Child ruft diese übergebene changeName-Funktion auf, um den Namen zu aktualisieren.
+
+Die changeName-Funktion kann beispielsweise wie folgt aussehen:
+
+```js
+
+function updateName(newName) {
+  // Hier kannst du deine eigene Logik zur Aktualisierung des Namens implementieren
+  console.log("Neuer Name:", newName);
+  // ...
+}
+````
+
 
 ---
 
