@@ -348,7 +348,7 @@ function Child({ count, onIncrement }) {
 # Wie mache ich ein lifting state up:
 
 
-<img src="LIFTUP.pdf" width="700" />
+<img src="LIFTUP.pdf"/>
 
 
 
