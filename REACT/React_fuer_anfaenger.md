@@ -549,20 +549,118 @@ function Counter() {
 💡 Hier wird das Präfix "prev" verwendet, um anzuzeigen, dass der Wert der vorherige Wert der Zustandsvariable ist. Eine andere gängige Konvention besteht darin, nur den ersten Buchstaben der Zustandsvariable als Parametername zu verwenden: setCount(c => c + 1).
 
 
+# Arrays in JSX:
+Um Elemente aus einem Array in React zu rendern, verwenden wir die Array-Methode .map().
+
+Die Array-Methode .map() wird verwendet, um eine Transformation auf alle Elemente eines Arrays anzuwenden. Beim Rendern eines Arrays in JSX möchten wir genau das tun. Wir möchten jedes Element eines Arrays in ein JSX-Tag umwandeln. Deshalb verwenden wir .map().
 
 
+```js
+function Drinks() {
+  const drinks = ["Wasser", "Limonade", "Kaffee", "Tee"];
 
+  return (
+    <ul>
+      {drinks.map((drink) => (
+        <li>{drink}</li>
+      ))}
+    </ul>
+  );
+}
+````
 
+Schlüssel-Propertie:
 
+Das obige Beispiel enthält einen kleinen, aber sehr wichtigen Teil, nämlich das Schlüssel-Prop!
 
+Ohne das Schlüssel-Prop erhältst du eine Fehlermeldung in der Konsole:
 
+Warnung: Jedes Element in einer Liste sollte ein eindeutiges "key"-Prop haben.
 
+Beim Rendern eines Arrays in JSX musst du einen eindeutigen Bezeichner als Wert für das Schlüssel-Prop des ersten JSX-Tags übergeben, das in .map() zurückgegeben wird. Dies ist wichtig, damit React Änderungen verfolgen kann, die an den Daten beim erneuten Rendern vorgenommen werden.
 
+Daher musst du immer sicherstellen, dass dein Array eine eindeutige ID pro Element enthält. Du kannst dies erreichen, indem du Objekte verwendest, um die Daten in deinen Arrays zu definieren.
 
+```js
+function Drinks() {
+  const drinks = [
+    { id: 0, name: "Wasser" },
+    { id: 1, name: "Limonade" },
+    { id: 2, name: "Kaffee" },
+    { id: 3, name: "Tee" },
+  ];
 
+  return (
+    <ul>
+      {drinks.map(({ id, name }) => (
+        <li key={id}>{name}</li>
+      ))}
+    </ul>
+  );
+}
+````
 
+💡 Wenn du das Schlüssel-Prop an eine Komponente übergibst, kannst du nicht darauf zugreifen. Es handelt sich um ein spezielles Prop, das von React nur intern verwendet wird
 
+```js
+function Drink({ name, key }) {
+  console.log(key); // → undefined
+  return <li>{name}</li>;
+}
 
+function Drinks() {
+  const drinks = [
+    { id: 0, name: "Wasser" },
+    { id: 1, name: "Limonade" },
+    { id: 2, name: "Kaffee" },
+    { id: 3, name: "Tee" },
+  ];
+
+  return (
+    <ul>
+      {drinks.map(({ id, name }) => (
+        <Drink key={id} name={name} />
+      ))}
+    </ul>
+  );
+}
+````
+Wenn du in diesem Beispiel auf die ID zugreifen möchtest, kannst du sie erneut als Prop übergeben:
+
+```js
+<Drink key={id} id={id} name={name} />.
+````
+
+Schlüsselhafte Fragmente:
+
+Wenn du eine Liste von Elementen renderst, die nicht in einem einzigen JSX-Tag umschlossen sind, kannst du ein <Fragment> verwenden, um die Elemente zu umschließen.
+  
+
+```js
+import { Fragment } from "react";
+
+function Drinks() {
+  const drinks = [
+    { id: 0, name: "Wasser", description: "sehr nass" },
+    { id: 1, name: "Limonade", description: "ziemlich süß" },
+    { id: 2, name: "Kaffee", description: "Cold Brew" },
+    { id: 3, name: "Tee", description: "Earl Grey, heiß" },
+  ];
+
+  return (
+    <dl>
+      {drinks.map(({ id, name, description }) => (
+        <Fragment key={id}>
+          <dt>{name}</dt>
+          <dd>{description}</dd>
+        </Fragment>
+      ))}
+    </dl>
+  );
+}
+```
+  
+Hier kannst du die Kurzschreibweise (<>...</>) für das <Fragment> nicht verwenden, da du das Schlüssel-Prop an das <Fragment> übergeben musst. Die Kurzschreibweise erlaubt das Übergeben von Props nicht.
 
 ---
 
@@ -655,10 +753,7 @@ Die "Single Source of Truth" (SSOT) Architektur in der Informationstechnologie b
 [React Denken zusammenfassung auf Deutsch](https://github.com/MariaRiosNavarro/Bootcamp-session-notes/blob/main/REACT/React%20Denken.md)
 
 
-# Arrays in JSX:
-Um Elemente aus einem Array in React zu rendern, verwenden wir die Array-Methode .map().
 
-Die Array-Methode .map() wird verwendet, um eine Transformation auf alle Elemente eines Arrays anzuwenden. Beim Rendern eines Arrays in JSX möchten wir genau das tun. Wir möchten jedes Element eines Arrays in ein JSX-Tag umwandeln. Deshalb verwenden wir .map().
 
 
 
