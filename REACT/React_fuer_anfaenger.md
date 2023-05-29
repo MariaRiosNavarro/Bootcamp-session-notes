@@ -663,9 +663,12 @@ Unabhängig davon, wie komplex der State in deiner Anwendung ist (Objekt, Array,
 
 Um die Mutation des States beim Aktualisieren zu vermeiden, musst du:
 
-ein neues Objekt/Array erstellen (oder eine Kopie des vorhandenen erstellen) und
-die Setter-Funktion mit der kürzlich erstellten/aktualisierten Kopie verwenden, um eine erneute Rendereingabe auszulösen.
-Aktualisieren von Objekten im State:
+1.- ein neues Objekt/Array erstellen (oder eine Kopie des vorhandenen erstellen) und
+2.- die Setter-Funktion mit der kürzlich erstellten/aktualisierten Kopie verwenden, um eine erneute Rendereingabe auszulösen.
+
+
+# Aktualisieren von Objekten im State:
+
 Um eine Kopie eines Objekts zu erstellen und nur einige Eigenschaften zu ändern, kannst du die Spread-Syntax verwenden:
 
 ```js
