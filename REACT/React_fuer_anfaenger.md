@@ -854,7 +854,7 @@ function handleSortTreesByHeight() {
 }
 ````
 
-### Die Wahl der State-Struktur:
+# Die Wahl der State-Struktur:
 
 Beim Festlegen der Struktur deines States gibt es einige häufige Fallstricke.
 
@@ -870,7 +870,7 @@ const [userAge, setUserAge] = useState(28);
 const [user, setUser] = useState({ name: "Alex", age: 28 });
 ````
 
-# Vermeidung von redundantem State:
+### Vermeidung von redundantem State:
 Wenn du einen Wert hast, der sich aus einem State ableitet, solltest du vermeiden, ihn im State zu speichern. Verwende stattdessen eine normale Variable.
 
 Das Problem mit redundantem State besteht darin, dass er nicht mehr mit der eigentlichen Quelle synchronisiert wird, wenn du vergisst, ihn korrekt zu aktualisieren.
@@ -884,7 +884,7 @@ const [isAdult, setIsAdult] = useState(user.age >= 18);
 const [user, setUser] = useState({ name: "Alex", age: 28 });
 const isAdult = user.age >= 18;
 ````
-# Vermeidung von Duplikaten im State:
+### Vermeidung von Duplikaten im State:
 Vermeide es, den gleichen Wert an mehreren Stellen im State zu speichern. Dies kann zu Fehlern führen und die Aktualisierung des States erschweren.
 
 ```js
@@ -915,7 +915,7 @@ const selectedTree = trees.find((tree) => tree.id === selectedTreeId);
 setSelectedTreeId(2);
 ````
 
-# Vermeidung von redundanten Listen im State:
+### Vermeidung von redundanten Listen im State:
 Wenn du eine Liste von Elementen im State hast, solltest du vermeiden, eine abgeleitete Version dieser Liste (z. B. gefiltert oder sortiert) zusätzlich im State zu speichern. Führe die Filterung oder Sortierung stattdessen immer bei Bedarf durch
 
 ```js
