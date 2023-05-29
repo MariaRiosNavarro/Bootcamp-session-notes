@@ -655,4 +655,289 @@ BEISPIEL 3
 Die "Single Source of Truth" (SSOT) Architektur in der Informationstechnologie bedeutet, dass Informationen und Datenmodelle so strukturiert werden, dass jedes Datenfeld nur an einer Stelle bearbeitet wird. Dadurch entsteht eine einheitliche Datenstruktur, bei der Verknüpfungen zu anderen Bereichen nur über Referenzen erfolgen. Aktualisierungen an der primären Quelle werden im gesamten System übernommen und bieten Vorteile wie höhere Effizienz, einfache Vermeidung von Inkonsistenzen und vereinfachte Versionierung. Ohne SSOT-Architektur können häufige Duplikate zu Verwirrung und geringerer Produktivität führen.
 
 
+# Use State 3
+
+# Vermeiden der State-Mutation:
+
+Unabhängig davon, wie komplex der State in deiner Anwendung ist (Objekt, Array, Array von Objekten), musst du den State immer als unveränderlich behandeln. Das bedeutet, dass du den State nicht direkt verändern solltest, z.B. indem du ihm einen neuen Wert zuweist.
+
+Um die Mutation des States beim Aktualisieren zu vermeiden, musst du:
+
+ein neues Objekt/Array erstellen (oder eine Kopie des vorhandenen erstellen) und
+die Setter-Funktion mit der kürzlich erstellten/aktualisierten Kopie verwenden, um eine erneute Rendereingabe auszulösen.
+Aktualisieren von Objekten im State:
+Um eine Kopie eines Objekts zu erstellen und nur einige Eigenschaften zu ändern, kannst du die Spread-Syntax verwenden:
+
+```js
+const [person, setPerson] = useState({
+  firstName: "John",
+  lastName: "Doe",
+});
+
+function handleChangeFirstName(firstName) {
+  setPerson({ ...person, firstName });
+}
+
+// Irgendwo anders:
+handleChangeFirstName("Jane");
+````
+
+❗️ Wenn du direkt einen neuen Wert zuweisen würdest, würdest du den State mutieren. Dies ist schlecht, da wir den State als unveränderlich behandeln müssen. Das kann zu schwer zu findenden Fehlern führen
+
+```js
+// ⚠️ DAS NIEMALS TUN
+function handleChangeFirstName(firstName) {
+  person.firstName = firstName;
+  setPerson(person);
+}
+````
+
+# Aktualisieren von Arrays im State:
+
+Wie du weißt, gibt es mehrere Möglichkeiten, Arrays zu aktualisieren. Einige von ihnen mutieren jedoch das Array, und andere nicht.
+
+Vermeiden (mutiert das Array) Bevorzugen (gibt ein neues Array zurück)
+Hinzufügen: push, unshift [...arr] Spread-Syntax
+Entfernen: pop, shift, splice filter
+Ersetzen: splice, arr[i] = ...-Zuweisung map
+Sortieren: reverse, sort Array zuerst kopieren
+
+💡 Es spielt keine Rolle, ob dein Array im State nur Primitive oder andere Objekte/Arrays enthält. In allen Fällen solltest du nur die bevorzugten Array-Methoden verwenden.
+
+# Hinzufügen zu einem Array:
+Um ein Element zu einem Array hinzuzufügen, kannst du die Spread-Syntax verwenden:
+
+```js
+const [numbers, setNumbers] = useState([0, 1, 2]);
+
+function handleAppendNumber(number) {
+  setNumbers([...numbers, number]);
+}
+
+// Irgendwo anders:
+handleAppendNumber(3);
+````
+Um ein Element am Anfang des Arrays hinzuzufügen, kannst du Folgendes tun:
+
+```js
+function handlePrependNumber(number) {
+  setNumbers([number, ...numbers]);
+}
+
+// Irgendwo anders:
+handlePrependNumber(-1);
+`````
+
+# Entfernen aus einem Array:
+
+Um ein Element aus einem Array zu entfernen, kannst du die filter-Methode verwenden:
+
+```js
+const [numbers, setNumbers] = useState([0, 1, 2]);
+
+function handleRemoveNumber(numberToRemove) {
+  setNumbers(numbers.filter((number) => number !== numberToRemove));
+}
+
+// Irgendwo anders:
+handleRemoveNumber(1);
+````
+
+# Ersetzen eines Array-Elements:
+Um ein Element in einem Array zu ersetzen, kannst du die map-Methode verwenden:
+
+```js
+const [numbers, setNumbers] = useState([0, 1, 2]);
+
+function handleReplaceNumber(oldNumber, newNumber) {
+  setNumbers(
+    numbers.map((number) => {
+      if (number === oldNumber) return newNumber;
+      return number;
+    })
+  );
+}
+
+// Irgendwo anders:
+handleReplaceNumber(1, 1337);
+````
+
+# Aktualisieren von Arrays von Objekten im State:
+Die meiste Zeit wirst du Arrays von Objekten in deinem State haben.
+
+Hinzufügen eines neuen Objekts:
+Du kannst ein neues Objekt zum Array im State hinzufügen, indem du die Spread-Syntax verwendest:
+
+```js
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height: 7.5 },
+  { id: 1, name: "Beech", height: 6 },
+  { id: 2, name: "Pine", height: 10 }
+]);
+
+function handleAddTree(tree) {
+  setTrees([...trees, tree]);
+}
+
+// Irgendwo anders:
+handleAddTree({ id: 3, name: "Spruce", height: 13 });
+````
+
+# Entfernen eines Objekts:
+Um ein Objekt zu entfernen, kannst du das Array nach einem eindeutigen Identifikator filtern. In den meisten Fällen befindet sich dieser Identifikator im Gültigkeitsbereich, da das relevante Objekt über .map gerendert wird.
+
+```js
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height: 7.5 },
+  { id: 1, name: "Beech", height: 6 },
+  { id: 2, name: "Pine", height: 10 }
+]);
+
+function handleRemoveTree(idToRemove) {
+  setTrees(trees.filter((tree) => tree.id !== idToRemove));
+}
+
+// Irgendwo anders:
+handleRemoveTree(0);
+````
+# Ersetzen eines Objekts:
+
+Um ein Objekt zu ersetzen, kannst du map verwenden, um ein neues Array mit dem aktualisierten Objekt zu erstellen. Vergiss nicht, eine Kopie des Objekts zu erstellen, sonst würdest du den State mutieren.
+
+```js
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height: 7.5 },
+  { id: 1, name: "Beech", height: 6 },
+  { id: 2, name: "Pine", height: 10 }
+]);
+
+function handleSetNewHeightForTree(id, height) {
+  setTrees(
+    trees.map((tree) => {
+      if (tree.id === id) return { ...tree, height };
+      return tree;
+    })
+  );
+}
+
+// Irgendwo anders:
+handleSetNewHeightForTree(0, 8);
+````
+
+# Sortieren eines Arrays von Objekten
+
+Um ein Array von Objekten zu sortieren, kannst du sort auf einer Kopie des Arrays mit einer benutzerdefinierten Vergleichsfunktion verwenden. Die Vergleichsfunktion gibt eine Zahl zurück, die zur Bestimmung der Reihenfolge der Elemente verwendet wird.
+
+```js
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height: 7.5 },
+  { id: 1, name: "Beech", height: 6 },
+  { id: 2, name: "Pine", height: 10 }
+]);
+
+function handleSortTreesByHeight() {
+  setTrees([...trees].sort((a, b) => a.height - b.height));
+}
+````
+
+# Die Wahl der State-Struktur:
+
+Beim Festlegen der Struktur deines States gibt es einige häufige Fallstricke.
+
+Gruppierung verwandter State-Variablen:
+Wenn du State hast, der zusammengehört (und zusammen aktualisiert wird), gruppiere ihn in einem einzigen Objekt. Dadurch wird die Aktualisierung des States einfacher.
+
+```js
+// ❌ NICHT OPTIMAL
+const [userName, setUserName] = useState("Alex");
+const [userAge, setUserAge] = useState(28);
+
+// ✅ BESSER
+const [user, setUser] = useState({ name: "Alex", age: 28 });
+````
+
+# Vermeidung von redundantem State:
+Wenn du einen Wert hast, der sich aus einem State ableitet, solltest du vermeiden, ihn im State zu speichern. Verwende stattdessen eine normale Variable.
+
+Das Problem mit redundantem State besteht darin, dass er nicht mehr mit der eigentlichen Quelle synchronisiert wird, wenn du vergisst, ihn korrekt zu aktualisieren.
+
+```js
+// ❌ SCHLECHT
+const [user, setUser] = useState({ name: "Alex", age: 28 });
+const [isAdult, setIsAdult] = useState(user.age >= 18);
+
+// ✅ GUT
+const [user, setUser] = useState({ name: "Alex", age: 28 });
+const isAdult = user.age >= 18;
+````
+# Vermeidung von Duplikaten im State:
+Vermeide es, den gleichen Wert an mehreren Stellen im State zu speichern. Dies kann zu Fehlern führen und die Aktualisierung des States erschweren.
+
+```js
+// ❌ SCHLECHT
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height: 7.5 },
+  { id: 1, name: "Beech", height: 6 },
+  { id: 2, name: "Pine", height: 10 }
+]);
+
+const [selectedTree, setSelectedTree] = useState(trees.find((tree) => tree.id === 0));
+
+// Irgendwo anders:
+setSelectedTree(trees.find((tree) => tree.id === 2));
+
+// ✅ GUT
+const [trees, setTrees] = useState([
+  { id: 0, name: "Oak", height: 7.5 },
+  { id: 1, name: "Beech", height: 6 },
+  { id: 2, name: "Pine", height: 10 }
+]);
+
+const [selectedTreeId, setSelectedTreeId] = useState(0);
+
+const selectedTree = trees.find((tree) => tree.id === selectedTreeId);
+
+// Irgendwo anders:
+setSelectedTreeId(2);
+````
+
+# Vermeidung von redundanten Listen im State:
+Wenn du eine Liste von Elementen im State hast, solltest du vermeiden, eine abgeleitete Version dieser Liste (z. B. gefiltert oder sortiert) zusätzlich im State zu speichern. Führe die Filterung oder Sortierung stattdessen immer bei Bedarf durch
+
+```js
+// ❌ SCHLECHT
+const [trees, setTrees] = useState([...]);
+
+const [bigTrees, setBigTrees] = useState(trees.filter((tree) => tree.height > 5));
+
+// Irgendwo anders:
+setBigTrees(trees.filter((tree) => tree.height > 10));
+
+// ✅ GUT
+const [trees, setTrees] = useState([...]);
+
+const bigTrees = trees.filter((tree) => tree.height > 5);
+
+// Irgendwo anders:
+const updatedBigTrees = trees.filter((tree) => tree.height > 10);
+````
+
+Dies sind einige bewährte Praktiken, die du bei der Verwendung von State in React beachten kannst, um die State-Mutation zu vermeiden und deine Anwendung korrekt zu aktualisieren.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
