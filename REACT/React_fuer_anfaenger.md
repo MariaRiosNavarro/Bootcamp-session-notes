@@ -611,7 +611,7 @@ function Child({ count, onIncrement }) {
 
 1.- Um zwei Komponenten miteinander abzustimmen, kannst du ihren Zustand in das übergeordnete Element verschieben, das sie gemeinsam haben.
 
-2.- Dann gibst du die Informationen über Props (Requisiten) an die untergeordneten Komponenten weiter. 
+2.- Dann gibst du die Informationen über Props an die untergeordneten Komponenten weiter. 
 
 3.-
 Schließlich übergibst du auch die Event-Handler, damit die untergeordneten Komponenten den Zustand des übergeordneten Elements ändern können.
