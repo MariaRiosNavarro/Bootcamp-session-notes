@@ -632,6 +632,9 @@ Beim Schreiben einer Komponente sollten Sie darüber nachdenken, welche Informat
 
 Ihre App wird sich ändern, während Sie daran arbeiten. Es kommt häufig vor, dass Sie den Status nach unten oder oben verschieben, während Sie noch herausfinden, wo die einzelnen Teile des Status „leben“. Das ist alles Teil des Prozesses!
 
+[Beispiel Hilfe in Codesandbox](https://codesandbox.io/s/react-lift-up-usestates-1z8o9u?file=/App.js)
+
+
 BEISPIEL 1
 
 <img src="liftup1.png" width="616" />
