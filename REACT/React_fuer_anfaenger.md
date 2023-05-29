@@ -115,6 +115,15 @@ Es gibt noch weitere Hooks, die spezifische Funktionalitäten in React bieten. H
 
 Es ist wichtig zu beachten, dass Hooks in Funktionskomponenten verwendet werden müssen und nicht in Klassenkomponenten. Sie bieten eine moderne und flexible Alternative zur Verwendung von Zustand und Lifecycle-Methoden in React
 
+
+Die useState-Funktion (useState) ist Teil einer umfassenderen Funktionssammlung in React, die den Komponenten zusätzliche Funktionen ermöglicht. Hooks sind Funktionen, die Komponentenfunktionen erlauben, sich in React-Funktionen einzuklinken und ihnen ermöglichen, mehr zu tun als eine traditionelle JavaScript-Funktion. Sie folgen der Namenskonvention "useXyz".
+
+Beim Verwenden von Hooks müssen wir ein paar Regeln beachten:
+
+Rufe Hooks nur auf der obersten Ebene auf. Rufe Hooks nicht in Schleifen, Bedingungen oder verschachtelten Funktionen auf.
+Rufe Hooks nur in React-Funktionskomponenten oder benutzerdefinierten Hooks auf. Rufe Hooks nicht in regulären JavaScript-Funk
+
+
 # Hooks Beispiele um die zu verstehen
 
 Hier sind sehr einfache Beispiele für jeden der genannten Hooks:
@@ -397,6 +406,166 @@ function updateName(newName) {
 ````
 
 
+
+
+# Das Handling von Formulardaten: Verwendung von `onSubmit` für Formulardaten:
+
+Wir können das `onSubmit` -Ereignis verwenden, um Formulardaten zu handhaben. Das `onSubmit` -Ereignis wird aufgerufen, wenn der Benutzer das Formular absendet. Wir können die Formulardaten (genau wie in regulärem JavaScript) aus dem Event-Objekt erhalten.
+
+```js
+function SearchForm() {
+  function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const searchTerm = form.elements.searchTerm.value;
+    console.log("Eine neue Suchanfrage wurde abgeschickt:", searchTerm);
+  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="searchTerm">Suche</label>
+      <input name="searchTerm" id="searchTerm" />
+      <button>Suchen</button>
+    </form>
+  );
+}
+````
+
+In diesem Beispiel wird der Wert des Eingabefelds nicht von React kontrolliert: Das Eingabefeld ist ein "uncontrolled input". Der Wert wird vom Browser verwaltet. Im onSubmit-Ereignishandler schauen wir uns einfach den Wert des Eingabefelds an und lesen ihn aus dem DOM.
+
+Wir können jedoch auch React verwenden, um den Wert eines Eingabefelds zu kontrollieren. Dies wird als "controlled input" bezeichnet. Das bedeutet, dass wir das value-Attribut des Eingabefelds manuell festlegen. Wir können eine Zustandsvariable mit dem value-Attribut des Eingabefelds verbinden. Dadurch hat das Eingabefeld immer den gleichen Wert wie die Zustandsvariable. In Kombination mit dem onChange-Ereignishandler können wir die Zustandsvariable aktualisieren, wenn der Benutzer in das Eingabefeld tippt.
+
+```js
+function SearchForm() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log("Eine neue Suchanfrage wurde abgeschickt:", searchTerm);
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="searchTerm">Suche</label>
+      <input
+        name="searchTerm"
+        id="searchTerm"
+        value={searchTerm}
+        onChange={(event) => setSearchTerm(event.target.value)}
+      />
+      <button>Nach {searchTerm} suchen</button>
+    </form>
+  );
+}
+````
+
+In diesem Beispiel kennen Sie immer den Wert des Suchbegriffs-Eingabefelds. Da es sich um eine Zustandsvariable handelt, können Sie sie auch an anderen Stellen in Ihrer Anwendung verwenden. Wenn möglich, sollten Sie uncontrolled inputs verwenden, aber manchmal ist die Verwendung eines controlled inputs erforderlich.
+
+Ein controlled input kann benötigt werden, wenn:
+
+Suchergebnisse während der Eingabe des Benutzers angezeigt werden sollen,
+
+die Eingabe des Benutzers automatisch vervollständigt wird oder
+
+die Eingabe des Benutzers validiert werden soll.
+
+
+
+
+
+# State-Updates erfolgen nicht sofort:
+
+Wenn wir die Setter-Funktion einer Zustandsvariable aufrufen, aktualisiert React die Zustandsvariable nicht sofort. Stattdessen aktualisiert es den internen Wert und plant eine erneute Renderung der Komponente.
+
+```js
+function Counter() {
+  const [count, setCount] = useState(0); // count ist anfangs 0
+
+  function handleIncrement() {
+    // wenn dies zum ersten Mal aufgerufen wird, ist count immer noch 0
+    console.log(count); // → 0
+
+    // dies setzt den internen Zustand von React auf 1,
+    // aktualisiert jedoch nicht die count-Variable
+    setCount(count + 1);
+    console.log(count); // → 0
+
+    // die count-Variable ist immer noch 0, daher ist count + 1 immer noch 1,
+    // also wird der interne Zustand von React immer noch 1 sein
+    setCount(count + 1);
+    console.log(count); // → 0
+
+    // da Setter-Funktionen aufgerufen wurden,
+    // plant React eine erneute Renderung
+    // der Komponente mit dem neuen count-Wert von 1
+  }
+
+  return (
+    <>
+      <p>Zähler: {count}</p>
+      <button onClick={handleIncrement}>um 2 erhöhen</button>
+    </>
+  );
+}
+
+````
+Dieses Verhalten kann überraschend sein, aber es ist wichtig zu verstehen, dass Zustandsvariablen nicht sofort aktualisiert werden.
+
+Es gibt einige Möglichkeiten, den obigen Code zu korrigieren. In diesem Beispiel könnten wir setCount(count + 2) aufrufen und fertig sein. Wenn wir aus irgendeinem Grund setCount zweimal aufrufen müssen, können wir die funktionale Form der Setter-Funktion verwenden, die den aktuellen internen Wert der Zustandsvariable als Argument bereitstellt.
+
+```js
+function Counter() {
+  const [count, setCount] = useState(0); // count ist anfangs 0
+
+  function handleIncrement() {
+    // wenn dies zum ersten Mal aufgerufen wird, ist count immer noch 0
+    console.log(count); // → 0
+
+    // dies setzt den internen Zustand von React auf 1,
+    // aktualisiert jedoch nicht die count-Variable
+    setCount((prevCount) => prevCount + 1);
+    console.log(count); // → 0
+
+    // der interne Wert von count ist 1,
+    // wir erhalten ihn als ersten Parameter der Funktion, die wir dem Setter übergeben.
+    // 1 + 1 ist 2, daher ist der interne Zustand von React jetzt _2_
+    setCount((prevCount) => prevCount + 1);
+    console.log(count); // → 0
+
+    // da Setter-Funktionen aufgerufen wurden,
+    // plant React eine erneute Renderung
+    // der Komponente mit dem neuen count-Wert von _2_
+  }
+
+  return (
+    <>
+      <p>Zähler: {count}</p>
+      <button onClick={handleIncrement}>um 2 erhöhen</button>
+    </>
+  );
+}
+
+
+ 
+
+````
+💡 Hier wird das Präfix "prev" verwendet, um anzuzeigen, dass der Wert der vorherige Wert der Zustandsvariable ist. Eine andere gängige Konvention besteht darin, nur den ersten Buchstaben der Zustandsvariable als Parametername zu verwenden: setCount(c => c + 1).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ---
 
 # useState 2
@@ -484,25 +653,3 @@ Die "Single Source of Truth" (SSOT) Architektur in der Informationstechnologie b
 
 
 
-
-Das Handling von Formulardaten:
-
-Verwendung von onSubmit für Formulardaten:
-Wir können das onSubmit-Ereignis verwenden, um Formulardaten zu handhaben. Das onSubmit-Ereignis wird aufgerufen, wenn der Benutzer das Formular absendet. Wir können die Formulardaten (genau wie in regulärem JavaScript) aus dem Event-Objekt erhalten.
-
-Verwendung von kontrollierten Eingabefeldern:
-
-Wir können React verwenden, um den Wert eines Eingabefeldes zu kontrollieren. Das nennt man einen "kontrollierten Eingabewert" (controlled input). Das bedeutet, dass wir das Wert-Attribut des Eingabefelds manuell festlegen. Wir können eine Zustandsvariable (z.B. useState) mit dem Wert-Attribut des Eingabefelds verbinden. Dadurch hat das Eingabefeld immer den gleichen Wert wie die Zustandsvariable. In Kombination mit dem onChange-Ereignis können wir die Zustandsvariable (z.B. setSearchTerm) aktualisieren, wenn der Benutzer in das Eingabefeld eingibt.
-
-State-Updates erfolgen nicht sofort:
-
-Wenn wir die Setter-Funktion einer Zustandsvariable (z.B. setCount) aufrufen, wird der Zustand nicht sofort aktualisiert. Stattdessen aktualisiert React seinen internen Wert und plant eine erneute Rendervorgang der Komponente.
-
-React Hooks:
-
-Die useState-Funktion (useState) ist Teil einer umfassenderen Funktionssammlung in React, die den Komponenten zusätzliche Funktionen ermöglicht. Hooks sind Funktionen, die Komponentenfunktionen erlauben, sich in React-Funktionen einzuklinken und ihnen ermöglichen, mehr zu tun als eine traditionelle JavaScript-Funktion. Sie folgen der Namenskonvention "useXyz".
-
-Beim Verwenden von Hooks müssen wir ein paar Regeln beachten:
-
-Rufe Hooks nur auf der obersten Ebene auf. Rufe Hooks nicht in Schleifen, Bedingungen oder verschachtelten Funktionen auf.
-Rufe Hooks nur in React-Funktionskomponenten oder benutzerdefinierten Hooks auf. Rufe Hooks nicht in regulären JavaScript-Funk
