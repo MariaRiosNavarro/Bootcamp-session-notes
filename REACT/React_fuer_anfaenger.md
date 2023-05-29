@@ -701,16 +701,6 @@ function handleChangeFirstName(firstName) {
 
 Wie du weißt, gibt es mehrere Möglichkeiten, Arrays zu aktualisieren. Einige von ihnen mutieren jedoch das Array, und andere nicht.
 
-Vermeiden (mutiert das Array) Bevorzugen (gibt ein neues Array zurück)
-
-Hinzufügen: push, unshift [...arr] Spread-Syntax
-
-Entfernen: pop, shift, splice filter
-
-Ersetzen: splice, arr[i] = ...-Zuweisung map
-
-Sortieren: reverse, sort Array zuerst kopieren
-
 
 |            | Vermeiden (mutiert das Array)       | Bevorzugen (gibt ein neues Array zurück) |
 | -----------|-------------------------------------|------------------------------|
