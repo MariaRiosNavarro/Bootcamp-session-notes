@@ -773,11 +773,13 @@ handleReplaceNumber(1, 1337);
 ````
 
 # Aktualisieren von Arrays von Objekten im State:
+
 Die meiste Zeit wirst du Arrays von Objekten in deinem State haben.
 
-### Hinzufügen eines neuen Objekts im Array:
 
-Du kannst ein neues Objekt zum Array im State hinzufügen, indem du die Spread-Syntax verwendest:
+### Hinzufügen eines neuen Objekts im Array (...array):
+
+Du kannst ein neues Objekt zum Array im State hinzufügen, indem du die Spread-Syntax (...array) verwendest:
 
 ```js
 const [trees, setTrees] = useState([
@@ -786,15 +788,16 @@ const [trees, setTrees] = useState([
   { id: 2, name: "Pine", height: 10 }
 ]);
 
-function handleAddTree(tree) {
-  setTrees([...trees, tree]);
+function handleAddTree(newtree) {
+  setTrees([...trees, newtree]);
 }
 
 // Irgendwo anders:
 handleAddTree({ id: 3, name: "Spruce", height: 13 });
 ````
 
-### Entfernen eines Objekts im Array:
+### Entfernen eines Objekts im Array (.filter):
+
 Um ein Objekt zu entfernen, kannst du das Array nach einem eindeutigen Identifikator filtern. In den meisten Fällen befindet sich dieser Identifikator im Gültigkeitsbereich, da das relevante Objekt über .map gerendert wird.
 
 ```js
@@ -813,7 +816,7 @@ handleRemoveTree(0);
 ````
 ### Ersetzen eines Objekts im Array:
 
-Um ein Objekt zu ersetzen, kannst du map verwenden, um ein neues Array mit dem aktualisierten Objekt zu erstellen. Vergiss nicht, eine Kopie des Objekts zu erstellen, sonst würdest du den State mutieren.
+Um ein Objekt zu ersetzen, kannst du .map verwenden, um ein neues Array mit dem aktualisierten Objekt zu erstellen. Vergiss nicht, eine Kopie des Objekts zu erstellen (...array), sonst würdest du den State mutieren.
 
 ```js
 const [trees, setTrees] = useState([
@@ -837,7 +840,7 @@ handleSetNewHeightForTree(0, 8);
 
 ### Sortieren eines Arrays von Objekten
 
-Um ein Array von Objekten zu sortieren, kannst du sort auf einer Kopie des Arrays mit einer benutzerdefinierten Vergleichsfunktion verwenden. Die Vergleichsfunktion gibt eine Zahl zurück, die zur Bestimmung der Reihenfolge der Elemente verwendet wird.
+Um ein Array von Objekten zu sortieren, kannst du sort auf einer Kopie des Arrays (...array) mit einer benutzerdefinierten Vergleichsfunktion verwenden. Die Vergleichsfunktion gibt eine Zahl zurück, die zur Bestimmung der Reihenfolge der Elemente verwendet wird.
 
 ```js
 const [trees, setTrees] = useState([
