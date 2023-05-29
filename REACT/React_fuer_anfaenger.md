@@ -263,7 +263,7 @@ Denke an einen Beitrag in einer Social-Media-App. Du könntest einen bestimmten 
 Die Website deiner Bank entspricht deinem Portemonnaie in der analogen Welt. Zu jedem Zeitpunkt zeigt die Banksoftware den aktuellen Kontostand, den aktuellen Zustand, an. Du kannst die Banksoftware verwenden, um diesen Zustand zu ändern. Zum Beispiel könntest du Geld auf ein anderes Konto überweisen, um die im "Kontostand"-Zustand gespeicherte Zahl (useState) zu verringern.
 
 
-# Zustand in React:
+### Zustand in React:
 
 In React arbeiten wir mit dem Zustand (useState), indem wir die Funktion "useState" verwenden.
 
@@ -303,14 +303,14 @@ Beachte, dass es eine Namenskonvention für React-Apps gibt, bei der die Zustand
 
 Eine React-Komponente kann mehrere Zustände haben. Du kannst die "useState"-Funktion so oft verwenden, wie du möchtest. Du kannst alle Arten von Daten im Zustand speichern, wie z. B. boolesche Werte, Zahlen, Zeichenketten, Objekte oder Arrays.
 
-# Was passiert, wenn sich der Zustand ändert?
+### Was passiert, wenn sich der Zustand ändert?
 
 Um den Zustand in React zu handhaben, können wir nicht einfach eine "normale" Variable verwenden und ihr einen neuen Wert zuweisen. React muss darüber informiert werden, dass die Daten geändert wurden.
 
 Dies hängt mit dem Renderzyklus von React-Komponenten zusammen.
 Wenn React eine Komponente rendert, führt es die Komponentenfunktion aus, die JSX zurückgibt. Wenn das JSX eine Zustandsvariable enthält, verwendet es den Wert der Variablen zu diesem Zeitpunkt, um ihn in das JSX einzufügen. 
 
-# ***Das Aufrufen der "set"-Funktion mit einem neuen Wert informiert React darüber, dass sich der Zustand geändert hat.***
+### ***Das Aufrufen der "set"-Funktion mit einem neuen Wert informiert React darüber, dass sich der Zustand geändert hat.***
 
 Das Ändern eines Zustands (useState) löst eine erneute Rendervorgang der Komponente aus. Bei der erneuten Rendervorgang führt React die Komponentenfunktion erneut von oben nach unten aus, die dann JSX zurückgibt. Diesmal hat die Variable jedoch einen neuen Wert - den Wert, der mit dem Aufruf der "set"-Funktion übergeben wurde. Dies bedeutet, dass das zurückgegebene JSX den neuen Wert enthält.
 
@@ -406,8 +406,6 @@ function updateName(newName) {
 ````
 
 
-
-
 # Das Handling von Formulardaten: Verwendung von `onSubmit` für Formulardaten:
 
 Wir können das `onSubmit` -Ereignis verwenden, um Formulardaten zu handhaben. Das `onSubmit` -Ereignis wird aufgerufen, wenn der Benutzer das Formular absendet. Wir können die Formulardaten (genau wie in regulärem JavaScript) aus dem Event-Objekt erhalten.
@@ -462,11 +460,11 @@ In diesem Beispiel kennen Sie immer den Wert des Suchbegriffs-Eingabefelds. Da e
 
 Ein controlled input kann benötigt werden, wenn:
 
-Suchergebnisse während der Eingabe des Benutzers angezeigt werden sollen,
+1.- Suchergebnisse während der Eingabe des Benutzers angezeigt werden sollen,
 
-die Eingabe des Benutzers automatisch vervollständigt wird oder
+2.- die Eingabe des Benutzers automatisch vervollständigt wird oder
 
-die Eingabe des Benutzers validiert werden soll.
+3.- die Eingabe des Benutzers validiert werden soll.
 
 
 
@@ -570,9 +568,9 @@ function Counter() {
 
 # useState 2
 
-#  Das Teilen von Zuständen zwischen Komponenten:
+### Das Teilen von Zuständen zwischen Komponenten:
 
-# lifting state up
+### lifting state up
 
 Wenn mehrere Komponenten denselben Zustand nutzen müssen, können wir den Zustand zur Elternkomponente "hochziehen" (lifting state up) und ihn als Prop an die Kindkomponenten weitergeben. Das bedeutet, dass der Zustand zunächst in der Kindkomponente vorhanden ist und dann nach oben in die Elternkomponenten verschoben wird, je nachdem, in welchen Komponenten er benötigt wird.
 
@@ -607,7 +605,7 @@ function Child({ count, onIncrement }) {
 }
 ```
 
-# Wie mache ich ein lifting state up:
+### Wie mache ich ein lifting state up:
 
 1.- Um zwei Komponenten miteinander abzustimmen, kannst du ihren Zustand in das übergeordnete Element verschieben, das sie gemeinsam haben.
 
@@ -654,10 +652,22 @@ BEISPIEL 3
 
 Die "Single Source of Truth" (SSOT) Architektur in der Informationstechnologie bedeutet, dass Informationen und Datenmodelle so strukturiert werden, dass jedes Datenfeld nur an einer Stelle bearbeitet wird. Dadurch entsteht eine einheitliche Datenstruktur, bei der Verknüpfungen zu anderen Bereichen nur über Referenzen erfolgen. Aktualisierungen an der primären Quelle werden im gesamten System übernommen und bieten Vorteile wie höhere Effizienz, einfache Vermeidung von Inkonsistenzen und vereinfachte Versionierung. Ohne SSOT-Architektur können häufige Duplikate zu Verwirrung und geringerer Produktivität führen.
 
+[React Denken zusammenfassung auf Deutsch](https://github.com/MariaRiosNavarro/Bootcamp-session-notes/blob/main/REACT/React%20Denken.md)
+
+
+# Arrays in JSX:
+Um Elemente aus einem Array in React zu rendern, verwenden wir die Array-Methode .map().
+
+Die Array-Methode .map() wird verwendet, um eine Transformation auf alle Elemente eines Arrays anzuwenden. Beim Rendern eines Arrays in JSX möchten wir genau das tun. Wir möchten jedes Element eines Arrays in ein JSX-Tag umwandeln. Deshalb verwenden wir .map().
+
+
+
+
+
 
 # Use State 3
 
-# Vermeiden der State-Mutation:
+### Vermeiden der State-Mutation:
 
 Unabhängig davon, wie komplex der State in deiner Anwendung ist (Objekt, Array, Array von Objekten), musst du den State immer als unveränderlich behandeln. Das bedeutet, dass du den State nicht direkt verändern solltest, z.B. indem du ihm einen neuen Wert zuweist.
 
@@ -669,7 +679,7 @@ Um die Mutation des States beim Aktualisieren zu vermeiden, musst du:
 2.- die Setter-Funktion mit der kürzlich erstellten/aktualisierten Kopie verwenden, um eine erneute Rendereingabe auszulösen.
 
 
-# Aktualisieren von Objekten im State:
+### Aktualisieren von Objekten im State:
 
 Um eine Kopie eines Objekts zu erstellen und nur einige Eigenschaften zu ändern, kannst du die Spread-Syntax verwenden:
 
@@ -697,7 +707,7 @@ function handleChangeFirstName(firstName) {
 }
 ````
 
-# Aktualisieren von Arrays im State:
+### Aktualisieren von Arrays im State:
 
 Wie du weißt, gibt es mehrere Möglichkeiten, Arrays zu aktualisieren. Einige von ihnen mutieren jedoch das Array, und andere nicht.
 
@@ -714,7 +724,8 @@ Wie du weißt, gibt es mehrere Möglichkeiten, Arrays zu aktualisieren. Einige v
 
 💡 Es spielt keine Rolle, ob dein Array im State nur Primitive oder andere Objekte/Arrays enthält. In allen Fällen solltest du nur die bevorzugten Array-Methoden verwenden.
 
-# Hinzufügen zu einem Array:
+### Hinzufügen zu einem Array:
+
 Um ein Element zu einem Array hinzuzufügen, kannst du die Spread-Syntax verwenden:
 
 ```js
@@ -738,7 +749,7 @@ function handlePrependNumber(number) {
 handlePrependNumber(-1);
 `````
 
-# Entfernen aus einem Array:
+### Entfernen aus einem Array:
 
 Um ein Element aus einem Array zu entfernen, kannst du die filter-Methode verwenden:
 
@@ -753,7 +764,7 @@ function handleRemoveNumber(numberToRemove) {
 handleRemoveNumber(1);
 ````
 
-# Ersetzen eines Array-Elements:
+### Ersetzen eines Array-Elements:
 Um ein Element in einem Array zu ersetzen, kannst du die map-Methode verwenden:
 
 ```js
@@ -772,7 +783,7 @@ function handleReplaceNumber(oldNumber, newNumber) {
 handleReplaceNumber(1, 1337);
 ````
 
-# Aktualisieren von Arrays von Objekten im State:
+### Aktualisieren von Arrays von Objekten im State:
 
 Die meiste Zeit wirst du Arrays von Objekten in deinem State haben.
 
