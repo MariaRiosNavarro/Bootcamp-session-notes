@@ -569,17 +569,17 @@ function Drinks() {
 }
 ````
 
-Schlüssel-Propertie:
+Schlüssel-Propertie ```KEY```:
 
-Das obige Beispiel enthält einen kleinen, aber sehr wichtigen Teil, nämlich das Schlüssel-Prop!
+Das obige Beispiel hat einen kleinen, aber sehr wichtigen Teil vergessen, nämlich das Schlüssel-Prop- ```key```!
 
-Ohne das Schlüssel-Prop erhältst du eine Fehlermeldung in der Konsole:
+Ohne das Schlüssel-Prop ```key``` erhältst du eine Fehlermeldung in der Konsole:
 
 Warnung: Jedes Element in einer Liste sollte ein eindeutiges "key"-Prop haben.
 
 Beim Rendern eines Arrays in JSX musst du einen eindeutigen Bezeichner als Wert für das Schlüssel-Prop des ersten JSX-Tags übergeben, das in .map() zurückgegeben wird. Dies ist wichtig, damit React Änderungen verfolgen kann, die an den Daten beim erneuten Rendern vorgenommen werden.
 
-Daher musst du immer sicherstellen, dass dein Array eine eindeutige ID pro Element enthält. Du kannst dies erreichen, indem du Objekte verwendest, um die Daten in deinen Arrays zu definieren.
+Daher müssen Sie immer sicherstellen, dass Ihr Array eine eindeutige ID pro Element enthält. Dies können Sie sicherstellen, indem Sie Objekte verwenden, um die Daten in Ihren Arrays zu definieren.
 
 ```js
 function Drinks() {
@@ -600,7 +600,7 @@ function Drinks() {
 }
 ````
 
-💡 Wenn du das Schlüssel-Prop an eine Komponente übergibst, kannst du nicht darauf zugreifen. Es handelt sich um ein spezielles Prop, das von React nur intern verwendet wird
+💡 Wenn du das Schlüssel-Prop ```key``` an eine Komponente übergibst, kannst du nicht darauf zugreifen. Es handelt sich um ein spezielles Prop, das von React nur intern verwendet wird
 
 ```js
 function Drink({ name, key }) {
