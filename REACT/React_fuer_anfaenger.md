@@ -634,18 +634,18 @@ Ihre App wird sich ändern, während Sie daran arbeiten. Es kommt häufig vor, d
 
 BEISPIEL 1
 
-<img src="liftup1.png" width="616" height="694" />
-<img src="liftup2.png" width="616" height="694" />
+<img src="liftup1.png" width="616" />
+<img src="liftup2.png" width="616" />
 
 
 BEISPIEL 2
 
-<img src="liftup3.png" width="616" height="694" />
+<img src="liftup3.png" width="616"/>
 
 
 BEISPIEL 3
 
-<img src="liftup4.png" width="616" height="694" />
+<img src="liftup4.png" width="616" />
 
 
 
