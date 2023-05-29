@@ -775,7 +775,8 @@ handleReplaceNumber(1, 1337);
 # Aktualisieren von Arrays von Objekten im State:
 Die meiste Zeit wirst du Arrays von Objekten in deinem State haben.
 
-Hinzufügen eines neuen Objekts:
+### Hinzufügen eines neuen Objekts im Array:
+
 Du kannst ein neues Objekt zum Array im State hinzufügen, indem du die Spread-Syntax verwendest:
 
 ```js
@@ -793,7 +794,7 @@ function handleAddTree(tree) {
 handleAddTree({ id: 3, name: "Spruce", height: 13 });
 ````
 
-# Entfernen eines Objekts:
+### Entfernen eines Objekts im Array:
 Um ein Objekt zu entfernen, kannst du das Array nach einem eindeutigen Identifikator filtern. In den meisten Fällen befindet sich dieser Identifikator im Gültigkeitsbereich, da das relevante Objekt über .map gerendert wird.
 
 ```js
@@ -810,7 +811,7 @@ function handleRemoveTree(idToRemove) {
 // Irgendwo anders:
 handleRemoveTree(0);
 ````
-# Ersetzen eines Objekts:
+### Ersetzen eines Objekts im Array:
 
 Um ein Objekt zu ersetzen, kannst du map verwenden, um ein neues Array mit dem aktualisierten Objekt zu erstellen. Vergiss nicht, eine Kopie des Objekts zu erstellen, sonst würdest du den State mutieren.
 
@@ -834,7 +835,7 @@ function handleSetNewHeightForTree(id, height) {
 handleSetNewHeightForTree(0, 8);
 ````
 
-# Sortieren eines Arrays von Objekten
+### Sortieren eines Arrays von Objekten
 
 Um ein Array von Objekten zu sortieren, kannst du sort auf einer Kopie des Arrays mit einer benutzerdefinierten Vergleichsfunktion verwenden. Die Vergleichsfunktion gibt eine Zahl zurück, die zur Bestimmung der Reihenfolge der Elemente verwendet wird.
 
@@ -850,7 +851,7 @@ function handleSortTreesByHeight() {
 }
 ````
 
-# Die Wahl der State-Struktur:
+### Die Wahl der State-Struktur:
 
 Beim Festlegen der Struktur deines States gibt es einige häufige Fallstricke.
 
