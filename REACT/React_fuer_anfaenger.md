@@ -1044,8 +1044,179 @@ const updatedBigTrees = trees.filter((tree) => tree.height > 10);
 
 Dies sind einige bewährte Praktiken, die du bei der Verwendung von State in React beachten kannst, um die State-Mutation zu vermeiden und deine Anwendung korrekt zu aktualisieren.
 
+FEHLT
+  
+  Costum Hooks
+  Fetch
+  LocalStorage
+
+  
+  
+# React auf gestylte Komponenten 
+  
+React Styled Components ist eine Bibliothek, die es dir ermöglicht, CSS direkt in JavaScript-Code zu schreiben. Es ist eine sogenannte "CSS-in-JS"-Bibliothek. Anstatt separate CSS-Dateien zu erstellen und diese in deinem React-Projekt zu importieren, kannst du mit Styled Components die Styling-Logik direkt in den React-Komponenten selbst definieren.
+
+Warum verwenden wir CSS-in-JS und Styled Components? Es gibt mehrere Vorteile:
+
+1.- Automatische Generierung von kritischem CSS: Nur das CSS, das für eine bestimmte Komponente benötigt wird, wird automatisch in den gerenderten HTML-Code eingefügt. Dadurch wird die Seitenladezeit verbessert.
+
+2.- Keine Klassenname-Konflikte: Da jedes Styled Component eine eindeutige Klasse generiert, gibt es keine Konflikte zwischen Klassennamen in verschiedenen Komponenten.
+
+3.- Einfaches Löschen von CSS: Wenn eine Komponente nicht mehr benötigt wird, kannst du sie einfach löschen, ohne dass du zusätzlichen CSS-Code entfernen musst.
+
+4.- Dynamisches Styling: Du kannst das Styling einer Komponente basierend auf den Props anpassen. Dies ermöglicht es dir, eine Komponente flexibel zu gestalten und verschiedene Stile basierend auf verschiedenen Zuständen oder Daten anzuzeigen.
+
+5.- Einfache Wartung: Da das Styling direkt in den Komponenten definiert ist, ist es einfacher, den Zusammenhang zwischen dem Styling-Code und der Komponente selbst zu verstehen und zu warten.
+
+6.- Automatisches Hinzufügen von Vendor-Präfixen: Styled Components kümmert sich automatisch um das Hinzufügen von Vendor-Präfixen für browser-spezifische CSS-Eigenschaften.
+
+Jetzt schauen wir uns an, wie du Styled Components verwenden kannst:
+
+1.- Grundlegendes Styling: Du kannst ein Styled Component erstellen, indem du die styled Funktion importierst und sie verwenden, um ein Styled Component zu definieren. Das Styled Component kann dann in der return-Anweisung deiner Komponente verwendet werden.
+  
+  ```js
+  import styled from "styled-components";
+
+const StyledButton = styled.button`
+  background-color: blue;
+  color: white;
+  padding: 10px;
+`;
+
+export default function MyComponent() {
+  return <StyledButton>Click me!</StyledButton>;
+}
+ ````
+  
+
+2.- Styling einer benutzerdefinierten Komponente: Manchmal möchtest du eine bereits vorhandene Komponente mit zusätzlichem Styling erweitern. Du kannst ein Styled Component für diese Komponente erstellen und es wie jede andere Komponente verwenden.
+
+ 
+ ```js
+  import styled from "styled-components";
+import CustomComponent from "./CustomComponent";
+
+const StyledCustomComponent = styled(CustomComponent)`
+  background-color: yellow;
+  font-size: 16px;
+`;
+
+export default function MyComponent() {
+  return <StyledCustomComponent>Styled Component</StyledCustomComponent>;
+}
+````
+  
+
+3.- Anpassung des Stylings basierend auf Props: Du kannst das Styling eines Styled Components basierend auf den übergebenen Props anpassen. Du kannst eine Funktion verwenden, um das Styling dynamisch zu generieren.
+  
+  ```js
+  import styled from "styled-components";
+
+const StyledButton = styled.button`
+  background-color: ${(props) => (props.primary ? "blue" : "gray")};
+  color: white;
+  padding: 10px;
+`;
+
+export default function MyComponent() {
+  return (
+    <>
+      <StyledButton primary>Primary Button</StyledButton>
+      <StyledButton>Secondary Button</StyledButton>
+    </>
+  );
+}
+````
+  
+  
+
+4.- Verwendung von Pseudoelementen und Pseudoklassen: Du kannst Pseudoelemente und Pseudoklassen direkt in Styled Components verwenden, indem du das &-Symbol verwendest.
+  
+  
+  
+  ```js
+  import styled from "styled-components";
+
+const StyledLink = styled.a`
+  color: blue;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &::before {
+    content: "🔗";
+    margin-right: 5px;
+  }
+`;
+
+export default function MyComponent() {
+  return (
+    <StyledLink href="https://example.com">Styled Link</StyledLink>
+  );
+}
+````
 
 
+
+
+  
+
+5.- Globales Styling: Du kannst globales Styling implementieren, indem du ein globales Styled Component erstellst. Dieses Styled Component definiert globale CSS-Regeln, die auf alle Komponenten angewendet werden.
+  
+  
+  
+```js
+  import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: lightgray;
+    font-family: Arial, sans-serif;
+  }
+`;
+
+export default function App() {
+  return (
+    <>
+      <GlobalStyle />
+      <h1>Hello, world!</h1>
+      <p>This is a global styled component example.</p>
+    </>
+  );
+}
+
+  ````
+  
+
+6.- Integration von Google Fonts: Du kannst Google Fonts in dein Next.js-Projekt integrieren und sie mit Styled Components verwenden, indem du das @next/font-Paket verwendest. Es optimiert automatisch die Schriftarten und entfernt externe Netzwerkanfragen für verbesserte Privatsphäre und Leistung.
+
+  ```js
+  import { createGlobalStyle } from "styled-components";
+import { Open_Sans } from "@next/font/google";
+
+const openSans = Open_Sans({ subsets: ["latin"] });
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    font-family: ${openSans.style.fontFamily};
+  }
+`;
+
+export default function App() {
+  return (
+    <>
+      <GlobalStyle />
+      <h1>Hello, world!</h1>
+      <p>This is a global styled component example with Google Fonts.</p>
+    </>
+  );
+}
+
+  ````
+  
+  
+Das sind die grundlegenden Konzepte von React Styled Components
 
 
 
