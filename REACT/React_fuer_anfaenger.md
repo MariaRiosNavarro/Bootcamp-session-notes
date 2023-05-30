@@ -1106,6 +1106,29 @@ export default function MyComponent() {
 }
 ````
   
+  ```js
+  //components/List.js
+import styled from "styled-components";
+
+export default function List() {
+  return (
+    <StyledList>
+      <ListItem>Item 1</ListItem>
+      <ListItem>Item 2</ListItem>
+      <ListItem>Item 3</ListItem>
+    </StyledList>
+  );
+}
+
+const ListItem = styled.li`
+  background-color: crimson;
+`;
+
+const StyledList = styled.ul`
+  list-style-type: none;
+`;
+````
+  
 
 3.- Anpassung des Stylings basierend auf Props: Du kannst das Styling eines Styled Components basierend auf den übergebenen Props anpassen. Du kannst eine Funktion verwenden, um das Styling dynamisch zu generieren.
   
