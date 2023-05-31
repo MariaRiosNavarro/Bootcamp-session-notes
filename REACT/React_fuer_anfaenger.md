@@ -1364,10 +1364,15 @@ test("converts Celsius to Fahrenheit and renders the result", async () => {
 Mit screen können Sie Abfragen verwenden, um bestimmte Elemente zu suchen, die im generierten HTML vorhanden sein sollten.
 
 Abfrage Beschreibung
+
 ByRole Suche nach einem Element basierend auf dessen Rolle / aria-*-Attribut (z. B. Button, Textfeld, Überschrift)
+
 ByLabelText Suche nach einem Element (wie einem Eingabefeld) mit einem bestimmten Label
+
 ByText Suche nach einem bestimmten Text
+
 ByTestId Letzte Möglichkeit, um nach einem Element zu suchen, auf das mit anderen Abfragen nicht zugegriffen werden kann. Markieren Sie das Element mit dem Attribut data-testid.
+
 In den meisten Fällen sollten Sie Abfragen mit getBy verwenden, um sofort einen Fehler zu erhalten, wenn das Element nicht gefunden wird. Manchmal möchten Sie testen, ob etwas nicht angezeigt wird. Verwenden Sie in diesem Fall queryBy, da der Test nicht sofort fehlschlägt, sondern null zurückgibt.
 
 Sie können einen String verwenden, um den zu suchenden Text anzugeben, z. B.: getByText("Hier Text").
@@ -1380,17 +1385,17 @@ Der Ausdruck, der in Schrägstrichen (/Hallo Welt/) eingeschlossen ist, wird als
 
 Die Verwendung des Testing Playground hilft Ihnen beim Schreiben von Abfragen.
 
-Simulieren von Benutzerereignissen
+### Simulieren von Benutzerereignissen
 
 Sie können simulieren, wie Benutzer mit der Komponente interagieren. Zunächst müssen Sie einen virtuellen Benutzer mit userEvent.setup() einrichten. Anschließend können Sie Ereignisse wie "type" oder "click" simulieren. Vergessen Sie nicht, await zusammen mit den Benutzerereignissen zu verwenden.
 
-Verwendung von Matchern
+### Verwendung von Matchern
 
 Mit expect können Sie Matcher verwenden, um das erwartete Ergebnis Ihres Tests zu formulieren. Es handelt sich um dasselbe Konzept wie beim Unittesting.
 
 Da wir HTML in den Komponententests generieren, können Sie einige zusätzliche Matcher verwenden. Der Matcher toBeInTheDocument wird sehr häufig verwendet.
 
-Mocks
+### Mocks
 
 Ein Mock ist ein Ersatz, der in den Tests anstelle einer Originalfunktion verwendet wird. Häufige Anwendungsfälle sind:
 
