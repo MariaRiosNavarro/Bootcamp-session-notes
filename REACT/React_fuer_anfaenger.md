@@ -1242,11 +1242,138 @@ export default function App() {
 Das sind die grundlegenden Konzepte von React Styled Components
 
 
+#TESTING:  Warum Testing im Frontend Sinn ergibt
+
+Beim Entwickeln von Apps müssen wir diese regelmäßig testen, um sicherzustellen, dass alles wie erwartet funktioniert und um Fehler zu finden, bevor sie von den Benutzern entdeckt werden.
+
+Das manuelle Testen der App über die Benutzeroberfläche ist zeitaufwendig und unzuverlässig. Das Rendern eines Teils der Benutzeroberfläche und das Simulieren von Interaktionen können in Komponententests automatisiert werden.
+
+Dieser Ansatz versucht, mit der App auf die gleiche Weise zu interagieren, wie es ein echter Benutzer tun würde, indem nach bestimmten Elementen in der gerenderten App gesucht wird:
+
+Suche nach einer Überschrift mit bestimmtem Inhalt
+Suche nach Eingabefeldern mit bestimmten Beschriftungen und Einfügen von Text
+Suche nach einer Schaltfläche mit bestimmter Beschriftung und Klicken, um ein Formular zu senden
+Suche nach einem erwarteten Ergebnis, das nach dem Senden angezeigt werden sollte
+Wir können solche Tests für jede React-Komponente in unserem Code schreiben.
+
+In einer vorherigen Sitzung haben wir uns mit Unit-Tests beschäftigt, die sich auf eine einzelne Einheit/Funktion konzentrieren. Komponententests gehören zur Kategorie der Integrationstests, da sie testen, wie verschiedene einzelne Einheiten/Funktionen zusammenarbeiten, um ein Ergebnis auf dem Bildschirm des Benutzers zu erzeugen.
+
+Anstatt die gesamte App oder eine vollständige Seite zu testen (dieser Ansatz würde End-to-End-Tests sein), erstellen wir getrennte kleinere Tests für einzelne Komponenten.
+
+Die Testdatei wird direkt neben der Komponentendatei mit der Endung .test.js platziert.
+
+Testing Library
+
+Die Testing Library ermöglicht es uns, React-Komponenten in Jest-Tests zu rendern, Benutzerverhalten zu simulieren und die Ergebnisse nach dem erneuten Rendern der Komponente zu überprüfen.
+
+Beispiel
+
+FahrenheitConverter.js
+
+Die Komponente FahrenheitConverter rendert eine Überschrift, ein Formular und eine Ergebnisausgabe. Wenn das Formular noch nicht abgeschickt wurde, wird anstelle des Ergebnisses eine Ersatznachricht angezeigt. Nachdem das Formular abgeschickt wurde, wird die Berechnung durchgeführt und das Ergebnis im State gespeichert. Dadurch wird eine erneute Rendern der Komponente ausgelöst, sodass das Ergebnis angezeigt wird.
 
 
+```js
+import { useState } from "react";
+
+export default function FahrenheitConverter() {
+  const [fahrenheit, setFahrenheit] = useState();
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formElements = form.elements;
+    const celsius = formElements.celsius.value;
+
+    setFahrenheit((celsius * 9) / 5 + 32);
+  }
+
+  return (
+    <div>
+      <h1>Temperature Unit Converter</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="celsius">°C</label>
+        <input type="number" id="celsius" name="celsius" />
+        <button>Convert to Fahrenheit</button>
+      </form>
+      {fahrenheit ? (
+        <output>{fahrenheit} °F</output>
+      ) : (
+        <p>Please enter a Celsius value and submit</p>
+      )}
+    </div>
+  );
+}
+````
+
+FahrenheitConverter.test.js
+
+Es gibt drei Tests für diese Komponente:
+
+Test, ob die Überschrift angezeigt wird
+Test, ob die Ersatznachricht angezeigt wird, bevor das Formular abgeschickt wurde
+Test, ob die Formularinteraktion und das Absenden funktionieren und das Ergebnis korrekt berechnet und anstelle der Ersatznachricht angezeigt wird.
 
 
+```js
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import FahrenheitConverter from ".";
 
+test("renders a heading", () => {
+  render(<TemperatureUnitConverter />);
+  const heading = screen.getByRole("heading", {
+    name: /temperature unit converter/i,
+  });
+  expect(heading).toBeInTheDocument();
+});
+
+test("renders a fallback message if form is not yet submitted", () => {
+  render(<FahrenheitConverter />);
+  const message = screen.getByText(/please enter a celsius value and submit/i);
+  expect(message).toBeInTheDocument();
+});
+
+test("converts Celsius to Fahrenheit and renders the result", async () => {
+  const user = userEvent.setup();
+
+  render(<FahrenheitConverter />);
+
+  const input = screen.getByLabelText(/°C/i);
+  expect(input).toBeInTheDocument();
+
+  const button = screen.getByRole("button", { name: /convert to fahrenheit/i });
+  expect(button).toBeInTheDocument();
+
+  await user.type(input, "5");
+  await user.click(button);
+
+  const output = screen.getByText(/41 °F/i);
+  expect(output).toBeInTheDocument();
+
+  const message = screen.queryByText(
+    /please enter a celsius value and submit/i
+  );
+  expect(message).not.toBeInTheDocument();
+});
+`````
+
+### Eine Komponente rendern
+
+Mit der render-Methode kannst du die FahrenheitConverter-Komponente initial rendern. Anschließend kannst du die screen-Methode verwenden, um auf den von der Komponente generierten HTML-Code zuzugreifen.
+
+### Verwendung von Abfragen (Queries)
+
+Mit screen kannst du Abfragen verwenden, um nach bestimmten Elementen zu suchen, die im generierten HTML-Code vorhanden sein sollten.
+
+ByRole: Suche nach einem Element basierend auf seiner Rolle/aria-*-Attribut (z.B. Button, Textfeld, Überschrift)
+
+ByLabelText: Suche nach einem Element (wie einem Eingabefeld) mit einer bestimmten Beschriftung
+
+ByText: Suche nach einem bestimmten Text
+
+ByTestId: Als letzte Möglichkeit, um nach einem Element zu suchen, auf das mit anderen Abfragen nicht zugegriffen werden kann. Markiere das Element mit dem Attribut data-testid
 
 
 
