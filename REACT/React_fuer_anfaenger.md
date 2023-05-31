@@ -1480,8 +1480,67 @@ test("soll rendern", ()
 
 ---
 
+#Global State
 
+React Globaler Zustand
 
+Lernen Sie die Konzepte des Prop-Drillings und des globalen Zustands kennen.
+
+### Prop-Drilling
+
+In vielen Situationen wird ein Zustand, der bereits in einer Komponente vorhanden ist, auch in einer anderen Komponente benötigt. Die Komponenten müssen einen gemeinsamen Zustand teilen. Um dies zu lösen, müssen Sie den Zustand in der Komponentenhierarchie nach oben verschieben zur ersten gemeinsamen übergeordneten Komponente. Dies wird als "Lifting State Up" bezeichnet. Von diesem Punkt aus werden Zustandsvariablen oder Funktionen zum Ändern des Zustands über Props an Komponenten auf niedrigerer Ebene übergeben.
+
+Sie finden weitere Informationen zu diesem Thema in den Unterlagen "React State 2".
+
+Prop-Drilling
+
+Einzelne Komponenten, die Zustandsvariablen und deren gemeinsamen Vorfahren verbrauchen, in dem der Zustand definiert ist, können weit voneinander entfernt in der Komponentenhierarchie sein. Die Konsequenz ist, dass Zustandsvariablen über Props durch mehrere andere Komponenten hindurchgereicht werden müssen, bis sie in der Zielkomponente ankommen. Dies wird als "Prop-Drilling" bezeichnet.
+
+Betrachten Sie das folgende Beispiel:
+
+```js
+function App() {
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
+
+  return <ProductsPage userIsLoggedIn={userIsLoggedIn} />;
+}
+
+function ProductsPage({ userIsLoggedIn }) {
+  return <ProductsList userIsLoggedIn={userIsLoggedIn} />;
+}
+
+function ProductsList({ userIsLoggedIn }) {
+  return products.map((product) => (
+    <ProductCard {...product} userIsLoggedIn={userIsLoggedIn} />
+  ));
+}
+
+function ProductCard({ userIsLoggedIn }) {
+  return <ProductActions userIsLoggedIn={userIsLoggedIn} />;
+}
+
+function ProductActions({ userIsLoggedIn }) {
+  return userIsLoggedIn ? (
+    <button>One-click Buy</button>
+  ) : (
+    <button>Add to Basket</button>
+  );
+}
+````
+
+Die Zustandsvariable userIsLoggedIn wird in der Komponente App definiert. Sie wird viermal weitergegeben, bis sie in der Komponente ProductActions verwendet werden kann.
+
+Stellen Sie sich vor, es gibt noch viele weitere Komponenten in dieser App, von denen einige auch wissen müssen, ob ein Benutzer angemeldet ist oder nicht.
+
+Das Durchreichen von Props durch einige Ebenen ist in Ordnung. Wenn jedoch der Pfad länger wird und mehrere Zustandsvariablen über Props übergeben werden, erhöht sich die Komplexität und die Wartbarkeit des Codes wird reduziert. Auf dem Weg darf das Weitergeben jeder Prop in keiner Komponente vergessen werden.
+
+Namenskonventionen für Props und Funktionen
+
+In den React-Props-Unterlagen finden Sie allgemeine Informationen zur Benennung von Variablen und Funktionen, die über Props übergeben werden.
+
+Im Zusammenhang mit dem Prop-Drilling sollten Sie darauf achten, Props nicht in der Mitte umzubenennen. Wenn eine Prop umbenannt wird, geht die logische Verbindung möglicherweise verloren, was den Code schwerer verständlich macht.
+
+Obwohl wir empfehlen, Funktionen mit handle zu kennzeichnen und entsprechende Props mit on zu kennzeichnen, müssen Sie nicht in jeder Komponente entlang des Weges
 
 
 
