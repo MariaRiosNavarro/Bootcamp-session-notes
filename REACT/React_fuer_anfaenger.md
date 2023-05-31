@@ -1359,21 +1359,121 @@ test("converts Celsius to Fahrenheit and renders the result", async () => {
 });
 `````
 
-### Eine Komponente rendern
+### Using Queries
 
-Mit der render-Methode kannst du die FahrenheitConverter-Komponente initial rendern. Anschließend kannst du die screen-Methode verwenden, um auf den von der Komponente generierten HTML-Code zuzugreifen.
+Mit screen können Sie Abfragen verwenden, um bestimmte Elemente zu suchen, die im generierten HTML vorhanden sein sollten.
 
-### Verwendung von Abfragen (Queries)
+Abfrage Beschreibung
+ByRole Suche nach einem Element basierend auf dessen Rolle / aria-*-Attribut (z. B. Button, Textfeld, Überschrift)
+ByLabelText Suche nach einem Element (wie einem Eingabefeld) mit einem bestimmten Label
+ByText Suche nach einem bestimmten Text
+ByTestId Letzte Möglichkeit, um nach einem Element zu suchen, auf das mit anderen Abfragen nicht zugegriffen werden kann. Markieren Sie das Element mit dem Attribut data-testid.
+In den meisten Fällen sollten Sie Abfragen mit getBy verwenden, um sofort einen Fehler zu erhalten, wenn das Element nicht gefunden wird. Manchmal möchten Sie testen, ob etwas nicht angezeigt wird. Verwenden Sie in diesem Fall queryBy, da der Test nicht sofort fehlschlägt, sondern null zurückgibt.
 
-Mit screen kannst du Abfragen verwenden, um nach bestimmten Elementen zu suchen, die im generierten HTML-Code vorhanden sein sollten.
+Sie können einen String verwenden, um den zu suchenden Text anzugeben, z. B.: getByText("Hier Text").
 
-ByRole: Suche nach einem Element basierend auf seiner Rolle/aria-*-Attribut (z.B. Button, Textfeld, Überschrift)
+Sie können den Text auch in Schrägstrichen mit einem i am Ende anstelle von Anführungszeichen für einen String platzieren, z. B.: getByText(/Hier Text/i).
 
-ByLabelText: Suche nach einem Element (wie einem Eingabefeld) mit einer bestimmten Beschriftung
+Dies macht Ihre Tests robuster gegenüber Änderungen in der Implementierung: getByText("Hier Text") würde fehlschlagen, wenn die Komponente die Groß- und Kleinschreibung ändern würde. Aufgrund dessen ist dies eine sehr gängige Konvention beim Schreiben von Tests. Obwohl /Hier Text/i anfangs merkwürdig aussehen mag, gewöhnt man sich recht schnell daran.
 
-ByText: Suche nach einem bestimmten Text
+Der Ausdruck, der in Schrägstrichen (/Hallo Welt/) eingeschlossen ist, wird als regulärer Ausdruck bezeichnet. Die i-Modifikation am Ende besagt, dass der reguläre Ausdruck keine Unterschiede in Groß- und Kleinschreibung berücksichtigen soll. Reguläre Ausdrücke werden häufig verwendet, um Dinge in großen Zeichenketten zu suchen und sind sehr leistungsstark. Um Ihre Tests zu schreiben, müssen Sie sich jedoch nicht weiter in sie vertiefen als oben gezeigt.
 
-ByTestId: Als letzte Möglichkeit, um nach einem Element zu suchen, auf das mit anderen Abfragen nicht zugegriffen werden kann. Markiere das Element mit dem Attribut data-testid
+Die Verwendung des Testing Playground hilft Ihnen beim Schreiben von Abfragen.
+
+Simulieren von Benutzerereignissen
+
+Sie können simulieren, wie Benutzer mit der Komponente interagieren. Zunächst müssen Sie einen virtuellen Benutzer mit userEvent.setup() einrichten. Anschließend können Sie Ereignisse wie "type" oder "click" simulieren. Vergessen Sie nicht, await zusammen mit den Benutzerereignissen zu verwenden.
+
+Verwendung von Matchern
+
+Mit expect können Sie Matcher verwenden, um das erwartete Ergebnis Ihres Tests zu formulieren. Es handelt sich um dasselbe Konzept wie beim Unittesting.
+
+Da wir HTML in den Komponententests generieren, können Sie einige zusätzliche Matcher verwenden. Der Matcher toBeInTheDocument wird sehr häufig verwendet.
+
+Mocks
+
+Ein Mock ist ein Ersatz, der in den Tests anstelle einer Originalfunktion verwendet wird. Häufige Anwendungsfälle sind:
+
+Event-Handler-Funktionen, die als Prop an eine Komponente übergeben werden
+Ersetzen eines importierten Pakets
+Mocks werden verwendet, um Abhängigkeiten in einem Test zu reduzieren und eine testbare Umgebung für eine Komponente bereitzustellen.
+
+Mock-Funktion für Event-Handler
+
+Angenommen, Sie haben eine Komponente Counter, die zwei Event-Handler-Funktionen als Prop akzeptiert:
+
+```js
+export default function Counter({ onDecrease, onIncrease }) {
+  return (
+    <>
+      <button type="button" onClick={onDecrease}>
+        decrease
+      </button>
+      <button type="button" onClick={onIncrease}>
+        increase
+      </button>
+    </>
+  );
+}
+`````
+
+In einem Test möchten Sie überprüfen, ob die übergebenen Event-Handler-Funktionen aufgerufen werden, wenn auf die Buttons geklickt wird. Da Sie in dem Test keine vollständige App rendern, sondern nur diese Komponente, können Sie eine Mock-Funktion übergeben.
+
+Mock-Funktionen können mit jest.fn() erstellt werden. Dadurch erhalten Sie eine Funktion, die Sie mit expect verwenden können.
+
+```js
+test("soll Event-Handler-Funktionen aufrufen", async () => {
+  // Erstellt Mock-Funktionen
+  const handleDecrease = jest.fn();
+  const handleIncrease = jest.fn();
+
+  const user = userEvent.setup();
+
+  render(<Counter onDecrease={handleDecrease} onIncrease={handleIncrease} />);
+
+  const decreaseButton = screen.getByRole("button", {
+    name: /decrease/i,
+  });
+  const increaseButton = screen.getByRole("button", {
+    name: /increase/i,
+  });
+
+  await user.click(increaseButton);
+  await user.click(decreaseButton);
+  await user.click(increaseButton);
+
+  expect(handleDecrease).toHaveBeenCalledTimes(1);
+  expect(handleIncrease).toHaveBeenCalledTimes(2);
+});
+`````
+
+### Testen von Next.js (useRouter-Mock)
+
+Wenn Sie Tests für Komponenten schreiben, die den useRouter-Hook von Next.js verwenden, müssen Sie sich einiger Stolpersteine bewusst sein. Wenn Tests ausgeführt werden, laufen sie nicht in einem echten Browser. Daher gibt es keine Browser-Locations-API und der Kontext, den Next.js verwendet, um Routing-Informationen an alle Komponenten in der App bereitzustellen, ist nicht vorhanden.
+
+Der useRouter-Hook erfordert die Browser-Locations-API, daher wird er einen Fehler werfen und die Tests fehlschlagen lassen.
+
+Um Komponenten einschließlich des useRouter-Hooks zu testen, müssen Sie einen Mock schreiben.
+
+Ein Mock ist ein Ersatz, der in den Tests anstelle der Originalfunktion verwendet wird. Sie können den useRouter-Hook von next/router durch einen Mock ersetzen, wie unten beschrieben. Fügen Sie die Funktionen/Eigenschaften des Routers hinzu, die von der getesteten Komponente verwendet werden. Verwenden Sie in einem Mock die einfachste mögliche Implementierung, mit der die Tests funktionieren. Im folgenden Beispiel gehen wir davon aus, dass die getestete Komponente auf router.asPath zugreift und router.push aufruft.
+
+```js
+import MyComponent from ".";
+/* ... wahrscheinlich weitere Imports hier ... */
+
+jest.mock("next/router", () => ({
+  useRouter() {
+    return {
+      push: jest.fn(),
+      asPath: "/",
+    };
+  },
+}));
+
+test("soll rendern", ()
+`````
+
+---
 
 
 
