@@ -1043,14 +1043,304 @@ const updatedBigTrees = trees.filter((tree) => tree.height > 10);
 ````
 
 Dies sind einige bewährte Praktiken, die du bei der Verwendung von State in React beachten kannst, um die State-Mutation zu vermeiden und deine Anwendung korrekt zu aktualisieren.
+  
+ 
+----  
+  
+# React-Effekte und Fetch
 
-FEHLT
+Effekte in React
+  
+Effekte sind eine Möglichkeit, React-Komponenten mit externen Systemen zu synchronisieren.
+
+Beispiele für Interaktionen mit externen Systemen sind:
+
+direkte Manipulation des DOM (z. B. Festlegen des Dokumenttitels)
+Netzwerkanfragen zum Abrufen von Daten
+Arbeiten mit anderen Web-APIs
+Einrichten und Beenden von Abonnements und globalen Ereignisbehandlern
+Timer einstellen
+Integration mit Drittanbieter-Bibliotheken.
+Die Verwendung eines Effekts ist eine "Ausbruchsklappe" aus der deklarativen Welt von React. Es ist eine Möglichkeit, imperativen Code auszuführen, der nicht direkt mit dem Rendern der Benutzeroberfläche zusammenhängt. Während die Komponentenfunktion rein sein muss, sind Effektfunktionen von Natur aus nicht rein. Sie umfassen Nebeneffekte.
+
+Ein Effekt wird als Funktion definiert, die nach dem Rendern der Komponente (und der Aktualisierung des DOM) ausgeführt wird. Er kann synchronisiert werden, um nicht nur beim Mounting, sondern auch beim Ändern aller oder nur bestimmter reaktiver Werte innerhalb der Komponentenfunktion ausgeführt zu werden.
+
+Effektfunktionen können eine Aufräumfunktion zurückgeben, die vor der erneuten Ausführung der Effektfunktion oder beim Demounting der Komponente ausgeführt wird.
+
+💡 Ein reaktiver Wert ist ein Wert, der sich ändert: props, state, davon abgeleitete Werte oder Werte und Funktionen, die innerhalb einer Komponentenfunktion deklariert sind.
+
+💡 Mounting bedeutet, dass eine Komponente gerendert, in den DOM eingefügt und zum ersten Mal auf dem Bildschirm angezeigt wird. Danach können verschiedene Updates und Re-Renders auftreten (z. B. aufgrund von State-Änderungen). Demounting bedeutet, dass die Komponente entfernt wird und nicht mehr auf dem Bildschirm angezeigt wird.
+
+useEffect
+Das useEffect-Hook wird verwendet, um Effekte zu einer React-Komponente hinzuzufügen. Es hat zwei Argumente:
+
+eine Funktion, die den Effekt definiert (normalerweise eine anonyme Funktion)
+ein Array von Variablen, von denen der Effekt abhängt
+Zum Beispiel wird der folgende Code den Titel der Komponente auf den Wert der "title"-Prop aktualisieren:
+  
+
+```js
+  
+  import { useEffect } from "react";
+
+function Title({ title }) {
+  useEffect(() => {
+    // Das Aktualisieren des Dokumenttitels ist ein Nebeneffekt,
+    // der nicht direkt mit dem Rendern der Benutzeroberfläche zusammenhängt
+    document.title = title;
+  });
+
+  return <h1>{title}</h1>;
+}
+````
+  
+ ### Abhängigkeiten des Effekts
+  
+Der obige Effekt wird nach dem Rendern der Komponente und der Aktualisierung des DOMs ausgeführt. Das ist jedoch häufiger, als notwendig ist. Der Effekt sollte nur dann ausgeführt werden, wenn sich die "title"-Prop ändert. Um dies zu erreichen, können wir ein Array von reaktiven Werten an das useEffect()-Hook übergeben. Der Effekt wird nur dann ausgeführt, wenn sich einer der reaktiven Werte im Array ändert
+  
+```js
+import { useEffect } from "react";
+
+function Title({ title }) {
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+
+  return <h1>{title}</h1>;
+}
+````
+  
+  Dies wird wichtig, wenn die Komponentenfunktion mehr als eine Prop oder State-Variable hat. Stellen Sie sich vor, Sie haben einen "count"-State in der Komponente:
+  
+ ```js
+  import { useEffect, useState } from "react";
+
+function Title({ title }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{count}</p>
+      <button type="button" onClick={() => setCount(count + 1)}>
+        Erhöhen
+      </button>
+    </div>
+  );
+}
+`````
+  
+  Die Effektfunktion wird nur dann ausgeführt, wenn die "title"-Variable einen anderen Wert als zuvor hat. Die "count"-State-Variable ist nicht Teil des Arrays, daher wird der Effekt nicht ausgeführt, wenn sich der "count"-State ändert.
+
+💡 Fügen Sie immer alle reaktiven Werte, die in der Effektfunktion verwendet werden, zum Abhängigkeitsarray hinzu. React wird Sie mit ESLint-Warnungen darauf hinweisen, wenn Sie vergessen, eine Variable zum Abhängigkeitsarray hinzuzufügen.
+
+Wenn der Effekt keine Abhängigkeiten hat, sollte das Abhängigkeitsarray leer sein: [].
+
+Ein leeres Abhängigkeitsarray sagt React, dass dieser Effekt nur einmal ausgeführt werden soll, wenn die Komponente zum ersten Mal auf dem Bildschirm erscheint.
+
+### Aufräumfunktion
+  
+Die Effektfunktion kann eine Aufräumfunktion zurückgeben, die vor der erneuten Ausführung der Effektfunktion oder beim Demounting der Komponente ausgeführt wird
+  
+ ```js
+  import { useEffect } from "react";
+
+function Title({ title }) {
+  useEffect(() => {
+    // eine Kopie des alten Titels erstellen
+    const oldTitle = document.title;
+
+    document.title = title;
+
+    // Aufräumfunktion
+    return () => {
+      // Rückgängig machen, was wir getan haben, indem wir den alten Titel wieder setzen
+      document.title = oldTitle;
+    };
+  }, [title]);
+
+  return <h1>{title}</h1>;
+}
+````
+  
+  Die Aufräumfunktion sollte die Nebeneffekte der Effektfunktion rückgängig machen. Im obigen Beispiel setzt die Aufräumfunktion den Dokumenttitel auf den Standardwert zurück.
+
+Wenn die Effektfunktion zum Einrichten eines Abonnements oder globalen Ereignisbehandlers verwendet wird, sollte die Aufräumfunktion das Abonnement oder den Ereignisbehandler entfernen.
+  
+  ```js
+  import { useEffect, useState } from "react";
+
+function WindowWidth() {
+  const [windowWidth, setWindowWidth] = useState();
+
+  useEffect(() => {
+    function handleResize(event) {
+      setWindowWidth(event.target.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    // Aufräumfunktion
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return <p>Das Fenster ist {windowWidth}px breit. 📏</p>;
+}
+`````
+  
+  Für Timer sollte die Aufräumfunktion den Timer löschen.
+  
+```js
+  
+  import { useEffect, useState } from "react";
+
+function Timer() {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds((s) => s + 1);
+    }, 1000);
+
+    // Aufräumfunktion
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return <p>Der Timer steht bei {seconds} Sekunden. ⏱</p>;
+}
+
+  `````
+  
+📙 Erfahren Sie mehr über das Synchronisieren mit Effekten in der React-Dokumentation.
+
+📙 Auch wenn Effekte unglaublich nützlich sein können, benötigen Sie möglicherweise nicht immer einen Effekt, um das zu tun, was Sie wollen. Lesen Sie mehr dazu in der React-Dokumentation unter "You might not need an effect".
+  
+  
+📙 Read more about [**Synchronizing with Effects** in the React docs](https://react.dev/learn/synchronizing-with-effects).
+
+📙 Even though effects can be incredibly useful, you might not actually need an effect to do what you want. Read more about [**You might not need an effect** in the React docs](https://react.dev/learn/you-might-not-need-an-effect).
+  
+
+### Wie man Daten mit Fetch in React abruft
+  
+Einer der häufigsten Anwendungsfälle für Effekte besteht darin, Daten von einer externen API abzurufen.
+
+Das Konzept funktioniert wie folgt: Nachdem die Komponente zum ersten Mal gerendert wurde, wird eine Effektfunktion ausgeführt, die Daten von einer externen API abruft. Sobald die Daten abgerufen sind, wird eine State-Variable innerhalb der Effektfunktion gesetzt. Wenn der Abruf von einer Prop oder State-Variable abhängt, wird die Effektfunktion erneut ausgeführt, wenn sich die Variable ändert.
+
+Die Effektfunktion selbst kann nicht "async" sein, aber sie kann asynchrone Funktionen aufrufen. Um dies zu umgehen, können Sie eine "async" Funktion innerhalb der Effektfunktion definieren und sie sofort aufrufen (ohne das Ergebnis tatsächlich abzuwarten).
+
+Das folgende Beispiel zeigt, wie Daten von einer API abgerufen und in einer Komponente angezeigt werden:
+
+```js
+  import { useEffect, useState } from "react";
+
+function Jokes() {
+  const [jokes, setJokes] = useState([]);
+
+  useEffect(() => {
+    async function startFetching() {
+      const response = await fetch(
+        "https://example-apis.vercel.app/api/bad-jokes"
+      );
+      const jokes = await response.json();
+
+      setJokes(jokes);
+    }
+
+    startFetching();
+  }, []);
+
+  return (
+    <ul>
+      {jokes.map(({ id, joke }) => (
+        <li key={id}>{joke}</li>
+      ))}
+    </ul>
+  );
+}
+`````
+  
+  Wenn die abzurufenden Daten von einer Prop oder State-Variable abhängen, müssen Sie sie zum Abhängigkeitsarray hinzufügen:
+  
+  ```js
+  
+  import { useEffect, useState } from "react";
+
+function Joke({ id }) {
+  const [joke, setJoke] = useState();
+
+  useEffect(() => {
+    async function startFetching() {
+      const response = await fetch(
+        `https://example-apis.vercel.app/api/bad-jokes/${id}`
+      );
+      const joke = await response.json();
+
+      setJoke(joke);
+    }
+
+    startFetching();
+  }, [id]);
+
+  if (!joke) {
+    return null;
+  }
+
+  return <p>{joke}</p>;
+}
+`````
+  In beiden Beispielen wird die Effektfunktion nur einmal ausgeführt, da das Abhängigkeitsarray leer ist. Dies bedeutet, dass die Daten nur einmal abgerufen werden, wenn die Komponente zum ersten Mal gerendert wird.
+
+📙 Beachten Sie, dass die Fetch-API in modernen Browsern verfügbar ist. Wenn Sie ältere Browser unterstützen müssen, können Sie eine Fetch-Polyfill-Bibliothek wie "whatwg-fetch" verwenden.
+
+📙 Erfahren Sie mehr über das Arbeiten mit asynchronen Daten in der React-Dokumentation
+  
+ 💡 Even when you use a data fetching library, the library will use effects (and the `useEffect` hook) under the hood to fetch data.
+
+📙 Read more about [**Fetching Data** in the React docs](https://react.dev/learn/synchronizing-with-effects#fetching-data). The docs also describe a way to handle race conditions.
+
+
+
+## Resources
+
+- [React docs: Synchronizing with Effects](https://react.dev/learn/synchronizing-with-effects)
+- [React docs: Fetching data example with useEffect](https://react.dev/learn/synchronizing-with-effects#fetching-dat)
+- [React docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect) 
+  
+
+----
+  
+  
+  LocalStorage
+  
+  
+  
+  
+  
+  
+----  
+  
   
   Costum Hooks
-  Fetch
-  LocalStorage
-
   
+  
+  
+  
+  
+  
+----  
+  
+  [Next.js](https://github.com/MariaRiosNavarro/Bootcamp-session-notes/blob/main/NEXT.js/next.md)
+
+---- 
   
 # React auf gestylte Komponenten 
   
@@ -1239,10 +1529,10 @@ export default function App() {
   ````
   
   
-Das sind die grundlegenden Konzepte von React Styled Components
+---
 
 
-#TESTING:  Warum Testing im Frontend Sinn ergibt
+# TESTING:  Warum Testing im Frontend Sinn ergibt
 
 Beim Entwickeln von Apps müssen wir diese regelmäßig testen, um sicherzustellen, dass alles wie erwartet funktioniert und um Fehler zu finden, bevor sie von den Benutzern entdeckt werden.
 
