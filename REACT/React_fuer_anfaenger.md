@@ -1071,7 +1071,8 @@ Effektfunktionen können eine Aufräumfunktion zurückgeben, die vor der erneute
 
 💡 Mounting bedeutet, dass eine Komponente gerendert, in den DOM eingefügt und zum ersten Mal auf dem Bildschirm angezeigt wird. Danach können verschiedene Updates und Re-Renders auftreten (z. B. aufgrund von State-Änderungen). Demounting bedeutet, dass die Komponente entfernt wird und nicht mehr auf dem Bildschirm angezeigt wird.
 
-useEffect
+### useEffect
+  
 Das useEffect-Hook wird verwendet, um Effekte zu einer React-Komponente hinzuzufügen. Es hat zwei Argumente:
 
 eine Funktion, die den Effekt definiert (normalerweise eine anonyme Funktion)
