@@ -2624,6 +2624,53 @@ function Character() {
   );
 }
 ````
+Die `fetcher` Funktion oben wirft kein `Error` -Objekt für nicht-ok-Antworten. Das Werfen eines Fehlers ist jedoch erforderlich, damit SWR einen Fehler erkennt und ihn in die error-Eigenschaft des vom Hook zurückgegebenen Objekts einfügt.
+
+
+```js
+const fetcher = async (url) => {
+  const res = await fetch(url);
+
+  // If the status code is not in the range 200-299,
+  // we still try to parse and throw it.
+  if (!res.ok) {
+    const error = new Error("An error occurred while fetching the data.");
+    // Attach extra info to the error object.
+    error.info = await res.json();
+    error.status = res.status;
+    throw error;
+  }
+
+  return res.json();
+};
+```
+
+
+This function throws an error with the keys `info` and `status` if the status code of
+the response is not in the range of 200-299.
+
+> 💡 The advanced `fetcher` above uses two concepts we have not covered:
+> [the `new` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new)
+> and
+> [the `throw` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw).
+> These are advanced JS features we don't need to go into detail by now, but diving into it will
+> give you a better understanding of JS as a programming language.
+> 📙 Read more about [Status Code and Error Object](https://swr.vercel.app/docs/error-handling#status-code-and-error-object).
+
+You can use the `error` object to display a more detailed error message (`message` is the string from `new Error()`):
+
+```js
+function Character() {
+  const { data, error, isLoading } = useSWR("https://swapi.dev/api/people/1");
+
+  if (error) return <div>{error.message}</div>;
+  if (isLoading) return <div>loading...</div>;
+
+  // render data
+  return <div>Hello {data.name}!</div>;
+}
+```
+
 ### Fetch auf Intervall und Click auf Button:
 
 Um die API in regelmäßigen Abständen neu abzurufen, übergeben Sie einen refreshInterval-Wert innerhalb eines Options-Objekts als zusätzliches Argument an den useSWR-Hook. In folgendem Beispiel wird SWR die API alle Sekunde neu abrufen:
@@ -2793,6 +2840,8 @@ function Movies() {
 
 ````
 
+💡 Wenn Sie dieses Muster verwenden, verlassen Sie sich darauf, dass Ihr lokaler Zustand ad-hoc erstellt wird. Daher wird Ihr lokales Zustandsarray bei der Suche einen undefinierten Wert zurückgeben, wenn sich der Film nicht in diesem Zustand befindet. Aus diesem Grund verwenden wir den Operator ??, um den Standardwert { isFavorite: false } zu erhalten, wenn der Film nicht im Status ist.
+
 Bei Verwendung von Immer und useImmer kann der Update-Code etwas vereinfacht werden:
 
 ```js
@@ -2813,8 +2862,11 @@ function handleToggleFavorite(id) {
 ````
 [SWR Doku](https://swr.vercel.app/docs/getting-started)
 
+> 📙 Read more about [SWR's features](https://swr.vercel.app/#features).
 
+> [Getting Started in the docs](https://swr.vercel.app/docs/getting-started).
 
-
+You can customize the `fetcher` to `throw` an `Error` with additional information (the following
+[example is taken from the docs](https://swr.vercel.app/docs/error-handling#status-code-and-error-object)):
 
 
