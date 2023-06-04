@@ -2228,7 +2228,7 @@ test("soll rendern", ()
 
 ---
 
-#Global State
+# Global State
 
 React Globaler Zustand
 
@@ -2290,7 +2290,172 @@ Im Zusammenhang mit dem Prop-Drilling sollten Sie darauf achten, Props nicht in 
 
 Obwohl wir empfehlen, Funktionen mit handle zu kennzeichnen und entsprechende Props mit on zu kennzeichnen, müssen Sie nicht in jeder Komponente entlang des Weges
 
+---
+
+# React Inmutable State
+
+
+Wie du gelernt hast, kannst du die im Zustand gespeicherten Daten nicht direkt ändern (mutieren). Du musst den Zustand als schreibgeschützt behandeln. Um den Zustand zu ändern, rufst du die Setter-Funktion auf und übergibst den vollständigen nächsten Zustand.
+
+Betrachte ein Objekt wie folgt im Zustand:
+
+```js
+const [user, setUser] = useState({
+name: "John Doe",
+email: "john@doe.com",
+});
+```
+
+Es könnte verlockend sein, einen Wert im Objekt zu verändern und ihn an die Setter-Funktion zu übergeben.
+
+```js
+user.email = "john_doe@example.com"; // ❌ direkte Zustandsmutation: Versuche das nicht zu Hause!
+setUser(user);
+```
+
+Dieser Code funktioniert nicht wie erwartet: Er verändert das im Zustand gespeicherte Objekt direkt!
+
+Wenn du die Setter-Funktion aufrufst, überprüft React, ob sich das Objekt im Zustand geändert hat und die Benutzeroberfläche aktualisiert werden muss. Da du das vorherige Zustandsobjekt mutiert hast, ist es gleich dem neuen Zustand, den du an die Setter-Funktion übergeben hast. React erkennt keinen Unterschied und aktualisiert die Benutzeroberfläche nicht.
+
+Daher musst du eine Kopie der Daten mit Hilfe der Spread-Syntax erstellen und die Änderungen auf die Kopie anwenden. Auf diese Weise mutierst du das vorherige Zustandsobjekt nicht.
+
+```js
+setUser({
+...user,
+email: "john_doe@example.com",
+});
+```
+
+### Aktualisierung von verschachtelten Zuständen
+
+Es kann etwas komplizierter werden, wenn du Daten in einem tiefer verschachtelten Zustand ändern möchtest.
+
+```js
+const [user, setUser] = useState({
+name: "John Doe",
+contact: {
+email: "john@doe.com",
+phone: {
+mobile: "+001111111111",
+work: "+001234567890",
+},
+},
+});
+```
+
+Wenn user.contact.phone.mobile geändert werden soll, musst du eine Kopie jeder Ebene erstellen.
+
+```js
+setUser({
+...user,
+contact: {
+...user.contact,
+phone: {
+...user.contact.phone,
+mobile: "+009999999999",
+},
+},
+});
+```
+
+Dieser Code funktioniert einwandfrei! Allerdings musst du eine Menge Code schreiben, um einen einzelnen Wert zu ändern.
+
+Die Immer-Bibliothek hilft dir dabei, Werte in tiefer verschachtelten Zuständen zu aktualisieren.
+
+Sie erstellt eine vollständige Kopie des vorherigen Zustands für dich. Diese Kopie ist der Entwurf für den nächsten Zustand. Da es sich um eine Kopie handelt, kannst du Mutationen beliebig anwenden. Die Immer-Bibliothek kümmert sich darum, den Zustand entsprechend zu aktualisieren.
+
+### Verwendung von Immer in React: Der useImmer-Hook
+
+Der useImmer-Hook ermöglicht es dir, Immer einfach in React-Komponenten einzubinden.
+
+Anstatt useState aufzurufen, um einen Zustand zu deklarieren, rufst du useImmer auf.
+Die zurückgegebene Funktion sollte mit update statt set versehen werden.
+Das vorherige Beispiel sieht mit dem useImmer-Hook wie folgt aus.
+
+```js
+// useState → useImmer
+// setUser → updateUser
+const [user, updateUser] = useImmer({
+name: "John Doe",
+contact: {
+email: "john@doe.com",
+phone: {
+mobile: "+001111111111",
+work: "+001234567890",
+},
+},
+});
+```
+
+
+Wenn du die Update-Funktion aufrufst, übergibst du eine Rückruffunktion. Die Rückruffunktion erhält einen Entwurf für den nächsten Zustand als Parameter. Du kannst Mutationen direkt auf den Entwurf anwenden.
+
+```js
+updateUser((draft) => {
+// Mutiere den Entwurf direkt
+draft.contact.phone.mobile = "+009999999999";
+});
+```
+
+💡 In der Immer-Dokumentation findest du einen guten Leitfaden zu Aktualisierungsmustern.
+
+### Arbeiten mit Objekten in Arrays
+
+Die obigen Beispiele konzentrieren sich auf Mutationen in einem Objekt. In vielen Anwendungen arbeitet man jedoch wahrscheinlich mit Objekten, die in Arrays verschachtelt sind.
+
+Dein Zustand könnte folgende Form haben:
+
+```js
+const [users, setUsers] = useState([
+{
+id: 1,
+name: "John Doe",
+email: "john@doe.com",
+},
+{
+id: 2,
+name: "Jane Doe",
+email: "jane@doe.com",
+},
+{
+id: 3,
+name: "James Doe",
+email: "james@doe.com",
+},
+]);
+```
+
+Du kannst eine Aktualisierung durchführen, um die E-Mail-Adresse eines Benutzers mit der ID 1 wie folgt zu ändern:
+
+```
+setUsers(
+users.map((user) =>
+user.id === 1
+? {
+...user,
+email: "john_doe@example.com",
+}
+: user
+)
+);
+```
+
+Derselbe Vorgang mit der von useImmer bereitgestellten Update-Funktion sieht so aus:
+
+```js
+updateUsers((draft) => {
+const user = draft.find(user => user.id === 1);
+user.email = "john_doe@example.com";
+})
+
+```
+
+Der genaue Code, den du schreiben musst, hängt stark von der Art der Operation (Aktualisierung, Einfügen, Löschen) und von der Struktur der Daten ab, die du im Zustand speicherst.
+
+Die Verwendung von Immer hängt von persönlichen Vorlieben und von der Komplexität der Datenstruktur ab. Bei tiefer verschachtelten Strukturen kann dir die Verwendung von Immer ermöglichen, einen einfacheren Code zu schreiben.
 
 
 
+---
 
+# React Data Fetching
