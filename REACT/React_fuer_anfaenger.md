@@ -2542,7 +2542,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 Dann kannst du den useSWR-Hook importieren und ihm zwei Argumente übergeben: die URL, von der du die Daten abrufen möchtest, und die Fetcher-Funktion. useSWR gibt ein Datenobjekt zurück, das du in deinem JSX verwenden kannst.
 
-````
+```js
 import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
