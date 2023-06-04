@@ -2506,3 +2506,315 @@ Die Verwendung von Immer hängt von persönlichen Vorlieben und von der Komplexi
 ---
 
 # React Data Fetching
+
+
+React Data Fetching (Datenabruf in React)
+
+Lernziele:
+
+Die Vorteile einer Datenabruf-Bibliothek im Allgemeinen verstehen.
+Wissen, wie man mit SWR Daten abruft:
+Fetcher-Funktion
+Lade- und Validierungsstatus
+Fehlerstatus
+Abrufen in Intervallen
+mutate()
+Wissen, wie man lokale Zustände mit abgerufenen Daten kombiniert
+Warum eine Datenabruf-Bibliothek anstelle von useEffect und fetch?
+Bisher konnten Daten mit dem useEffect-Hook abgerufen werden. Dabei musstest du viele Dinge selbst verwalten:
+
+Zwischenspeichern der abgerufenen Daten
+Programmatisches erneutes Abrufen
+Implementierung eines Fehler- und Ladezustands
+Abrufen in Intervallen
+und vieles mehr.
+Eine Datenabruf-Bibliothek wie SWR bietet Abkürzungen für all diese Aufgaben.
+
+📙 Erfahre mehr über die Funktionen von SWR.
+
+Wie man SWR verwendet
+Einfacher Datenabruf
+Um den useSWR-Hook zu verwenden, musst du zunächst eine Fetcher-Funktion erstellen, die lediglich eine Wrapper-Funktion für den nativen Fetch ist. Ein grundlegendes Beispiel, das von der Dokumentation empfohlen wird, sieht folgendermaßen aus:
+
+```js
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+````
+
+Dann kannst du den useSWR-Hook importieren und ihm zwei Argumente übergeben: die URL, von der du die Daten abrufen möchtest, und die Fetcher-Funktion. useSWR gibt ein Datenobjekt zurück, das du in deinem JSX verwenden kannst.
+
+````
+import useSWR from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+function Character() {
+  const { data } = useSWR("https://swapi.dev/api/people/1", fetcher);
+
+  // Daten rendern
+  return <div>Hallo {data.name}!</div>; // Hallo Luke Skywalker!
+}
+````
+
+💡 Beachte, dass useSWR ein Objekt zurückgibt, aus dem du das Datenobjekt destrukturierst. Deshalb kannst du das Datenobjekt nicht einfach beliebig aufrufen, sondern musst es entsprechend der Destrukturierungsregeln umbenennen: { data: person }.
+
+📙 Erfahre mehr über den Einstieg in der Dokumentation.
+
+SWR konfigurieren
+Es kann nützlich sein, einige anwendungsspezifische Konfigurationen für SWR festzulegen. Du kannst dies tun, indem du ein Konfigurationsobjekt an das SWRConfig-Komponente in deiner App übergibst (in Next.js in der Datei pages/_app.js). Das folgende Beispiel legt eine anwendungsweite Fetcher-Funktion und ein anwendungsweites Aktualisierungsintervall fest:
+
+```js
+import { SWRConfig } from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+function App() {
+  return (
+    <SWRConfig
+      value={{
+        fetcher,
+        refreshInterval: 1000,
+      }}
+    >
+      {/* ... deine App */}
+    </SWRConfig>
+      );
+}
+````
+Das Festlegen einer anwendungsweiten Fetcher-Funktion ist sehr praktisch, wenn Sie dieselbe Fetcher-Funktion an vielen Stellen verwenden möchten.
+
+```js
+import { SWRConfig } from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+function App() {
+  return (
+    <SWRConfig
+      value={{
+        fetcher,
+        refreshInterval: 1000,
+      }}
+    >
+      {/* Ihre App */}
+    </SWRConfig>
+  );
+}
+````
+### Lade- und Fehlerzustand:
+
+Das useSWR-Hook bietet einen Fehler, isLoading (lädt Daten zum ersten Mal) und isValidating (immer wenn Daten geladen werden) Zustand, den Sie verwenden können, um den entsprechenden UI-Output zu erstellen.
+
+```js
+function Character() {
+  const { data, error, isLoading, isValidating } = useSWR(
+    "https://swapi.dev/api/people/1"
+  );
+
+  if (error) return <div>Fehler beim Laden</div>;
+  if (isLoading) return <div>Lade...</div>;
+
+  // Daten rendern
+  return (
+    <div>
+      <span role="img" aria-label={isValidating ? "Validiere" : "Bereit"}>
+        {isValidating ? "🔄" : "✅"}
+      </span>
+      Hallo {data.name}!
+    </div>
+  );
+}
+````
+### Fetch auf Intervall und Click auf Button:
+
+Um die API in regelmäßigen Abständen neu abzurufen, übergeben Sie einen refreshInterval-Wert innerhalb eines Options-Objekts als zusätzliches Argument an den useSWR-Hook. In folgendem Beispiel wird SWR die API alle Sekunde neu abrufen:
+
+```js
+useSWR("https://swapi.dev/api/people/1", { refreshInterval: 1000 });
+````
+
+Um Daten programmgesteuert abzurufen (z. B. durch Klicken auf einen Button), können Sie die mutate-Funktion verwenden, die vom useSWR-Hook bereitgestellt wird.
+
+```js
+function Character() {
+  const { data, mutate } = useSWR("https://swapi.dev/api/people/1");
+
+  return <RefetchButton onRefetch={() => mutate()}>Daten neu abrufen</RefetchButton>;
+}
+
+function RefetchButton({ children, onRefetch }) {
+  return (
+    <button type="button" onClick={onRefetch}>
+      {children}
+    </button>
+  );
+}
+```
+
+### Daten werden zwischengespeichert (gecached):
+
+SWR zwischenspeichert die abgerufenen Daten im Arbeitsspeicher des Browsers. Das bedeutet, wenn Sie dieselben Daten zweimal abrufen, werden sie beim zweiten Mal aus dem Cache anstelle des Netzwerks geladen. Das bedeutet, dass Sie den useSWR-Hook mehrmals in Ihrer App verwenden können, ohne sich Gedanken darüber machen zu müssen, dieselben Daten mehrmals abzurufen.
+
+```js
+function CharacterName() {
+  const { data } = useSWR("https://swapi.dev/api/people/1");
+  return <div>Hello {data.name}!</div>; // Hello Luke Skywalker!
+}
+
+function CharacterHairColor() {
+  const { data } = useSWR("https://swapi.dev/api/people/1");
+  return <div>His hair color is {data.hair_color}.</div>; // His hair color is blond.
+}
+
+function CharacterHeight() {
+  const { data } = useSWR("https://swapi.dev/api/people/1");
+  return <div>He is {data.height} cm tall.</div>; // He is 172 cm tall.
+}
+
+function App() {
+  return (
+    <>
+      <CharacterName />
+      <CharacterHairColor />
+      <CharacterHeight />
+    </>
+  );
+}
+````
+
+Diese Anwendung ruft die Daten nur einmal ab, obwohl der useSWR-Hook dreimal verwendet wird.
+
+Zusätzlich würde bei manuellem Ändern der Daten (durch Auslösen einer erneuten Validierung) der Cache aktualisiert und die Daten würden allen Komponenten zur Verfügung stehen, die den useSWR-Hook mit demselben Schlüssel (URL) verwenden.
+
+Das gilt auch dann, wenn Sie mutate aus einer anderen Komponente aufrufen, solange sie denselben Schlüssel (URL) hat:
+
+```js
+function RevalidateButton() {
+  const { mutate } = useSWR("https://swapi.dev/api/people/1");
+  return (
+    <button type="button" onClick={() => mutate()}>
+      Validieren
+    </button>
+  );
+}
+
+// ... andere Komponenten
+
+function App() {
+  return (
+    <>
+      <CharacterName />
+      <CharacterHairColor />
+      <CharacterHeight />
+      <RevalidateButton />
+    </>
+  );
+}
+````
+### SWR Response API:
+
+Der useSWR-Hook gibt ein SWR-Response-Objekt zurück mit den folgenden Eigenschaften:
+
+`data`: Die abgerufenen Daten für den gegebenen Schlüssel (URL).
+
+`error`: Ein Fehlerobjekt, wenn die Fetcher-Funktion einen Fehler ausgelöst hat.
+
+`isLoading`: true, wenn die Daten zum ersten Mal geladen werden.
+
+`isValidating`: true, wenn eine Anfrage oder Validierung erfolgt.
+
+`mutate()`: Eine Funktion zum Ändern der Daten.
+
+
+### Kombinieren von abgerufenen Daten mit lokalem Zustand:
+
+Mit SWR kontrollieren Sie den Zustand, der die abgerufenen Daten enthält, nicht selbst. Aus diesem Grund können Sie den Zustand nicht direkt ändern. Das ist gut, denn es ist eine schlechte Praxis, den Zustand, der vom Server abgerufen wurde, direkt zu ändern. Wenn Ihr Server Ihnen Daten liefert, müssen diese die einzige Quelle der Wahrheit sein.
+
+Wenn Sie Serverdaten mit lokalem Zustand verknüpfen möchten (z. B. das Anhängen einer isFavorite-Eigenschaft an einen Film), können Sie den useSWR-Hook verwenden, um die Daten abzurufen, und den useState-Hook, um den lokalen Zustand zu verwalten. Der lokale Zustand sollte über eine eindeutige Kennung (wie ID oder Slug) mit den Serverdaten verbunden sein.
+
+```js 
+function Movies() {
+  /* Nehmen wir an, die API gibt eine Liste von Filmen zurück:
+    [
+      {
+        id: 1,
+        title: "Star Wars",
+        year: 1977,
+      },
+      {
+        id: 2,
+        title: "The Empire Strikes Back",
+        year: 1980,
+      }
+    ]
+  */
+  const { data: moviesData } = useSWR("/api/movies");
+
+  // Initialisiere den lokalen Zustand mit einem leeren Array
+  const [moviesInfo, setMoviesInfo] = useState([]);
+
+  function handleToggleFavorite(id) {
+    setMoviesInfo((moviesInfo) => {
+      // Finde den Film im Zustand
+      const info = moviesInfo.find((info) => info.id === id);
+
+      // Wenn der Film bereits im Zustand ist, ändere die `isFavorite`-Eigenschaft
+      if (info) {
+        return moviesInfo.map((info) =>
+          info.id === id ? { ...info, isFavorite: !info.isFavorite } : info
+        );
+      }
+
+      // Wenn der Film nicht im Zustand ist, füge ihn mit `isFavorite = true` hinzu
+      return [...moviesInfo, { id, isFavorite: true }];
+    });
+  }
+
+  return (
+    <ul>
+      {moviesData.map(({ id, title, year }) => {
+        // Finde den Film im Zustand und destrukturiere die `isFavorite`-Eigenschaft
+        // Wenn er nicht im Zustand ist, wird `isFavorite` standardmäßig auf `false` gesetzt
+        const { isFavorite } = moviesInfo.find((info) => info.id === id) ?? {
+          isFavorite: false,
+        };
+
+        return (
+          <li key={id}>
+            {title} ({year})
+            <button type="button" onClick={() => handleToggleFavorite(id)}>
+              {isFavorite ? "Aus Favoriten entfernen" : "Zu Favoriten hinzufügen"}
+            </button>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+````
+
+Bei Verwendung von Immer und useImmer kann der Update-Code etwas vereinfacht werden:
+
+```js
+function handleToggleFavorite(id) {
+  updateMoviesInfo((draft) => {
+    // Finde den Film im Zustand
+    const info = draft.find((info) => info.id === id);
+
+    // Wenn der Film bereits im Zustand ist, ändere die `isFavorite`-Eigenschaft
+    if (info) {
+      info.isFavorite = !info.isFavorite;
+    } else {
+      // Wenn der Film nicht im Zustand ist, füge ihn mit `isFavorite = true` hinzu
+      draft.push({ id, isFavorite: true });
+    }
+  });
+}
+````
+[SWR Doku](https://swr.vercel.app/docs/getting-started)
+
+
+
+
+
+
