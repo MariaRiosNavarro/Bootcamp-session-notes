@@ -34,27 +34,29 @@ test('sollte das Anmeldeformular anzeigen', () => {
 
 ### Einzelne Elemente
 
-getBy...:
+`getBy...:`
 
 Gibt das übereinstimmende Element für eine Abfrage zurück und wirft einen aussagekräftigen Fehler, wenn kein Element gefunden wird oder wenn mehrere Übereinstimmungen gefunden werden (verwenden Sie stattdessen getAllBy, wenn mehr als ein Element erwartet wird).
-queryBy...: 
+
+`queryBy...:` 
 
 Gibt das übereinstimmende Element für eine Abfrage zurück und gibt null zurück, wenn keine Übereinstimmungen gefunden werden. Dies ist nützlich, um ein nicht vorhandenes Element zu überprüfen. Wirft einen Fehler, wenn mehrere Übereinstimmungen gefunden werden (verwenden Sie stattdessen queryAllBy, wenn dies akzeptabel ist).
-findBy...: 
+
+`findBy...:` 
 
 Gibt ein Promise zurück, das aufgelöst wird, wenn ein Element gefunden wird, das der angegebenen Abfrage entspricht. Das Promise wird abgelehnt, wenn kein Element gefunden wird oder wenn nach einem Standard-Timeout von 1000ms mehr als ein Element gefunden wird. Wenn Sie mehr als ein Element finden müssen, verwenden Sie findAllBy.
 
 ### Mehrere Elemente
 
-getAllBy...: 
+`getAllBy...:` 
 
 Gibt ein Array aller übereinstimmenden Elemente für eine Abfrage zurück und wirft einen Fehler, wenn keine Elemente gefunden werden.
 
-queryAllBy...: 
+`queryAllBy...:` 
 
 Gibt ein Array aller übereinstimmenden Elemente für eine Abfrage zurück und gibt ein leeres Array ([]) zurück, wenn keine Übereinstimmungen gefunden werden.
 
-findAllBy...:
+`findAllBy...:`
 
 Gibt ein Promise zurück, das aufgelöst wird, wenn mindestens ein Element gefunden wird, das der angegebenen Abfrage entspricht. Das Promise wird abgelehnt, wenn kein Element gefunden wird.
 
@@ -62,15 +64,15 @@ Gibt ein Promise zurück, das aufgelöst wird, wenn mindestens ein Element gefun
 
 ### Abfragen nach Text
 
-getByText: 
+`getByText:` 
 
 Sucht ein Element anhand seines Textinhalts (Textknoten).
 
-queryByText: 
+`queryByText:` 
 
 Sucht ein Element anhand seines Textinhalts (Textknoten) und gibt null zurück, wenn keine Übereinstimmung gefunden wird.
 
-findByText: 
+`findByText:` 
 
 Sucht ein Element anhand seines Textinhalts (Textknoten) und gibt ein Promise zurück.
 
@@ -90,15 +92,15 @@ test('sollte den Text "Willkommen" anzeigen', () => {
 
 ### Abfragen nach Label
 
-getByLabelText: 
+`getByLabelText:` 
 
 Sucht ein Element anhand seines Label-Textinhalts.
 
-queryByLabelText: 
+`queryByLabelText:` 
 
 Sucht ein Element anhand seines Label-Textinhalts und gibt null zurück, wenn keine Übereinstimmung gefunden wird.
 
-findByLabelText: 
+`findByLabelText:` 
 
 Sucht ein Element anhand seines Label-Textinhalts und gibt ein Promise zurück.
 
@@ -114,15 +116,15 @@ test('sollte das Eingabefeld mit dem Label "Benutzername" anzeigen', () => {
 })
 ````
 
-getByPlaceholderText: 
+`getByPlaceholderText:` 
 
 Ein Platzhalter ist kein Ersatz für ein Label. Aber wenn das alles ist, was du hast, ist es besser als Alternativen.
 
-getByText: 
+`getByText:` 
 
 Außerhalb von Formularen ist der Textinhalt der Hauptweg, wie Benutzer Elemente finden. Diese Methode kann verwendet werden, um nicht-interaktive Elemente (wie Divs, Spans und Absätze) zu finden.
 
-getByDisplayValue: 
+`getByDisplayValue:` 
 
 Der aktuelle Wert eines Formularelements kann nützlich sein, um auf einer Seite mit ausgefüllten Werten zu navigieren.
 
@@ -131,22 +133,21 @@ Der aktuelle Wert eines Formularelements kann nützlich sein, um auf einer Seite
 
 Beachte, dass die Benutzererfahrung beim Interagieren mit diesen Attributen je nach Browser und unterstützender Technologie stark variieren kann.
 
-getByAltText: 
+`getByAltText:` 
 
 Wenn Ihr Element Alt-Text unterstützt (img, area, input und jedes benutzerdefinierte Element), können Sie dies verwenden, um das Element zu finden.
 
-getByTitle: 
+`getByTitle:` 
 
 Das title-Attribut wird von Bildschirmlesegeräten nicht konsistent gelesen und ist standardmäßig für sehende Benutzer nicht sichtbar.
 
 ### Test-IDs
 
-getByTestId: 
+`getByTestId:` 
 
 Der Benutzer kann diese nicht sehen (oder hören), daher wird dies nur für Fälle empfohlen, in denen eine Übereinstimmung nach Rolle oder Text nicht möglich ist oder keinen Sinn ergibt (z. B. wenn der Text dynamisch ist).
-Verwendung von Abfragen
 
-
+### Verwendung von Abfragen
 
 Die grundlegenden Abfragen von DOM Testing Library erfordern, dass Sie einen Container als ersten Argument übergeben. Die meisten Framework-Implementierungen von Testing Library bieten eine vorab gebundene Version dieser Abfragen an, wenn Sie Ihre Komponenten mit ihnen rendern. Dies bedeutet, dass Sie keinen Container bereitstellen müssen. Wenn Sie nur document.body abfragen möchten, können Sie den "screen"-Export verwenden, wie unten gezeigt (die Verwendung von "screen" wird empfohlen).
 
@@ -154,12 +155,15 @@ Das Hauptargument für eine Abfrage kann ein String, ein regulärer Ausdruck ode
 
 Gegeben die folgenden DOM-Elemente (die von React, Vue, Angular oder normalem HTML-Code gerendert werden können):
 
+```html
 <body>
   <div id="app">
     <label for="username-input">Benutzername</label>
     <input id="username-input" />
   </div>
 </body>
+````
+
 Sie können eine Abfrage verwenden, um ein Element zu finden (hier getByLabelText):
 
 ```js
@@ -201,7 +205,7 @@ Sie benötigen eine globale DOM-Umgebung, um "screen" verwenden zu können. Wenn
 
 Wenn Sie Ihren Test mit einem Skript-Tag laden, stellen Sie sicher, dass es nach dem Body erscheint. Ein Beispiel finden Sie hier.
 
-### TextMatch
+### `TextMatch`
 
 Die meisten Abfrage-APIs akzeptieren einen TextMatch als Argument, was bedeutet, dass das Argument entweder ein String, ein Regex oder eine Funktion mit der Signatur (content?: string, element?: Element | null) => boolean sein kann. Diese Funktion gibt true für eine Übereinstimmung und false für eine Nichtübereinstimmung zurück.
 
@@ -264,7 +268,7 @@ Hinweis:
 
 Die Angabe eines Werts für "normalizer" ersetzt die integrierte Normalisierung, aber Sie können "getDefaultNormalizer" aufrufen, um einen integrierten Normalisierer zu erhalten, entweder um diese Normalisierung anzupassen oder um sie aus Ihrem eigenen Normalisierer heraus aufzurufen.
 
-getDefaultNormalizer akzeptiert ein Optionsobjekt, das die Auswahl des Verhaltens ermöglicht:
+`getDefaultNormalizer` akzeptiert ein Optionsobjekt, das die Auswahl des Verhaltens ermöglicht:
 
 trim: Standardmäßig true. Entfernt führende und abschließende Leerzeichen.
 collapseWhitespace: Standardmäßig true. Reduziert inneren Whitespace (Zeilenwechsel, Tabs, wiederholte Leerzeichen) auf ein einzelnes Leerzeichen.
@@ -290,7 +294,7 @@ getDefaultNormalizer({trim: false})(str).replace(/[\u200E-\u200F]*/g, ''),
 
 ### Debugging
 
-screen.debug()
+`screen.debug()`
 
 Zu Ihrer Bequemlichkeit stellt "screen" neben den Abfragen auch eine Debug-Methode bereit. Diese Methode ist im Wesentlichen eine Abkürzung für console.log(prettyDOM()). Sie unterstützt das Debuggen des Dokuments, eines einzelnen Elements oder eines Arrays von Elementen.
 
