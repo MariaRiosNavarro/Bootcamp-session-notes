@@ -1987,11 +1987,15 @@ Das manuelle Testen der App über die Benutzeroberfläche ist zeitaufwendig und 
 
 Dieser Ansatz versucht, mit der App auf die gleiche Weise zu interagieren, wie es ein echter Benutzer tun würde, indem nach bestimmten Elementen in der gerenderten App gesucht wird:
 
-Suche nach einer Überschrift mit bestimmtem Inhalt
-Suche nach Eingabefeldern mit bestimmten Beschriftungen und Einfügen von Text
-Suche nach einer Schaltfläche mit bestimmter Beschriftung und Klicken, um ein Formular zu senden
-Suche nach einem erwarteten Ergebnis, das nach dem Senden angezeigt werden sollte
-Wir können solche Tests für jede React-Komponente in unserem Code schreiben.
+1.- Suche nach einer Überschrift mit bestimmtem Inhalt.
+
+2.- Suche nach Eingabefeldern mit bestimmten Beschriftungen und Einfügen von Text
+
+3.- Suche nach einer Schaltfläche mit bestimmter Beschriftung und Klicken, um ein Formular zu senden
+
+4.- Suche nach einem erwarteten Ergebnis, das nach dem Senden angezeigt werden sollte
+
+5.- Wir können solche Tests für jede React-Komponente in unserem Code schreiben.
 
 In einer vorherigen Sitzung haben wir uns mit Unit-Tests beschäftigt, die sich auf eine einzelne Einheit/Funktion konzentrieren. Komponententests gehören zur Kategorie der Integrationstests, da sie testen, wie verschiedene einzelne Einheiten/Funktionen zusammenarbeiten, um ein Ergebnis auf dem Bildschirm des Benutzers zu erzeugen.
 
@@ -2005,7 +2009,8 @@ Die Testing Library ermöglicht es uns, React-Komponenten in Jest-Tests zu rende
 
 Beispiel
 
-FahrenheitConverter.js
+### FahrenheitConverter.js
+
 
 Die Komponente FahrenheitConverter rendert eine Überschrift, ein Formular und eine Ergebnisausgabe. Wenn das Formular noch nicht abgeschickt wurde, wird anstelle des Ergebnisses eine Ersatznachricht angezeigt. Nachdem das Formular abgeschickt wurde, wird die Berechnung durchgeführt und das Ergebnis im State gespeichert. Dadurch wird eine erneute Rendern der Komponente ausgelöst, sodass das Ergebnis angezeigt wird.
 
@@ -2044,7 +2049,7 @@ export default function FahrenheitConverter() {
 }
 ````
 
-FahrenheitConverter.test.js
+### FahrenheitConverter.test.js
 
 Es gibt drei Tests für diese Komponente:
 
@@ -2102,15 +2107,15 @@ Mit screen können Sie Abfragen verwenden, um bestimmte Elemente zu suchen, die 
 
 Abfrage Beschreibung
 
-ByRole Suche nach einem Element basierend auf dessen Rolle / aria-*-Attribut (z. B. Button, Textfeld, Überschrift)
+1.-ByRole Suche nach einem Element basierend auf dessen Rolle / aria-*-Attribut (z. B. Button, Textfeld, Überschrift)
 
-ByLabelText Suche nach einem Element (wie einem Eingabefeld) mit einem bestimmten Label
+2.-ByLabelText Suche nach einem Element (wie einem Eingabefeld) mit einem bestimmten Label
 
-ByText Suche nach einem bestimmten Text
+3.-ByText Suche nach einem bestimmten Text
 
-ByTestId Letzte Möglichkeit, um nach einem Element zu suchen, auf das mit anderen Abfragen nicht zugegriffen werden kann. Markieren Sie das Element mit dem Attribut data-testid.
+4.-ByTestId Letzte Möglichkeit, um nach einem Element zu suchen, auf das mit anderen Abfragen nicht zugegriffen werden kann. Markieren Sie das Element mit dem Attribut data-testid.
 
-In den meisten Fällen sollten Sie Abfragen mit getBy verwenden, um sofort einen Fehler zu erhalten, wenn das Element nicht gefunden wird. Manchmal möchten Sie testen, ob etwas nicht angezeigt wird. Verwenden Sie in diesem Fall queryBy, da der Test nicht sofort fehlschlägt, sondern null zurückgibt.
+In den meisten Fällen sollten Sie Abfragen mit ***getBy*** verwenden, um sofort einen Fehler zu erhalten, wenn das Element nicht gefunden wird. Manchmal möchten Sie testen, ob etwas nicht angezeigt wird. Verwenden Sie in diesem Fall queryBy, da der Test nicht sofort fehlschlägt, sondern null zurückgibt.
 
 Sie können einen String verwenden, um den zu suchenden Text anzugeben, z. B.: getByText("Hier Text").
 
@@ -2124,11 +2129,14 @@ Die Verwendung des Testing Playground hilft Ihnen beim Schreiben von Abfragen.
 
 ### Simulieren von Benutzerereignissen
 
-Sie können simulieren, wie Benutzer mit der Komponente interagieren. Zunächst müssen Sie einen virtuellen Benutzer mit userEvent.setup() einrichten. Anschließend können Sie Ereignisse wie "type" oder "click" simulieren. Vergessen Sie nicht, await zusammen mit den Benutzerereignissen zu verwenden.
+
+Sie können simulieren, wie Benutzer mit der Komponente interagieren. Zunächst müssen Sie einen virtuellen Benutzer mit ```userEvent.setup()```
+
+einrichten. Anschließend können Sie Ereignisse wie "type" oder "click" simulieren. Vergessen Sie nicht, ```await``` zusammen mit den Benutzerereignissen zu verwenden.
 
 ### Verwendung von Matchern
 
-Mit expect können Sie Matcher verwenden, um das erwartete Ergebnis Ihres Tests zu formulieren. Es handelt sich um dasselbe Konzept wie beim Unittesting.
+Mit `expect` können Sie Matcher verwenden, um das erwartete Ergebnis Ihres Tests zu formulieren. Es handelt sich um dasselbe Konzept wie beim Unittesting.
 
 Da wir HTML in den Komponententests generieren, können Sie einige zusätzliche Matcher verwenden. Der Matcher toBeInTheDocument wird sehr häufig verwendet.
 
@@ -2136,11 +2144,14 @@ Da wir HTML in den Komponententests generieren, können Sie einige zusätzliche 
 
 Ein Mock ist ein Ersatz, der in den Tests anstelle einer Originalfunktion verwendet wird. Häufige Anwendungsfälle sind:
 
-Event-Handler-Funktionen, die als Prop an eine Komponente übergeben werden
-Ersetzen eines importierten Pakets
-Mocks werden verwendet, um Abhängigkeiten in einem Test zu reduzieren und eine testbare Umgebung für eine Komponente bereitzustellen.
+1.-Event-Handler-Funktionen, die als Prop an eine Komponente übergeben werden
 
-Mock-Funktion für Event-Handler
+2.-Ersetzen eines importierten Pakets
+
+3.-Mocks werden verwendet, um Abhängigkeiten in einem Test zu reduzieren und eine testbare Umgebung für eine Komponente bereitzustellen.
+
+
+### Mock-Funktion für Event-Handler
 
 Angenommen, Sie haben eine Komponente Counter, die zwei Event-Handler-Funktionen als Prop akzeptiert:
 
