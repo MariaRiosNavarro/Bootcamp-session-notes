@@ -1456,12 +1456,13 @@ React bietet verschiedene Möglichkeiten, den Zustand(state) mit dem Local Stora
 
 Da es recht kompliziert sein kann, alle verschiedenen Teile selbst richtig zu verbinden, solltest du eine Bibliothek verwenden, die einen Hook dafür bereitstellt.
 
-use-local-storage-state
+ ###  ```use-local-storage-state```
   
 Die Bibliothek "use-local-storage-state" bietet einen Hook, mit dem du den Zustand im Local Storage persistieren kannst.
 
 Du kannst es als Drop-In-Ersatz für den useState-Hook verwenden (wie im folgenden Beispiel auskommentiert):
 
+  ```js
 // import { useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
@@ -1476,7 +1477,9 @@ return (
 </div>
 );
 }
-
+ ````
+  
+  
 Beachte, dass das erste Argument des useLocalStorageState-Hooks der Schlüssel ist, der zum Speichern des Zustands im Local Storage verwendet wird. Wenn du denselben Schlüssel für mehrere Komponenten verwendest, teilen sie sich den gleichen Zustand.
 
 Du musst dich nicht selbst um die Serialisierung oder Deserialisierung komplexer Daten kümmern, wenn du use-local-storage-state verwendest. Die Bibliothek kümmert sich automatisch im Hintergrund darum.
@@ -1496,11 +1499,287 @@ Du musst dich nicht selbst um die Serialisierung oder Deserialisierung komplexer
   
 ----   
   
-  Costum Hooks
+# Costum Hooks
+  
+
+Manchmal möchtest du einen Hook, der für einen spezifischeren Anwendungsfall entwickelt ist. Du kannst deine eigenen benutzerdefinierten Hooks erstellen. Das sind Funktionen, die mit "use" beginnen und andere Hooks verwenden können.
+
+Beispiele für benutzerdefinierte Hooks:
+
+Ein Zustand mit mehreren spezifischen Aktualisierungsfunktionen (z. B. value, increment(), decrement(), reset() → useCount()).
+  
+Ein Zustand, der mit Fensterereignissen und -werten synchronisiert ist (z. B. useWindowWidth()).
+  
+Ein Zustand, der eine abgerufene Ressource darstellt (z. B. useFetch()).
+  
+Ein Zustand, der im lokalen Speicher des Browsers gespeichert wird (z. B. useLocalStorageState()).
+  
+📙 Lies mehr über das Wiederverwenden von Logik mit benutzerdefinierten Hooks in der React-Dokumentation.
+  
+Beispiel eines Zählers:
+  
+Du könntest einen benutzerdefinierten Hook namens useCount wie folgt definieren:
+  
+  ```js
+  import { useState } from "react";
+
+function useCount(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+
+  function increment() {
+    setCount(count + 1);
+  }
+
+  function decrement() {
+    setCount(count - 1);
+  }
+
+  function reset() {
+    setCount(initialValue);
+  }
+
+  return { count, increment, decrement, reset };
+}
+````
+  
+  Und ihn wie folgt verwenden:
+  
+  ```js
+  import { useCount } from "./useCount";
+
+function Counter() {
+  const { count, increment, decrement, reset } = useCount(0);
+
+  return (
+    <div>
+      <p>Zähler: {count}</p>
+      <button onClick={increment}>Erhöhen</button>
+      <button onClick={decrement}>Verringern</button>
+      <button onClick={reset}>Zurücksetzen</button>
+    </div>
+  );
+}
+````
+  
+ 💡 Hier verwendet useCount intern den useState-Hook. Deshalb muss es selbst ein Hook sein. Benutzerdefinierte Hooks müssen dieselben Regeln wie normale Hooks befolgen: Ruf Hooks nur auf der obersten Ebene deiner Funktion auf und rufe sie nur in einer React-Funktionskomponente oder einem benutzerdefinierten Hook auf.
+
+Rückgabewerte benutzerdefinierter Hooks:
+Benutzerdefinierte Hooks können alles zurückgeben, was auch eine normale Funktion zurückgeben kann. Hier sind einige Beispiele für häufige Rückgabewerte:
+
+Rückgabe eines einzelnen Wertes:
+Manchmal müssen Hooks nur einen einzelnen Wert zurückgeben.
+  
+  ```js
+  
+  function useWindowWidth() {
+  const [width, setWidth] = useState();
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return width;
+}
+  ````
+  
+  Dieser Hook gibt nur die aktuelle Fensterbreite zurück. Es muss nichts anderes zurückgegeben werden. Dem Wert kann beim Verwenden des Hooks jeder beliebige Name gegeben werden.
+  
+  ```js
+  const aktuelleFensterbreite = useWindowWidth();
+`````
+  
+  Rückgabe eines Arrays:
+  
+  ```js
+  
+  function useD6() {
+  const [value, setValue] = useState();
+
+  function roll() {
+    setValue(Math.floor(Math.random() * 6) + 1);
+  }
+
+  return [value, roll];
+}
+````
+  
+  Dieser Hook gibt ein Array mit dem aktuellen Wert und einer Funktion zum Würfeln zurück. Die Rückgabe eines Arrays ist ein häufiges Muster, da es ermöglicht, die Werte mit Array-Destrukturierung ähnlich wie bei useState zu erhalten. Die Array-Destrukturierung hat den Vorteil, dass du den Werten leicht Namen geben kannst.
+  
+  ```js
+  
+const [ersterWürfel, würfelnMitErstemWürfel] = useD6();
+const [zweiterWürfel, würfelnMitZweitemWürfel] = useD6();
+````
+  Rückgabe eines Objekts:
+
+```js
+  function useCount(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+
+  function increment() {
+    setCount(count + 1);
+  }
+
+  function decrement() {
+    setCount(count - 1);
+  }
+
+  function reset() {
+    setCount(initialValue);
+  }
+
+  return { count, increment, decrement, reset };
+}
+`````
+  
+  💡 Die return-Anweisung verwendet die verkürzte Objektschreibweise. Das ist eine schöne Möglichkeit, ein Objekt mit Eigenschaften zurückzugeben, die denselben Namen wie die Variablen haben. Das obige Beispiel ist äquivalent zu:
+  
+  ```js
+  
+  return {
+  count: count,
+  increment: increment,
+  decrement: decrement,
+  reset: reset,
+};
+````
+  
+  Wenn ein Hook mehrere Werte und Funktionen bereitstellt, ist es üblich, ein Objekt zurückzugeben. Dadurch kannst du die Objekt-Destrukturierung verwenden, um die Werte zu erhalten. Du kannst auch die Eigenschaften, die du nicht benötigst, bei der Destrukturierung einfach weglassen.
+  
+  ```js
+  const { count, increment } = useCount(0);
+````
+  
+  ### Parameter für Hooks:
+  
+Benutzerdefinierte Hook-Funktionen können wie normale Funktionen Parameter haben. Dadurch kannst du den Hook flexibler gestalten. Im obigen Beispiel des useCount-Hooks kann der Anfangswert als Parameter übergeben werden.
+  
+  ```js
+  function useCount(initialValue = 0) {
+  // ...
+}
+
+const { count, increment, decrement, reset } = useCount(1337);
+`````
+  
+  ### Hooks und Module:
+  
+Benutzerdefinierte Hooks können in derselben Datei wie die Komponente definiert werden, die sie verwendet. Es ist jedoch auch üblich, sie in einer separaten Datei zu definieren und zu importieren.
+  
+  ```js
+  // useCount.js
+import { useState } from "react";
+
+export function useCount(initialValue = 0) {
+  // ...
+}
+
+// Counter.js
+import { useCount } from "./useCount";
+
+function Counter() {
+  const { count, increment, decrement, reset } = useCount(0);
+  // ...
+}
+````
+  
+ ### Abstrahiere wiederkehrende Logik in benutzerdefinierten Hooks:
+
+  Ein einfacher useFetch-Hook:
+Da fetch ein sehr häufiger Anwendungsfall ist, eignet es sich gut für einen benutzerdefinierten Hook. Hier ist ein einfacher useFetch-Hook, der eine Ressource abruft und die analysierte Antwort zurückgibt.
+  
+  ```js
+  import { useState, useEffect } from "react";
+
+export function useFetch(url) {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    async function startFetching() {
+      const response = await fetch(url);
+      const data = await response.json();
+      setData(data);
+    }
+    startFetching();
+  }, [url]);
+
+  return data;
+}
+````
+  
+  Und so wird er verwendet:
+  
+  ```js
+  
+  import { useFetch } from "./useFetch";
+
+function App() {
+  const jokes = useFetch("https://example-apis.vercel.app/api/bad-jokes");
+
+  return (
+    <div>
+      <h1>Schlechte Witze</h1>
+      <ul>
+        {jokes?.map(({ id, joke }) => (
+          <li key={id}>{joke}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+`````
+  💡 Beachte, dass dieser Hook keine fortgeschrittenen Funktionen wie die Behandlung von Wettlaufbedingungen, Fehlerbehandlung, Ladezustände oder Zwischenspeicherung implementiert.
+
+Ein usePokemon-Hook, der useFetch verwendet:
+Wenn du nun einen einfach zu verwendenden Hook für einen sehr spezifischen Anwendungsfall wie das Abrufen eines einzelnen Pokémon von der PokeAPI haben möchtest, kannst du einen usePokemon-Hook erstellen, der den useFetch-Hook intern verwendet.
+  
+  ```js
+  
+  import { useFetch } from "./useFetch";
+
+export function usePokemon(name) {
+  const pokemon = useFetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+
+  return pokemon;
+}
+````
+  
+ und so wird er verwendet:
+  
+  ```js
+  
+  import { usePokemon } from "./usePokemon";
+
+function App() {
+  const pokemon = usePokemon("pikachu");
+
+  return (
+    <div>
+      <h1>{pokemon?.name}</h1>
+      <img src={pokemon?.sprites.front_default} alt={pokemon?.name} />
+    </div>
+  );
+}
+````
+  
+  Hier verwenden wir einen benutzerdefinierten Hook (useFetch) innerhalb eines anderen benutzerdefinierten Hooks (usePokemon). Dies ermöglicht ziemlich leistungsstarke Abstraktionen.
+
+Wann solltest du einen benutzerdefinierten Hook erstellen?
+Benutzerdefinierte Hooks sind ein leistungsstarkes Werkzeug, um wiederkehrende Logik abstrahieren. Du solltest jedoch nur dann einen benutzerdefinierten Hook erstellen, wenn du die Logik in mehreren Komponenten wiederverwenden möchtest. Wenn du die Logik nur in einer einzigen Komponente benötigst, ist es besser, sie in der Komponente selbst zu belassen.
+
+Wenn du etwas nur einmal verwendest: Abstrahiere es nicht. Wenn du etwas zweimal verwendest: Du solltest es abstrahieren.
   
   
-  
-  
+  ## Resources
+
+- [Reusing Logic with Custom Hooks in the React docs](https://react.dev/learn/reusing-logic-with-custom-hooks)
   
   
   
