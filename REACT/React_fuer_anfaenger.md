@@ -2367,13 +2367,17 @@ setUser({
 
 Dieser Code funktioniert einwandfrei! Allerdings musst du eine Menge Code schreiben, um einen einzelnen Wert zu ändern.
 
+
 ### Verwendung von Immer in React: Der useImmer-Hook
 
 Die Immer-Bibliothek hilft dir dabei, Werte in tiefer verschachtelten Zuständen zu aktualisieren.
+The [`immer`](https://immerjs.github.io/immer/) library helps you updating values in deeper nested states.
 
 Sie erstellt eine vollständige Kopie des vorherigen Zustands für dich. Diese Kopie ist der Entwurf für den nächsten Zustand. Da es sich um eine Kopie handelt, kannst du Mutationen beliebig anwenden. Die Immer-Bibliothek kümmert sich darum, den Zustand entsprechend zu aktualisieren.
 
 Der useImmer-Hook ermöglicht es dir, Immer einfach in React-Komponenten einzubinden.
+
+The [`useImmer` hook](https://github.com/immerjs/use-immer) 
 
 Anstatt useState aufzurufen, um einen Zustand zu deklarieren, rufst du useImmer auf.
 Die zurückgegebene Funktion sollte mit update statt set versehen werden.
@@ -2407,7 +2411,7 @@ updateUser((draft) => {
 
 ```
 
-💡 In der Immer-Dokumentation findest du einen guten Leitfaden zu Aktualisierungsmustern.
+💡 You can find a good guide on [update patterns](https://immerjs.github.io/immer/update-patterns) in the `immer` docs.
 
 ### Arbeiten mit Objekten in Arrays
 
@@ -2489,6 +2493,13 @@ updateUsers((draft) => {
 Der genaue Code, den du schreiben musst, hängt stark von der Art der Operation (Aktualisierung, Einfügen, Löschen) und von der Struktur der Daten ab, die du im Zustand speicherst.
 
 Die Verwendung von Immer hängt von persönlichen Vorlieben und von der Komplexität der Datenstruktur ab. Bei tiefer verschachtelten Strukturen kann dir die Verwendung von Immer ermöglichen, einen einfacheren Code zu schreiben.
+
+
+## Resources
+
+- [React docs: Updating Objects in State](https://react.dev/learn/updating-objects-in-state)
+- [useImmer hook](https://github.com/immerjs/use-immer)
+- [Immer: update patterns](https://immerjs.github.io/immer/update-patterns)
 
 
 
