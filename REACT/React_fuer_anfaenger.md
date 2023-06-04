@@ -2298,22 +2298,27 @@ Obwohl wir empfehlen, Funktionen mit handle zu kennzeichnen und entsprechende Pr
 Wie du gelernt hast, kannst du die im Zustand gespeicherten Daten nicht direkt ändern (mutieren). Du musst den Zustand als schreibgeschützt behandeln. Um den Zustand zu ändern, rufst du die Setter-Funktion auf und übergibst den vollständigen nächsten Zustand.
 
 Betrachte ein Objekt wie folgt im Zustand:
-
 ```js
+// Beispiel 1: Unveränderlicher Zustand mit Objekt im Zustand
 const [user, setUser] = useState({
-name: "John Doe",
-email: "john@doe.com",
+  name: "John Doe",
+  email: "john@doe.com",
 });
-```
 
-Es könnte verlockend sein, einen Wert im Objekt zu verändern und ihn an die Setter-Funktion zu übergeben.
-
-```js
-user.email = "john_doe@example.com"; // ❌ direkte Zustandsmutation: Versuche das nicht zu Hause!
+// Falsche Vorgehensweise: Direkte Zustandsmutation
+user.email = "john_doe@example.com"; // ❌ Direkte Zustandsmutation: Das solltest du nicht tun!
 setUser(user);
-```
 
-Dieser Code funktioniert nicht wie erwartet: Er verändert das im Zustand gespeicherte Objekt direkt!
+// Richtige Vorgehensweise: Kopie erstellen und Änderungen anwenden
+setUser({
+  ...user,
+  email: "john_doe@example.com",
+});
+
+````
+
+
+Es könnte verlockend sein, einen Wert im Objekt zu verändern und ihn an die Setter-Funktion zu übergeben. Dieser Code funktioniert nicht wie erwartet: Er verändert das im Zustand gespeicherte Objekt direkt!
 
 Wenn du die Setter-Funktion aufrufst, überprüft React, ob sich das Objekt im Zustand geändert hat und die Benutzeroberfläche aktualisiert werden muss. Da du das vorherige Zustandsobjekt mutiert hast, ist es gleich dem neuen Zustand, den du an die Setter-Funktion übergeben hast. React erkennt keinen Unterschied und aktualisiert die Benutzeroberfläche nicht.
 
@@ -2321,8 +2326,8 @@ Daher musst du eine Kopie der Daten mit Hilfe der Spread-Syntax erstellen und di
 
 ```js
 setUser({
-...user,
-email: "john_doe@example.com",
+    ...user,
+    email: "john_doe@example.com",
 });
 ```
 
@@ -2331,40 +2336,42 @@ email: "john_doe@example.com",
 Es kann etwas komplizierter werden, wenn du Daten in einem tiefer verschachtelten Zustand ändern möchtest.
 
 ```js
+// Beispiel 2: Unveränderlicher Zustand mit verschachteltem Objekt
 const [user, setUser] = useState({
-name: "John Doe",
-contact: {
-email: "john@doe.com",
-phone: {
-mobile: "+001111111111",
-work: "+001234567890",
-},
-},
+  name: "John Doe",
+  contact: {
+    email: "john@doe.com",
+    phone: {
+      mobile: "+001111111111",
+      work: "+001234567890",
+    },
+  },
 });
 ```
 
 Wenn user.contact.phone.mobile geändert werden soll, musst du eine Kopie jeder Ebene erstellen.
 
 ```js
+// Zustandsaktualisierung mit mehreren Ebenen
 setUser({
-...user,
-contact: {
-...user.contact,
-phone: {
-...user.contact.phone,
-mobile: "+009999999999",
-},
-},
+  ...user,
+  contact: {
+    ...user.contact,
+    phone: {
+      ...user.contact.phone,
+      mobile: "+009999999999",
+    },
+  },
 });
 ```
 
 Dieser Code funktioniert einwandfrei! Allerdings musst du eine Menge Code schreiben, um einen einzelnen Wert zu ändern.
 
+### Verwendung von Immer in React: Der useImmer-Hook
+
 Die Immer-Bibliothek hilft dir dabei, Werte in tiefer verschachtelten Zuständen zu aktualisieren.
 
 Sie erstellt eine vollständige Kopie des vorherigen Zustands für dich. Diese Kopie ist der Entwurf für den nächsten Zustand. Da es sich um eine Kopie handelt, kannst du Mutationen beliebig anwenden. Die Immer-Bibliothek kümmert sich darum, den Zustand entsprechend zu aktualisieren.
-
-### Verwendung von Immer in React: Der useImmer-Hook
 
 Der useImmer-Hook ermöglicht es dir, Immer einfach in React-Komponenten einzubinden.
 
@@ -2373,28 +2380,31 @@ Die zurückgegebene Funktion sollte mit update statt set versehen werden.
 Das vorherige Beispiel sieht mit dem useImmer-Hook wie folgt aus.
 
 ```js
-// useState → useImmer
-// setUser → updateUser
+// Beispiel 3: Verwendung von useImmer-Hook
 const [user, updateUser] = useImmer({
-name: "John Doe",
-contact: {
-email: "john@doe.com",
-phone: {
-mobile: "+001111111111",
-work: "+001234567890",
-},
-},
+  name: "John Doe",
+  contact: {
+    email: "john@doe.com",
+    phone: {
+      mobile: "+001111111111",
+      work: "+001234567890",
+    },
+  },
 });
+
 ```
 
 
 Wenn du die Update-Funktion aufrufst, übergibst du eine Rückruffunktion. Die Rückruffunktion erhält einen Entwurf für den nächsten Zustand als Parameter. Du kannst Mutationen direkt auf den Entwurf anwenden.
 
 ```js
+
+// Zustandsaktualisierung mit useImmer-Hook
 updateUser((draft) => {
-// Mutiere den Entwurf direkt
-draft.contact.phone.mobile = "+009999999999";
+  // Änderungen direkt am Entwurf vornehmen
+  draft.contact.phone.mobile = "+009999999999";
 });
+
 ```
 
 💡 In der Immer-Dokumentation findest du einen guten Leitfaden zu Aktualisierungsmustern.
@@ -2407,46 +2417,72 @@ Dein Zustand könnte folgende Form haben:
 
 ```js
 const [users, setUsers] = useState([
-{
-id: 1,
-name: "John Doe",
-email: "john@doe.com",
-},
-{
-id: 2,
-name: "Jane Doe",
-email: "jane@doe.com",
-},
-{
-id: 3,
-name: "James Doe",
-email: "james@doe.com",
-},
+  {
+    id: 1,
+    name: "John Doe",
+    email: "john@doe.com",
+  },
+  {
+    id: 2,
+    name: "Jane Doe",
+    email: "jane@doe.com",
+  },
+  {
+    id: 3,
+    name: "James Doe",
+    email: "james@doe.com",
+  },
 ]);
+
+
+
+
 ```
 
 Du kannst eine Aktualisierung durchführen, um die E-Mail-Adresse eines Benutzers mit der ID 1 wie folgt zu ändern:
 
 ```
 setUsers(
-users.map((user) =>
-user.id === 1
-? {
-...user,
-email: "john_doe@example.com",
-}
-: user
-)
+  users.map((user) =>
+    user.id === 1
+      ? {
+          ...user,
+          email: "john_doe@example.com",
+        }
+      : user
+  )
 );
 ```
 
 Derselbe Vorgang mit der von useImmer bereitgestellten Update-Funktion sieht so aus:
 
 ```js
+
+const [users, updateUsers] = useImmer([
+  {
+    id: 1,
+    name: "John Doe",
+    email: "john@doe.com",
+  },
+  {
+    id: 2,
+    name: "Jane Doe",
+    email: "jane@doe.com",
+  },
+  {
+    id: 3,
+    name: "James Doe",
+    email: "james@doe.com",
+  },
+]);
+
+
+
+// Aktualisierung der E-Mail-Adresse eines Benutzers mit ID 1 mit useImmer-Hook
 updateUsers((draft) => {
-const user = draft.find(user => user.id === 1);
-user.email = "john_doe@example.com";
-})
+  const user = draft.find((user) => user.id === 1);
+  user.email = "john_doe@example.com";
+});
 
 ```
 
