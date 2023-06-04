@@ -1049,9 +1049,8 @@ Dies sind einige bewährte Praktiken, die du bei der Verwendung von State in Rea
   
 # React-Effekte und Fetch
 
-Effekte in React
   
-Effekte sind eine Möglichkeit, React-Komponenten mit externen Systemen zu synchronisieren.
+UseEffekt ist eine Möglichkeit, React-Komponenten mit externen Systemen zu synchronisieren.
 
 Beispiele für Interaktionen mit externen Systemen sind:
 
@@ -1061,7 +1060,8 @@ Arbeiten mit anderen Web-APIs
 Einrichten und Beenden von Abonnements und globalen Ereignisbehandlern
 Timer einstellen
 Integration mit Drittanbieter-Bibliotheken.
-Die Verwendung eines Effekts ist eine "Ausbruchsklappe" aus der deklarativen Welt von React. Es ist eine Möglichkeit, imperativen Code auszuführen, der nicht direkt mit dem Rendern der Benutzeroberfläche zusammenhängt. Während die Komponentenfunktion rein sein muss, sind Effektfunktionen von Natur aus nicht rein. Sie umfassen Nebeneffekte.
+  
+Die Verwendung eines Effekts ist eine "Ausbruchsklappe" aus der deklarativen Welt von React. Es ist eine Möglichkeit, imperativen Code auszuführen, der nicht direkt mit dem Rendern der Benutzeroberfläche zusammenhängt. Während die Komponentenfunktion rein sein muss, sind Effektfunktionen von Natur aus nicht rein. ***Sie umfassen Nebeneffekte.***
 
 Ein Effekt wird als Funktion definiert, die nach dem Rendern der Komponente (und der Aktualisierung des DOM) ausgeführt wird. Er kann synchronisiert werden, um nicht nur beim Mounting, sondern auch beim Ändern aller oder nur bestimmter reaktiver Werte innerhalb der Komponentenfunktion ausgeführt zu werden.
 
@@ -1075,8 +1075,10 @@ Effektfunktionen können eine Aufräumfunktion zurückgeben, die vor der erneute
   
 Das useEffect-Hook wird verwendet, um Effekte zu einer React-Komponente hinzuzufügen. Es hat zwei Argumente:
 
-eine Funktion, die den Effekt definiert (normalerweise eine anonyme Funktion)
-ein Array von Variablen, von denen der Effekt abhängt
+1.- eine Funktion, die den Effekt definiert (normalerweise ***eine anonyme Funktion***).
+  
+2.- ein Array von Variablen, von denen der Effekt abhängt
+  
 Zum Beispiel wird der folgende Code den Titel der Komponente auf den Wert der "title"-Prop aktualisieren:
   
 
@@ -1141,7 +1143,7 @@ function Title({ title }) {
 
 Wenn der Effekt keine Abhängigkeiten hat, sollte das Abhängigkeitsarray leer sein: [].
 
-Ein leeres Abhängigkeitsarray sagt React, dass dieser Effekt nur einmal ausgeführt werden soll, wenn die Komponente zum ersten Mal auf dem Bildschirm erscheint.
+# Ein leeres Abhängigkeitsarray sagt React, dass dieser Effekt nur einmal ausgeführt werden soll, wenn die Komponente zum ersten Mal auf dem Bildschirm erscheint.
 
 ### Aufräumfunktion
   
@@ -1320,17 +1322,182 @@ function Joke({ id }) {
 ----
   
   
-  LocalStorage
+#  LocalStorage
+  
+
+💡 Beachte, dass die Web Storage API kein Teil von React ist. Es handelt sich um eine Browser-API, die in allen modernen Browsern verfügbar ist.
+
+Die Web Storage API stellt zwei Methoden zum Speichern von Daten auf dem Client zur Verfügung:
+
+1.- localStorage speichert Daten ohne Ablaufdatum.
+  
+2.- sessionStorage speichert Daten für eine Sitzung (Daten gehen verloren, wenn der Browser-Tab geschlossen wird).
+  
+Die Daten werden im Browser und pro Domain gespeichert. Das bedeutet, dass alle Daten, die von example.com gespeichert werden, von www.example.com und subdomain.example.com abgerufen werden können, aber nicht von others.org.
+
+Dadurch ist es möglich, Daten über Seitenneuladungen und Browserneustarts hinweg auf sichere Weise zu speichern.
+
+Zur Speicherung von Daten verwendet die API Schlüssel-Wert-Paare. Der Schlüssel ist ein String und der Wert kann ein String, eine Zahl oder ein boolescher Wert sein.
+
+💡 Alle folgenden Beispiele verwenden localStorage, aber dasselbe gilt auch für sessionStorage.
+
+> 📙 Read more about the [**Web Storage API** on the mdn web docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API).
+
+### Daten speichern
+  
+ 
+Um Daten zu speichern, verwende die setItem()-Methode:
+
+  
+```js
+localStorage.setItem("name", "Alex");
+  
+localStorage.setItem("age", 28);
+  
+localStorage.setItem("isOnline", true);
+`````
+
+  
+
+### Daten abrufen
+  
+Um Daten abzurufen, verwende die getItem()-Methode:
+
+ ```js
+const name = localStorage.getItem("name"); // → "Alex"
+const age = localStorage.getItem("age"); // → 28
+const isOnline = localStorage.getItem("isOnline"); // → true
+``````
   
   
+Die getItem()-Methode gibt null zurück, wenn der Schlüssel nicht existiert.
+
+```js
+const nope = localStorage.getItem("nope"); // → null
+`````
+  
+
+### Daten entfernen
+  
+Um Daten zu entfernen, verwende die removeItem()-Methode:
+
+localStorage.removeItem("name");
+
+### Alle Daten löschen
+  
+Um alle Daten zu löschen, verwende die clear()-Methode:
+
+localStorage.clear();
+
+### Komplexe Daten speichern
+  
+Die Web Storage API unterstützt nur Zeichenketten, Zahlen und boolesche Werte. Um komplexere Daten zu speichern, musst du sie zuerst serialisieren. Das kann mit der JSON.stringify()-Methode erfolgen:
+
+  ```js
+const user = {
+name: "Alex",
+age: 28,
+isOnline: true,
+};
+
+localStorage.setItem("user", JSON.stringify(user));
+  
+  `````
+  
+
+Um die Daten abzurufen, musst du sie mit der JSON.parse()-Methode analysieren:
+  
+  ```js
+
+const user = JSON.parse(localStorage.getItem("user"));
+  
+  `````
+  
+
+### Hilfsfunktionen
+  
+Um die Arbeit mit der Web Storage API zu erleichtern, kannst du Hilfsfunktionen erstellen, die die Serialisierung und Deserialisierung abstrahieren:
+
+  ```js
+// Daten speichern
+function setItem(key, value) {
+localStorage.setItem(key, JSON.stringify(value));
+}
+
+// Daten abrufen
+function getItem(key) {
+return JSON.parse(localStorage.getItem(key));
+}
+
+  `````
   
   
+Diese Funktionen funktionieren sowohl mit einfachen Datentypen wie Zeichenketten und Zahlen als auch mit komplexen Datentypen.
+
+  ```js
+setItem("user", {
+name: "Alex",
+age: 28,
+isOnline: true,
+});
+setItem("count", 42);
+
+const user = getItem("user");
+const count = getItem("count");
+  
+  `````
+  
+
+### React mit Local Storage
+  
+Du kannst die Web Storage API auch in React verwenden. Am häufigsten möchtest du den Zustand(state) im Local Storage persistieren, damit er über Seitenneuladungen hinweg erhalten bleibt.
+
+React bietet verschiedene Möglichkeiten, den Zustand(state) mit dem Local Storage zu synchronisieren. Das allgemeine Konzept besteht darin, den ursprünglichen Zustand(state) aus dem Local Storage abzurufen und den Zustand im Local Storage zu speichern, wenn er sich ändert.
+
+Da es recht kompliziert sein kann, alle verschiedenen Teile selbst richtig zu verbinden, solltest du eine Bibliothek verwenden, die einen Hook dafür bereitstellt.
+
+use-local-storage-state
+  
+Die Bibliothek "use-local-storage-state" bietet einen Hook, mit dem du den Zustand im Local Storage persistieren kannst.
+
+Du kannst es als Drop-In-Ersatz für den useState-Hook verwenden (wie im folgenden Beispiel auskommentiert):
+
+// import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
+
+function Counter() {
+// const [count, setCount] = useState(0);
+const [count, setCount] = useLocalStorageState("count", { defaultValue: 0 });
+
+return (
+<div>
+<p>Zähler: {count}</p>
+<button onClick={() => setCount(count + 1)}>Erhöhen</button>
+</div>
+);
+}
+
+Beachte, dass das erste Argument des useLocalStorageState-Hooks der Schlüssel ist, der zum Speichern des Zustands im Local Storage verwendet wird. Wenn du denselben Schlüssel für mehrere Komponenten verwendest, teilen sie sich den gleichen Zustand.
+
+Du musst dich nicht selbst um die Serialisierung oder Deserialisierung komplexer Daten kümmern, wenn du use-local-storage-state verwendest. Die Bibliothek kümmert sich automatisch im Hintergrund darum.
   
   
-----  
+
+> 📙 Read more about [**how to use the `use-local-storage-state` hook** in its docs](https://github.com/astoilkov/use-local-storage-state#usage).
+
+---
+
+## Resources
+
+- [Web Storage API on the mdn web docs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)
+- [use-local-storage-state on GitHub](https://github.com/astoilkov/use-local-storage-state)
+
   
+  
+----   
   
   Costum Hooks
+  
   
   
   
