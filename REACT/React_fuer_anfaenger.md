@@ -2441,7 +2441,7 @@ const [users, setUsers] = useState([
 
 Du kannst eine Aktualisierung durchführen, um die E-Mail-Adresse eines Benutzers mit der ID 1 wie folgt zu ändern:
 
-```
+```js
 setUsers(
   users.map((user) =>
     user.id === 1
