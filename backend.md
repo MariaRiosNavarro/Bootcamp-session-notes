@@ -178,12 +178,12 @@ Lokal: In Terminal / Server-Konsole anzeigen
 
 
 local: shown in terminal / server console
-![Example of `console.log()`in API route file](assets/log-messages-api-route-file.png)
+![Example of `console.log()`in API route file](assets_backend/log-messages-api-route-file.png)
 
 Vercel: shown in web interface
-![Example of `console.log()`in API route file](assets/log-messages-api-route-file-runtime-log.png)
+![Example of `console.log()`in API route file](assets_backend/log-messages-api-route-file-runtime-log.png)
 
-![Example shown in Vercel web interfach](assets/vercel-runtime-log.png)
+![Example shown in Vercel web interfach](assets_backend/vercel-runtime-log.png)
 
 > 💡 Further information about [Vercel Runtime Logs](https://vercel.com/docs/concepts/observability/runtime-logs)
 
