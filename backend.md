@@ -592,3 +592,140 @@ const Comment =
 ## Resources
 
 - [ORM vs. ODM](https://medium.com/spidernitt/orm-and-odm-a-brief-introduction-369046ec57eb)
+
+---
+
+# Backend Create
+
+Lernziele
+
+Verständnis von CRUD und REST-APIs
+Erstellen einer REST-API-Route
+CRUD und REST
+
+### CRUD
+
+Das Akronym CRUD [kɹʌd] umfasst die vier grundlegenden Operationen der persistierenden Datenspeicherung:
+
+- **Create**, _create a record_,
+- **Read** or **Retrieve**, _read a record_,
+- **Update**, _update a record_, and
+- **Delete** or **Destroy**, _delete a record_.
+
+Diese Operationen können je nach Kontext oder Umgebung mit verschiedenen Begriffen ausgedrückt werden.
+
+| CRUD                      | MongoDB                    | SQL      | HTTP Method | typical Rest URL (with HTTP Method)     |
+| ------------------------- | -------------------------- | -------- | ----------- | --------------------------------------- |
+| **Create**                | `insertOne` / `insertMany` | `INSERT` | POST        | `/todos`                                |
+| **Read** or **Retrieve**  | `findOne` / `find`         | `SELECT` | GET         | `/todos/[todoId]` (one), `/todos` (all) |
+| **Update**                | `updateOne` / `updateMany` | `UPDATE` | PUT / PATCH | `/todos/[todoId] `                      |
+| **Delete** or **Destroy** | `deleteOne` / `deleteMany` | `DELETE` | DELETE      | `/todos/[todoId]`                       |
+
+> 💡 Note that the **Create** operation refers to the HTTP method `POST`. You'll need the corresponding HTTP method whenever you want to perform one of the **CRUD** operations.
+
+
+💡 Beachten Sie, dass die Create-Operation auf die HTTP-Methode POST verweist. Sie benötigen die entsprechende HTTP-Methode, wenn Sie eine der CRUD-Operationen ausführen möchten.
+
+### REST
+
+REST steht für "Representational State Transfer" und bezieht sich auf architektonische Prinzipien und Einschränkungen für den Aufbau Ihrer API.
+
+Wir verwenden CRUD-Operationen und HTTP-Methoden in einer REST-API.
+
+> 💡 This is a very basic and incomplete explanation. If you're interested in learning more about
+> what makes an API RESTful, you can read about it [here](https://restfulapi.net/).
+
+### Erstellen mit Mongoose
+
+Um einen neuen Eintrag in Ihrer Datenbank zu erstellen, müssen Sie eine POST-API-Route definieren und die Methode ".create" auf unserem Joke-Modell aufrufen:
+
+```js
+// pages/api/index.js
+if (request.method === "POST") {
+  try {
+    const jokeData = request.body;
+    await Joke.create(jokeData);
+
+    response.status(201).json({ status: "Joke created" });
+  } catch (error) {
+    console.log(error);
+    response.status(400).json({ error: error.message });
+  }
+}
+
+````
+
+Beachten Sie, dass allein die POST-Route keinen neuen Eintrag in Ihrer Datenbank erstellt: Sie müssen Ihren Formular-Submit-Handler anweisen, diese Route zu verwenden.
+
+> 📙 Read more in the [mongoose docs](https://mongoosejs.com/docs/models.html#constructing-documents)
+
+### Senden von POST-Anfragen und erneute Validierung von Daten
+
+Da wir unser Jokes-Datenarray verändern, müssen wir zwei Aktionen durchführen:
+
+Senden von Daten an unser Backend, um sie zur Datenbank hinzuzufügen.
+
+Aktualisierung unserer App, sodass sie die aktualisierten Daten aus der Datenbank verwendet.
+
+Wenn wir unsere Daten nicht erneut validieren, spiegelt die App nicht die Änderungen wider, die wir in unserer Datenbank vorgenommen haben. useSWR stellt uns eine Methode namens "mutate" zur Verfügung, um diese erneute Validierung für einen bestimmten API-Endpunkt auszulösen, z. B. "/api/jokes". Wir können sie genauso wie "data" oder "isLoading" aus dem Hook-Aufruf destrukturieren:
+
+```js
+const { mutate } = useSWR('/api/jokes/')
+````
+Um eine POST-HTTP-Anfrage mit "fetch" durchzuführen, müssen wir dem fetch-Aufruf ein Options-Objekt bereitstellen, das folgende Informationen enthält:
+
+"method": ein Verb wie "POST", "PUT" oder "DELETE", das den Typ der HTTP-Anfragemethode definiert.
+
+Der "Content-Type", der in den Anfrage-Headern angegeben ist.
+
+"body": die Daten, die an den Server gesendet werden.
+
+Eine typische "POST"-Anfrage sieht wie folgt aus:
+
+```js
+const response = await fetch("/api/jokes", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(data),
+});
+`````
+💡 Der "body"-Schlüssel repräsentiert das "request.body" in der oben gezeigten API-Route: Hier werden die eigentlichen Daten von der Frontend- zur API-Seite (und dann zur Backend-Datenbank) übergeben.
+
+Nach einem erfolgreichen "POST"-Fetch, der unseren neuen POST-API-Endpunkt ausgelöst hat, können wir useSWR mitteilen, die Daten erneut zu validieren, indem wir die Funktion "mutate" aufrufen. Der gesamte Übermittlungsprozess sieht folgendermaßen aus:
+
+```js
+import useSWR from "swr";
+
+export default function JokeForm() {
+  const { mutate } = useSWR("/api/jokes");
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const jokeData = Object.fromEntries(formData);
+
+    const response = await fetch("/api/jokes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(jokeData),
+    });
+
+    if (response.ok) {
+      mutate();
+    }
+  }
+
+  return (
+    //...
+  );
+}
+`````
+## Resources
+
+- [What is REST?](https://restfulapi.net/)
+- [swr docs](https://swr.vercel.app/docs/mutation)
