@@ -1,4 +1,4 @@
-#REST
+# REST
 
 REST steht für "Representational State Transfer" und ist ein architektonischer Stil für verteilte hypermediale Systeme. Es wurde erstmals 2000 von Roy Fielding in seiner berühmten Dissertation vorgestellt.
 
