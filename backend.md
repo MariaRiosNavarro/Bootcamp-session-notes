@@ -407,3 +407,188 @@ Notes:
 - [Differences between relational and non-relational databases](https://www.mongodb.com/compare/relational-vs-non-relational-databases)
 - [In-depth explanation and comparison relational/non-relational](https://www.mongodb.com/compare/relational-vs-non-relational-databases)
 - [CRUD operations in MongoDB documentation](https://www.mongodb.com/docs/mongodb-shell/crud/)
+
+----
+
+# Backend READ
+
+Lernziele
+
+Verständnis für ORM (Object-Relational Mapping) und ODM (Object Document Mapping) haben.
+Wissen, wie man ein Mongoose-Schema erstellt.
+Wissen, wie man eine Anwendung mit einer (lokalen) Datenbank über Mongoose verbindet.
+Wissen, wie man Daten mit einem Mongoose-Modell liest.
+Was ist Mongoose und warum wird es verwendet?
+Um auf eine MongoDB von Ihrer App aus zuzugreifen, benötigen wir eine JavaScript-API. Diese API wird manchmal als Datenbanktreiber bezeichnet (stellen Sie sich das wie Ihren Druckertreiber vor).
+
+Wir werden eine Bibliothek namens Mongoose verwenden. Das ist ein ODM (Object Document Mapper).
+
+## Unterschied zwischen ORM und ODM
+
+### ORM (Object-Relational Mapping):
+
+Technik zum Durchführen von CRUD-Operationen hauptsächlich in relationalen Datenbanken (MySQL, PostgreSQL usw.).
+Verwendet ein objektorientiertes Paradigma.
+Ähnlich wie eine Excel-Tabelle mit Zeilen und Spalten. Sie können kein Feld zu einem Eintrag hinzufügen, das für alle Einträge nicht existiert.
+Ist einem einzelnen Objekt für alle Einträge zugeordnet.
+
+### ODM (Object Document Mapping):
+
+Ähnlich wie ORM, jedoch für nicht-relationale Datenbanken (MongoDB).
+Verwendet ein dokumentenorientiertes Paradigma.
+Gründe für die Verwendung von Mongoose als ODM
+
+Es hilft beim Erstellen eines Schemas und beim Abfragen der Datenbank (es ist auch unser Datenbanktreiber).
+Es muss auf dem Server ausgeführt werden, da der Datenbankzugriff im Browser nicht sicher ist.
+Beachten Sie: Wir haben bereits einen Server (= Next.js API-Routen).
+Datenbankverbindung
+Um Daten aus einer Datenbank zu lesen und sie in unserer App zu verwenden, benötigen wir zwei Dinge:
+
+Eine (lokale) Datenbank mit Dokumenten (z. B. Witze).
+Eine Verbindung zwischen dieser Datenbank und der Next.js-App mit Mongoose.
+Um die Verbindung herzustellen, befolgen Sie diese Schritte:
+
+### Installieren Sie Mongoose mit "npm install mongoose".
+
+Erstellen Sie eine Datei ".env.local" im Stammverzeichnis Ihres Projekts mit folgendem Inhalt:
+
+"MONGODB_URI=mongodb://localhost:27017/jokes-database".
+
+Dateien mit dem Namen ".env" enthalten Umgebungsvariablen: Geheimnisse wie Benutzernamen und Passwörter, die Sie nicht mit anderen teilen möchten.
+
+Diese Dateien sollten von Git innerhalb der Datei ".gitignore" ignoriert werden.
+
+Beachten Sie die Struktur des Inhalts: Die Variable heißt "MONGODB_URI" und hat den Wert "mongodb://localhost:27017/jokes-database".
+
+"jokes-database" ist der Name Ihrer Datenbank, dieser Wert kann variieren.
+
+Erstellen Sie eine Datei "db/connect.js" und kopieren Sie den Inhalt aus dem Beispiel für Next.js und Mongoose.
+ [content from the Next.js mongoose example](https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/lib/dbConnect.js)
+Beachten Sie, dass diese Datei den "MONGODB_URI" verwendet, den wir gerade in ".env.local" eingerichtet haben, um eine Verbindung herzustellen.
+
+### Schema und Model
+
+Wir müssen ein Schema deklarieren, das den Datentyp der Dokumente in einer Sammlung beschreibt.
+[Schema that describes the data type of the documents in a collection](https://mongoosejs.com/docs/guide.html).
+
+Wir verwenden dieses Schema, um ein Model zu erstellen, mit dem wir mit der Datenbank interagieren können.
+
+Beachten Sie den Unterschied zwischen _Schema_ and _Model_:
+
+Das Schema beschreibt die Struktur eines Dokuments.
+Das Model bietet uns eine Programmierschnittstelle für die Interaktion mit der Datenbank (wie die Suche in der Datenbank, Aktualisierungen usw.).
+
+### Erstellung eines Schemas
+
+Wir erstellen ein Schema in der entsprechenden Datei im Ordner "db/models" wie folgt:
+
+Beim Erstellen eines neuen Schemas übergeben wir ein Objekt mit den Schlüssel-Wert-Paaren, die unsere Dokumente haben sollen, z. B. "joke", das ein String ist und erforderlich ist.
+
+Wir müssen die ID nicht definieren, da Mongoose automatisch eine erstellt.
+
+Exportieren Sie das Schema, um es in unserer Anwendung verfügbar zu machen.
+Beispiel:
+
+```js
+// db/models/Joke.js
+import mongoose from "mongoose";
+
+const { Schema } = mongoose;
+
+const jokeSchema = new Schema({
+  joke: { type: String, required: true },
+});
+
+const Joke = mongoose.models.Joke || mongoose.model("Joke", jokeSchema);
+
+export default Joke;
+````
+
+Weitere Hinweise:
+
+Der Name der Sammlung, auf der das Modell arbeitet, wird aus dem Modellnamen generiert, in diesem Fall "Joke" => "jokes".
+Sie können die Methode "mongoose.model" mit einem dritten Argument aufrufen, das den Sammlungsnamen enthält.
+Wir müssen überprüfen, ob das Modell mit dem Namen "Joke" bereits kompiliert wurde, und wenn ja, das bereits kompilierte Modell verwenden. Deshalb verwenden wir den logischen Oder-Operator (||).
+
+### Verwendung des Modells: Datenbankabfragen (.find, .findById)
+
+In unserem Next.js API-Route können wir jetzt einen Anforderungs-Handler schreiben, der Folgendes tut:
+
+Stellt eine Verbindung zur Datenbank mit "dbConnect()" her.
+Verwendet das Modell, um ein Dokument zu suchen.
+Gibt die Daten zurück.
+Beispiel:
+
+```js
+// api/jokes/index.js
+import dbConnect from "../../../db/connect";
+import Joke from "../../../db/models/Joke";
+
+export default async function handler(request, response) {
+  await dbConnect();
+
+  if (request.method === "GET") {
+    const jokes = await Joke.find();
+    return response.status(200).json(jokes);
+  } else {
+    return response.status(405).json({ message: "Method not allowed" });
+  }
+}
+````
+Mongoose enthält eine Methode ".findById()", die Sie in einer dynamischen Route verwenden können:
+
+```js
+// api/jokes/[id].js
+import dbConnect from "../../../db/connect";
+import Joke from "../../../db/models/Joke";
+
+export default async function handler(request, response) {
+  await dbConnect();
+  const { id } = request.query;
+
+  if (request.method === "GET") {
+    const joke = await Joke.findById(id);
+
+    if (!joke) {
+      return response.status(404).json({ status: "Not Found" });
+    }
+
+    response.status(200).json(joke);
+  }
+}
+````
+Beachten Sie, dass MongoDB eine "_id" anstelle von "id" zurückgibt, daher müssen Sie möglicherweise Ihr Frontend anpassen, um die richtigen Informationen zu erhalten.
+
+> 📙 You can find a reference to [all methods of a Model in the mongoose documentation](https://mongoosejs.com/docs/api/model.html).
+
+### Verknüpfte Sammlungen mit ".populate()" abrufen 
+
+Stellen Sie sich vor, Ihre MongoDB hat zwei Sammlungen: Witze und Kommentare zu diesen Witzen. Sie sind durch die commentIds verknüpft.
+
+Wenn Sie die Witze lesen, möchten Sie auch die Kommentare erhalten. Sie können dies ganz einfach erreichen, indem Sie die Schemas für Joke und Comment verknüpfen und bei der Abfrage der Datenbank einfach ".populate()" mit Methodenverkettung hinzufügen. Verknüpfen Sie zunächst die Schemas für Joke und Comment:
+
+```js
+// Verknüpfung der Schemas
+const jokeSchema = new Schema({
+  joke: { type: String, required: true },
+  comments: { type: [Schema.Types.ObjectId], ref: "Comment" },
+});
+
+const commentSchema = new Schema({
+  _id: Schema.Types.ObjectId,
+  comment: { type: String, required: true },
+  author: { type: String, required: true },
+});
+
+const Joke = mongoose.models.Joke || mongoose.model("Joke", jokeSchema);
+const Comment =
+  mongoose.models.Comment || mongoose.model("Comment", commentSchema);
+````
+
+> 📙 Read more about [populate in the mongoose docs](https://mongoosejs.com/docs/populate.html).
+
+---
+
+## Resources
+
+- [ORM vs. ODM](https://medium.com/spidernitt/orm-and-odm-a-brief-introduction-369046ec57eb)
