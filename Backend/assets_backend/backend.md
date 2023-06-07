@@ -936,15 +936,19 @@ Die Verbindung zwischen deiner Anwendung und der Cloud-Datenbank in MongoDB Atla
 
 1. Erstelle in deinem Projektstammverzeichnis eine neue Datei mit dem Namen `.env`.
 2. Füge in die `.env`-Datei eine Variable namens `MONGODB_URI` ein und weise ihr die MongoDB Atlas URI zu, die du beim Einrichten deiner Verbindung erstellt hast.
-   1. Die `.env`-Datei sollte so aussehen: `MONGODB_URI=mongodb+srv://paul:<password>@cluster0.mu12zrz.mongodb.net/<database-name>?retryWrites=true&w=majority`.
-   2. Ersetze den Teil `<password>` durch das Passwort für deinen Datenbankbenutzer (in diesem Fall heißt der Benutzer "paul").
-   3. Ersetze den Teil `<database-name>` durch den Namen deiner Datenbank (entferne auch die Klammern `<>`). Wenn die Datenbank in MongoDB Atlas nicht existiert, wird sie automatisch erstellt.
-   4. Beachte, dass du auch die Klammern `<>` um das Passwort entfernen musst.
-3. Füge `.env` zur `.git
 
-ignore`-Datei hinzu, falls sie noch nicht enthalten ist. Du kannst nun deine Datei `.env.local` löschen.
+   1. Die `.env`-Datei sollte so aussehen: `MONGODB_URI=mongodb+srv://paul:<password>@cluster0.mu12zrz.mongodb.net/<database-name>?retryWrites=true&w=majority`.
+
+   2. Ersetze den Teil `<password>` durch das Passwort für deinen Datenbankbenutzer (in diesem Fall heißt der Benutzer "paul").
+
+   3. Ersetze den Teil `<database-name>` durch den Namen deiner Datenbank (entferne auch die Klammern `<>`). Wenn die Datenbank in MongoDB Atlas nicht existiert, wird sie automatisch erstellt.
+
+   4. Beachte, dass du auch die Klammern `<>` um das Passwort entfernen musst.
+
+3. Füge `.env` zur `.gitignore`-Datei hinzu, falls sie noch nicht enthalten ist. Du kannst nun deine Datei `.env.local` löschen.
 
 4. Starte den Entwicklungsserver neu und überprüfe deinen Browser: Du kannst jetzt Einträge in deiner Cloud-Datenbank, die von MongoDB Atlas gehostet wird, lesen, erstellen, aktualisieren und löschen! 🎉
+
 5. Du kannst die Sammlungen und Dokumente deiner Datenbank über `Deployment > Database > Collections` überprüfen:
 
 <img src="assetsAtlas/atlas_view-collections.png" alt="Sammlungen in MongoDB Atlas anzeigen" width="300px">
