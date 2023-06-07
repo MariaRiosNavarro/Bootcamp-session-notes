@@ -1,6 +1,5 @@
 # Backend-Grundlagen- [challenges](https://github.com/neuefische/ffm-web-23-3/blob/main/sessions/backend-basics/challenges-backend-basics.md)
 
-
 Bisher haben wir JavaScript nur im Browser verwendet. Aber JavaScript kann auch außerhalb des Browsers verwendet werden.
 
 Node.js ist eine Laufzeitumgebung für JavaScript. Es ermöglicht uns, JavaScript außerhalb des Browsers auszuführen. Node.js unterscheidet sich in einigen Punkten vom Browser. Zum Beispiel besitzt Node.js kein DOM, aber es stellt einige APIs bereit, die im Browser nicht verfügbar sind. Zum Beispiel bietet Node.js eine API zum Zugriff auf das Dateisystem.
@@ -20,9 +19,7 @@ Ein Node.js-Programm kann fast alles sein. Es kann ein Web-Server, ein Kommandoz
 console.log("Hello World");
 const answer = 32 + 4;
 console.log(answer);
-
 ```
-
 
 Führe das Programm mit dem node-Befehl aus. Zum Beispiel, wenn du das Programm in einer Datei namens index.js speicherst, kannst du es mit node index.js ausführen.
 
@@ -38,7 +35,6 @@ Du kannst ein natives Node-Modul importieren, indem du das Präfix node: verwend
 import { createServer } from "node:http";
 ```
 
-
 Du musst das http-Modul nicht installieren. Es ist in Node.js enthalten.
 
 ### Erstellen eines Servers
@@ -49,12 +45,10 @@ Das http-Modul bietet eine Funktion namens createServer, die eine Rückruffunkti
 import { createServer } from "node:http";
 
 export const server = createServer((request, response) => {
-response.statusCode = 200;
-response.end("Hello World");
+  response.statusCode = 200;
+  response.end("Hello World");
 });
-
 ```
-
 
 Die Eigenschaft response.statusCode wird verwendet, um den Statuscode der Antwort festzulegen. Die Methode response.end nimmt einen String als Argument an. Der String wird an den Client gesendet.
 
@@ -64,15 +58,14 @@ Du kannst auf das Anfrage-Objekt zugreifen, um Informationen über die Anfrage a
 import { createServer } from "node:http";
 
 export const server = createServer((request, response) => {
-if (request.url === "/") {
-response.statusCode = 200;
-response.end("Hello World");
-} else {
-response.statusCode = 404;
-response.end("Not Found");
-}
+  if (request.url === "/") {
+    response.statusCode = 200;
+    response.end("Hello World");
+  } else {
+    response.statusCode = 404;
+    response.end("Not Found");
+  }
 });
-
 ```
 
 💡 Im Internet findest du die Abkürzungen req und res für request und response. Dies ist eine gängige Konvention, aber req und res sind sehr schwer zu unterscheiden, daher verwenden wir in diesem Bootcamp die vollständigen Namen.
@@ -95,13 +88,11 @@ console.log(Server running at http://127.0.0.1:${port}/);
 
 💡 Wenn du listen aufrufst, wird Node.js das Programm am Laufen halten, anstatt es sofort zu beenden. Dies ist notwendig, da das Programm weiterhin laufen muss, um Anfragen entgegenzunehmen.
 
-
 ## Resources
 
 - [Node.js Website](https://nodejs.org/)
 - [`http.createServer()` in the Node.js Docs](https://nodejs.org/api/http.html#httpcreateserveroptions-requestlistener)
 - [`server.listen()` in the Node.js Docs](https://nodejs.org/api/http.html#serverlisten)
-
 
 ---
 
@@ -115,7 +106,6 @@ Wissen, wie man Next.js-API-Routen implementiert
 Statische API-Routen
 Dynamische API-Routen
 Wissen, wie man API-Routen mit console.log() debuggen kann
-
 
 ### Serverlose Funktionen
 
@@ -145,13 +135,12 @@ In Next.js ist eine API-Route einfach ein JavaScript-Modul, das eine Standardfun
 
 ```js
 export default function handler(request, response) {
-response.status(200).json({ message: "Hello neuefische!" });
+  response.status(200).json({ message: "Hello neuefische!" });
 }
-
 ```
 
-
 💡 Weitere Informationen zu Next.js-API-Routen findest du hier.
+
 > 💡 Further information about [Next.js API Routes](https://nextjs.org/docs/api-routes/introduction).
 
 ### Dynamische API-Routen
@@ -162,20 +151,19 @@ Wenn du z.B. einen API-Endpunkt erstellen möchtest, der Anfragen für einzelne 
 
 ```js
 export default function handler(request, response) {
-const { id } = request.query;
-//...
+  const { id } = request.query;
+  //...
 }
 ```
 
 💡 Weitere Informationen zu Next.js-Dynamic API-Routen findest du hier.
+
 > 💡 Further information about [Next.js Dynamic API Routes](https://nextjs.org/docs/api-routes/dynamic-api-routes).
 
 Wie man mit console.log() Protokolle/Debugausgaben erstellt
 Du kannst die Funktion console.log() verwenden, um deine Webanwendung zu debuggen und zu verstehen, was in deinen API-Routen passiert. Da die API-Handler auf dem Server ausgeführt werden, wird die Konsolenausgabe in deinem Terminal (localhost) angezeigt, in dem du den Entwicklungsserver gestartet hast (npm run dev), oder in der Vercel-Weboberfläche (Vercel Deployment).
 
 Lokal: In Terminal / Server-Konsole anzeigen
-
-
 
 local: shown in terminal / server console
 ![Example of `console.log()`in API route file](assets_backend/log-messages-api-route-file.png)
@@ -195,7 +183,6 @@ Vercel: shown in web interface
 - [Vercel Serverless Functions](https://vercel.com/docs/concepts/functions/serverless-functions)
 - [Vercel Runtime Logs](https://vercel.com/docs/concepts/observability/runtime-logs)
 
-
 ---
 
 # Backend MongoDB
@@ -212,8 +199,8 @@ Eins zu Eins (1:1) Beziehungen
 Eins zu Viele (1:n) Beziehungen
 Viele zu Viele (n:m) Beziehungen
 
-
 ## Einführung: Datenbanken
+
 ### Was ist eine Datenbank?
 
 Erinnern wir uns daran, was ein Server ist:
@@ -246,10 +233,10 @@ Jeder Datensatz in der Datenbank kann eindeutige Schlüssel haben.
 💡 Eine ausführliche Erklärung und Vergleich findest du hier.
 
 > 💡 You can find an [in-depth explanation and comparison here](https://www.mongodb.com/compare/relational-vs-non-relational-databases).
-> 
+
 ---
 
-### MongoDB 
+### MongoDB
 
 Als nicht-relationale Datenbank ist MongoDB weniger streng und leicht zu verwenden.
 
@@ -272,7 +259,6 @@ Eine Sammlung ist eine Gruppierung von MongoDB-Einträgen, die als Dokumente bez
 Eine Sammlung entspricht einer Tabelle in einem relationalen Datenbanksystem.
 
 Eine Sammlung existiert innerhalb einer einzelnen Datenbank.
-
 
 #### Dokument:
 
@@ -299,7 +285,6 @@ Häufig verwendete Befehle:
 `db`: Zeigt den Namen der aktuellen Datenbank an.
 
 `use jokes-database`: Wechselt zur Datenbank mit dem Namen jokes-database.
-
 
 The following commands refer to a collection called `jokes`:
 | | Query Methods (one) | Query Methods (many) |
@@ -380,7 +365,7 @@ Die folgenden drei Sammlungen veranschaulichen bewährte Praktiken und Beziehung
 
 ### Anmerkungen:
 
-Jedes Dokument in den Sammlungen hat ein _id-Feld, das eindeutige Identifikatoren sind.
+Jedes Dokument in den Sammlungen hat ein \_id-Feld, das eindeutige Identifikatoren sind.
 
 Jedes Witze-Dokument hat ein witz-Feld, das den Text des Witzes und ein userId-Feld enthält, das die ID des Benutzers speichert, der den Witz erstellt hat. Dadurch wird eine Eins-zu-Viele-Beziehung zwischen der Witze- und der Benutzer-Sammlung hergestellt (ein Witz gehört einem Benutzer, aber ein Benutzer kann viele Witze besitzen).
 
@@ -408,7 +393,7 @@ Notes:
 - [In-depth explanation and comparison relational/non-relational](https://www.mongodb.com/compare/relational-vs-non-relational-databases)
 - [CRUD operations in MongoDB documentation](https://www.mongodb.com/docs/mongodb-shell/crud/)
 
-----
+---
 
 # Backend READ
 
@@ -463,7 +448,7 @@ Beachten Sie die Struktur des Inhalts: Die Variable heißt "MONGODB_URI" und hat
 "jokes-database" ist der Name Ihrer Datenbank, dieser Wert kann variieren.
 
 Erstellen Sie eine Datei "db/connect.js" und kopieren Sie den Inhalt aus dem Beispiel für Next.js und Mongoose.
- [content from the Next.js mongoose example](https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/lib/dbConnect.js)
+[content from the Next.js mongoose example](https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/lib/dbConnect.js)
 Beachten Sie, dass diese Datei den "MONGODB_URI" verwendet, den wir gerade in ".env.local" eingerichtet haben, um eine Verbindung herzustellen.
 
 ### Schema und Model
@@ -502,7 +487,7 @@ const jokeSchema = new Schema({
 const Joke = mongoose.models.Joke || mongoose.model("Joke", jokeSchema);
 
 export default Joke;
-````
+```
 
 Weitere Hinweise:
 
@@ -534,7 +519,8 @@ export default async function handler(request, response) {
     return response.status(405).json({ message: "Method not allowed" });
   }
 }
-````
+```
+
 Mongoose enthält eine Methode ".findById()", die Sie in einer dynamischen Route verwenden können:
 
 ```js
@@ -556,12 +542,13 @@ export default async function handler(request, response) {
     response.status(200).json(joke);
   }
 }
-````
-Beachten Sie, dass MongoDB eine "_id" anstelle von "id" zurückgibt, daher müssen Sie möglicherweise Ihr Frontend anpassen, um die richtigen Informationen zu erhalten.
+```
+
+Beachten Sie, dass MongoDB eine "\_id" anstelle von "id" zurückgibt, daher müssen Sie möglicherweise Ihr Frontend anpassen, um die richtigen Informationen zu erhalten.
 
 > 📙 You can find a reference to [all methods of a Model in the mongoose documentation](https://mongoosejs.com/docs/api/model.html).
 
-### Verknüpfte Sammlungen mit ".populate()" abrufen 
+### Verknüpfte Sammlungen mit ".populate()" abrufen
 
 Stellen Sie sich vor, Ihre MongoDB hat zwei Sammlungen: Witze und Kommentare zu diesen Witzen. Sie sind durch die commentIds verknüpft.
 
@@ -583,7 +570,7 @@ const commentSchema = new Schema({
 const Joke = mongoose.models.Joke || mongoose.model("Joke", jokeSchema);
 const Comment =
   mongoose.models.Comment || mongoose.model("Comment", commentSchema);
-````
+```
 
 > 📙 Read more about [populate in the mongoose docs](https://mongoosejs.com/docs/populate.html).
 
@@ -623,7 +610,6 @@ Diese Operationen können je nach Kontext oder Umgebung mit verschiedenen Begrif
 
 > 💡 Note that the **Create** operation refers to the HTTP method `POST`. You'll need the corresponding HTTP method whenever you want to perform one of the **CRUD** operations.
 
-
 💡 Beachten Sie, dass die Create-Operation auf die HTTP-Methode POST verweist. Sie benötigen die entsprechende HTTP-Methode, wenn Sie eine der CRUD-Operationen ausführen möchten.
 
 ### REST
@@ -652,8 +638,7 @@ if (request.method === "POST") {
     response.status(400).json({ error: error.message });
   }
 }
-
-````
+```
 
 Beachten Sie, dass allein die POST-Route keinen neuen Eintrag in Ihrer Datenbank erstellt: Sie müssen Ihren Formular-Submit-Handler anweisen, diese Route zu verwenden.
 
@@ -670,8 +655,9 @@ Aktualisierung unserer App, sodass sie die aktualisierten Daten aus der Datenban
 Wenn wir unsere Daten nicht erneut validieren, spiegelt die App nicht die Änderungen wider, die wir in unserer Datenbank vorgenommen haben. useSWR stellt uns eine Methode namens "mutate" zur Verfügung, um diese erneute Validierung für einen bestimmten API-Endpunkt auszulösen, z. B. "/api/jokes". Wir können sie genauso wie "data" oder "isLoading" aus dem Hook-Aufruf destrukturieren:
 
 ```js
-const { mutate } = useSWR('/api/jokes/')
-````
+const { mutate } = useSWR("/api/jokes/");
+```
+
 Um eine POST-HTTP-Anfrage mit "fetch" durchzuführen, müssen wir dem fetch-Aufruf ein Options-Objekt bereitstellen, das folgende Informationen enthält:
 
 "method": ein Verb wie "POST", "PUT" oder "DELETE", das den Typ der HTTP-Anfragemethode definiert.
@@ -690,7 +676,8 @@ const response = await fetch("/api/jokes", {
   },
   body: JSON.stringify(data),
 });
-`````
+```
+
 💡 Der "body"-Schlüssel repräsentiert das "request.body" in der oben gezeigten API-Route: Hier werden die eigentlichen Daten von der Frontend- zur API-Seite (und dann zur Backend-Datenbank) übergeben.
 
 Nach einem erfolgreichen "POST"-Fetch, der unseren neuen POST-API-Endpunkt ausgelöst hat, können wir useSWR mitteilen, die Daten erneut zu validieren, indem wir die Funktion "mutate" aufrufen. Der gesamte Übermittlungsprozess sieht folgendermaßen aus:
@@ -724,16 +711,14 @@ export default function JokeForm() {
     //...
   );
 }
-`````
+```
+
 ## Resources
 
 - [What is REST?](https://restfulapi.net/)
 - [swr docs](https://swr.vercel.app/docs/mutation)
 
-
 ---
-
-
 
 # Backend Update und Delete
 
@@ -763,10 +748,9 @@ if (request.method === "PUT") {
   response.status(200).json({ status: `Witz ${id} aktualisiert!` });
   // Bei Erfolg erhältst du den Statuscode "OK".
 }
-````
+```
 
 ### PUT mit fetch
-
 
 - Verwende die PUT API-Route (d.h. sende eine Anfrage an deine Datenbank, um einen Eintrag zu bearbeiten).
 - Warte auf die Antwort der Datenbank und aktualisiere bei Bedarf die Benutzeroberfläche.
@@ -774,11 +758,9 @@ if (request.method === "PUT") {
 
 Gehe zur Seite oder Komponente, in der du den Submit-Handler für dein Bearbeitungsformular schreiben möchtest. Wir benötigen die "mutate"-Methode, um die Joke-Komponente nach einer erfolgreichen Aktualisierung zu aktualisieren.
 
-
 > 💡 Note: `PUT` and `PATCH` are semantically different. According to convention, we would use `PUT` to update our entire document, and `PATCH` to update individual fields. In our demo, we're using `PUT`, simply because we only ever have _one_ field to update.
 
 ```js
-
 // /components/Joke/index.js
 export default function Joke() {
   // ...
@@ -803,8 +785,7 @@ export default function Joke() {
   }
   return; // ...
 }
-````
-
+```
 
 ### Delete
 
@@ -818,24 +799,20 @@ Um einen Eintrag in deiner Datenbank zu löschen, musst du zwei Dinge tun:
 
 Zuerst definiere eine DELETE-API-Route:
 
-
 ```js
-
 if (request.method === "DELETE") {
   await Joke.findByIdAndDelete(id);
   // Deklariere "jokeToDelete" als den Witz, der anhand seiner ID identifiziert wird, und lösche ihn.
   // Diese Zeile behandelt den gesamten Löschvorgang.
   response.status(200).json({ status: `Witz ${id} erfolgreich gelöscht.` });
 }
-
-`````
+```
 
 ### DELETE mit fetch
 
 Wir schreiben eine Handler-Funktion, die fetch() mit den entsprechenden Argumenten aufruft und sie an einen Lösch-Button übergibt:
 
 ```js
-
 async function handleDelete() {
   await fetch(`/api/jokes/${id}`, {
     method: "DELETE",
@@ -851,7 +828,7 @@ return (
     Löschen
   </button>
 );
-`````
+```
 
 Wir möchten "mutate" nicht bei "DELETE"-Anfragen verwenden, da die gelöschten Daten nicht erneut abgerufen werden können und eine Neuvalidierung zu einem Fehler führen würde.
 
@@ -860,10 +837,6 @@ Ressourcen
 - [useSWRMutation (SWR Docs)](https://swr.vercel.app/docs/mutation#useswrmutation)
 
 ---
-
-
-
-# Backend Mongo Atlas
 
 # Backend MongoDB Atlas
 
@@ -895,63 +868,63 @@ Folge dieser Anleitung, um dein MongoDB Atlas-Konto und deine erste Datenbank ei
 3. Möglicherweise musst du deine MongoDB-E-Mail-Adresse verifizieren.
 4. Es kann sein, dass MongoDB Atlas etwas über deine zukünftigen Anwendungsfälle wissen möchte:
 
-<img src="assets/images/atlas_tell-us-something.png" alt="Erzähle uns etwas über dich und dein Projekt" width="300px">
+<img src="assetsAtlas/atlas_tell-us-something.png" alt="Erzähle uns etwas über dich und dein Projekt" width="300px">
 
 5. Um einen Cluster zu erstellen, wähle
    1. `M0 Free`,
    2. `aws` und
    3. `Frankfurt` aus und klicke auf "Create".
 
-<img src="assets/images/atlas_create-cluster.png" alt="Cluster erstellen" width="300px">
+<img src="assetsAtlas/atlas_create-cluster.png" alt="Cluster erstellen" width="300px">
 
 6. Wähle in der linken Navigation `Security > Quickstart`, um einen ersten Benutzer zu generieren.
    1. Wähle einen Benutzernamen und ein Passwort.
    2. 🚨 Stelle sicher, dass du dein Passwort aufschreibst!
    3. Klicke auf "Create User".
 
-<img src="assets/images/atlas_generate-admin.png" alt="Einen Administrator-Benutzer generieren" width="300px">
+<img src="assetsAtlas/atlas_generate-admin.png" alt="Einen Administrator-Benutzer generieren" width="300px">
 
 7. Scrolle nach unten, um auszuwählen, von wo aus du eine Verbindung herstellen möchtest:
    1. Wähle "My Local Environment".
    2. Klicke auf "Add My Current IP Address".
 
-<img src="assets/images/atlas_local-env.png" alt="Verbindung aus lokaler Umgebung auswählen" width="300px">
+<img src="assetsAtlas/atlas_local-env.png" alt="Verbindung aus lokaler Umgebung auswählen" width="300px">
 
 8. Wähle in der linken Navigation `Security > Network Access`.
 
-<img src="assets/images/atlas_network-access.png" alt="Netzwerkzugriff-Übersicht am Anfang" width="300px">
+<img src="assetsAtlas/atlas_network-access.png" alt="Netzwerkzugriff-Übersicht am Anfang" width="300px">
 
 10. Klicke hinter deiner IP-Adresse in der IP Access List auf "Edit".
 11. Klicke im Popup-Fenster auf "Allow Access from Anywhere".
 
-<img src="assets/images/atlas_allow-access-from-anywhere.png" alt="Zugriff von überall erla
+<img src="assetsAtlas/atlas_allow-access-from-anywhere.png" alt="Zugriff von überall erla
 
 uben" width="300px">
 
 12. Dein Netzwerkzugriff-Tab sollte jetzt wie folgt aussehen:
 
-<img src="assets/images/atlas_access-from-anywhere-finished.png" alt="Fertiger Zustand nach Erlaubnis des Zugriffs von überall" width="300px">
+<img src="assetsAtlas/atlas_access-from-anywhere-finished.png" alt="Fertiger Zustand nach Erlaubnis des Zugriffs von überall" width="300px">
 
 13. Wähle in der linken Navigation `Deployment > Database`, um zur folgenden Ansicht zu gelangen:
 
-<img src="assets/images/atlas_deploy-database.png" alt="Übersicht zur Bereitstellung der Datenbank" width="300px">
+<img src="assetsAtlas/atlas_deploy-database.png" alt="Übersicht zur Bereitstellung der Datenbank" width="300px">
 
 14. Klicke auf der rechten Seite des Cluster-Namens (hier "Cluster0") auf die Schaltfläche "Connect".
 15. Klicke im Popup-Fenster auf "Connect your application":
 
-<img src="assets/images/atlas_connect-to-cluster_choose-connection-method.png" alt="Verbindungsmethode auswählen" width="300px">
+<img src="assetsAtlas/atlas_connect-to-cluster_choose-connection-method.png" alt="Verbindungsmethode auswählen" width="300px">
 
 16. Erstelle einen Datenbankbenutzer mit einem Benutzernamen und einem Passwort:
 
-<img src="assets/images/atlas_connect-to-cluster_create-database-user.png" alt="Datenbankbenutzer erstellen" width="300px">
+<img src="assetsAtlas/atlas_connect-to-cluster_create-database-user.png" alt="Datenbankbenutzer erstellen" width="300px">
 
 17. Du solltest jetzt diesen Bildschirm sehen:
 
-<img src="assets/images/atlas_connect-to-cluster_finished-database-user.png" alt="Datenbankbenutzer wurde generiert" width="300px">
+<img src="assetsAtlas/atlas_connect-to-cluster_finished-database-user.png" alt="Datenbankbenutzer wurde generiert" width="300px">
 
 18. Klicke auf "Choose a connection method". Du siehst dann einen Bildschirm ähnlich wie den folgenden:
 
-<img src="assets/images/atlas_connect-to-cluster_connection-method-finished.png" alt="Verbindung mit Cluster abgeschlossen" width="300px">
+<img src="assetsAtlas/atlas_connect-to-cluster_connection-method-finished.png" alt="Verbindung mit Cluster abgeschlossen" width="300px">
 
 19. Kopiere die MongoDB URI (in diesem Fall `mongodb+srv://paul:<password>@cluster0.mu12zrz.mongodb.net/?retryWrites=true&w=majority`). Du wirst sie in deiner Anwendung benötigen.
 20. Beachte den Hinweis unten: `Ersetze <password> durch das Passwort für den Benutzer "paul".`
@@ -976,7 +949,7 @@ ignore`-Datei hinzu, falls sie noch nicht enthalten ist. Du kannst nun deine Dat
 4. Starte den Entwicklungsserver neu und überprüfe deinen Browser: Du kannst jetzt Einträge in deiner Cloud-Datenbank, die von MongoDB Atlas gehostet wird, lesen, erstellen, aktualisieren und löschen! 🎉
 5. Du kannst die Sammlungen und Dokumente deiner Datenbank über `Deployment > Database > Collections` überprüfen:
 
-<img src="assets/images/atlas_view-collections.png" alt="Sammlungen in MongoDB Atlas anzeigen" width="300px">
+<img src="assetsAtlas/atlas_view-collections.png" alt="Sammlungen in MongoDB Atlas anzeigen" width="300px">
 
 ---
 
@@ -988,28 +961,28 @@ Deshalb müssen wir Vercel mit den Zugriffsdetails versorgen.
 
 1. Gehe im Dashboard deines Vercel-Projekts zu "Settings":
 
-<img src="assets/images/vercel_project-navigation.png" alt="Vercel Dashboard Navigation" width="300px">
+<img src="assetsAtlas/vercel_project-navigation.png" alt="Vercel Dashboard Navigation" width="300px">
 
 2. Wähle in der linken Navigation "Environment Variables".
    1. Füge den Schlüssel (`MONGODB_URI`) und den Wert (`mongodb+srv...`) hinzu.
    2. Aktiviere alle Umgebungen (Production, Preview und Development).
    3. Klicke auf "Save".
 
-<img src="assets/images/vercel_setting-environment-variables.png" alt="Umgebungsvariablen im Vercel-Projekt festlegen" width="300px">
+<img src="assetsAtlas/vercel_setting-environment-variables.png" alt="Umgebungsvariablen im Vercel-Projekt festlegen" width="300px">
 
 3. Unten auf dieser Seite solltest du nun eine neue Umgebungsvariable sehen:
 
-<img src="assets/images/vercel_environment-variables-finished.png" alt="Umgebungsvariable auf Vercel erfolgreich gespeichert" width="300px">
+<img src="assetsAtlas/vercel_environment-variables-finished.png" alt="Umgebungsvariable auf Vercel erfolgreich gespeichert" width="300px">
 
 4. Deploye deine Anwendung erneut:
    1. Wähle in der Hauptnavigation "Deployments".
    2. Öffne die drei Punkte neben deinem letzten Deployment und wähle "Redeploy".
 
-<img src="assets/images/vercel_redeploy.png" alt="Projekt redeployen" width="300px">
+<img src="assetsAtlas/vercel_redeploy.png" alt="Projekt redeployen" width="300px">
 
 5. Falls ein Popup-Fenster angezeigt wird, klicke erneut auf "Redeploy".
 
-<img src="assets/images/vercel_redeploy-popup.png" alt="Popup-Fenster zum Redeployen des Projekts" width="300px">
+<img src="assetsAtlas/vercel_redeploy-popup.png" alt="Popup-Fenster zum Redeployen des Projekts" width="300px">
 
 6. Herzlichen Glückwunsch, du bist fertig! Öffne die Vercel-URL deines Projekts, um zu sehen, dass deine bereitgestellte Anwendung nun Zugriff auf die Cloud-Datenbank hat.
 
@@ -1019,5 +992,3 @@ Deshalb müssen wir Vercel mit den Zugriffsdetails versorgen.
 
 - [MongoDB Atlas Tutorial](https://www.mongodb.com/basics/mongodb-atlas-tutorial)
 - [Umgebungsvariablen (Vercel-Dokumentation)](https://vercel.com/docs/concepts/projects/environment-variables)
-
-
