@@ -863,4 +863,161 @@ Ressourcen
 
 
 
-Backend Mongo Atlas
+# Backend Mongo Atlas
+
+# Backend MongoDB Atlas
+
+## Lernziele
+
+- [ ] Verständnis für MongoDB Atlas
+  - [ ] Erstellen eines Kontos für MongoDB Atlas
+  - [ ] Erstellen eines Clusters und einer Datenbank
+  - [ ] Einrichtung von Datenbankbenutzern und Sicherheitseinstellungen
+  - [ ] Verbindung mit einer lokalen App herstellen
+- [ ] Einrichtung von Vercel mit MongoDB Atlas
+
+---
+
+## Einführung in MongoDB Atlas
+
+Bisher haben wir nur mit einer lokalen Datenbank gearbeitet, die auf unserem Computer gehostet ist. Wenn wir jedoch eine Anwendung z.B. auf Vercel hosten, können wir unsere lokale Datenbank nicht für solche externen Projekte verwenden.
+
+Um auf unsere Datenbank zugreifen zu können, müssen wir sie aus dem Internet erreichbar machen. Aus diesem Grund sind wir auf externe Anbieter angewiesen, um unsere Datenbank zu hosten. Wir werden MongoDB Atlas verwenden, einen Cloud-Anbieter für Mongo-Datenbanken.
+
+---
+
+## Einrichten eines MongoDB Atlas-Kontos und einer Datenbank
+
+Folge dieser Anleitung, um dein MongoDB Atlas-Konto und deine erste Datenbank einzurichten.
+
+1. Gehe zur [MongoDB Atlas-Startseite](https://www.mongodb.com/atlas/database) und wähle "Try Free", um den Vorgang zu starten.
+2. Erstelle ein Konto, indem du deine Daten angibst oder dich mit Google anmeldest.
+3. Möglicherweise musst du deine MongoDB-E-Mail-Adresse verifizieren.
+4. Es kann sein, dass MongoDB Atlas etwas über deine zukünftigen Anwendungsfälle wissen möchte:
+
+<img src="assets/images/atlas_tell-us-something.png" alt="Erzähle uns etwas über dich und dein Projekt" width="300px">
+
+5. Um einen Cluster zu erstellen, wähle
+   1. `M0 Free`,
+   2. `aws` und
+   3. `Frankfurt` aus und klicke auf "Create".
+
+<img src="assets/images/atlas_create-cluster.png" alt="Cluster erstellen" width="300px">
+
+6. Wähle in der linken Navigation `Security > Quickstart`, um einen ersten Benutzer zu generieren.
+   1. Wähle einen Benutzernamen und ein Passwort.
+   2. 🚨 Stelle sicher, dass du dein Passwort aufschreibst!
+   3. Klicke auf "Create User".
+
+<img src="assets/images/atlas_generate-admin.png" alt="Einen Administrator-Benutzer generieren" width="300px">
+
+7. Scrolle nach unten, um auszuwählen, von wo aus du eine Verbindung herstellen möchtest:
+   1. Wähle "My Local Environment".
+   2. Klicke auf "Add My Current IP Address".
+
+<img src="assets/images/atlas_local-env.png" alt="Verbindung aus lokaler Umgebung auswählen" width="300px">
+
+8. Wähle in der linken Navigation `Security > Network Access`.
+
+<img src="assets/images/atlas_network-access.png" alt="Netzwerkzugriff-Übersicht am Anfang" width="300px">
+
+10. Klicke hinter deiner IP-Adresse in der IP Access List auf "Edit".
+11. Klicke im Popup-Fenster auf "Allow Access from Anywhere".
+
+<img src="assets/images/atlas_allow-access-from-anywhere.png" alt="Zugriff von überall erla
+
+uben" width="300px">
+
+12. Dein Netzwerkzugriff-Tab sollte jetzt wie folgt aussehen:
+
+<img src="assets/images/atlas_access-from-anywhere-finished.png" alt="Fertiger Zustand nach Erlaubnis des Zugriffs von überall" width="300px">
+
+13. Wähle in der linken Navigation `Deployment > Database`, um zur folgenden Ansicht zu gelangen:
+
+<img src="assets/images/atlas_deploy-database.png" alt="Übersicht zur Bereitstellung der Datenbank" width="300px">
+
+14. Klicke auf der rechten Seite des Cluster-Namens (hier "Cluster0") auf die Schaltfläche "Connect".
+15. Klicke im Popup-Fenster auf "Connect your application":
+
+<img src="assets/images/atlas_connect-to-cluster_choose-connection-method.png" alt="Verbindungsmethode auswählen" width="300px">
+
+16. Erstelle einen Datenbankbenutzer mit einem Benutzernamen und einem Passwort:
+
+<img src="assets/images/atlas_connect-to-cluster_create-database-user.png" alt="Datenbankbenutzer erstellen" width="300px">
+
+17. Du solltest jetzt diesen Bildschirm sehen:
+
+<img src="assets/images/atlas_connect-to-cluster_finished-database-user.png" alt="Datenbankbenutzer wurde generiert" width="300px">
+
+18. Klicke auf "Choose a connection method". Du siehst dann einen Bildschirm ähnlich wie den folgenden:
+
+<img src="assets/images/atlas_connect-to-cluster_connection-method-finished.png" alt="Verbindung mit Cluster abgeschlossen" width="300px">
+
+19. Kopiere die MongoDB URI (in diesem Fall `mongodb+srv://paul:<password>@cluster0.mu12zrz.mongodb.net/?retryWrites=true&w=majority`). Du wirst sie in deiner Anwendung benötigen.
+20. Beachte den Hinweis unten: `Ersetze <password> durch das Passwort für den Benutzer "paul".`
+    1. Dies ist der Benutzer, den du gerade einen Schritt zuvor erstellt hast (NICHT der Administrator von vorhin).
+
+## Verbinde deine Anwendung mit MongoDB Atlas
+
+Die Verbindung zwischen deiner Anwendung und der Cloud-Datenbank in MongoDB Atlas herzustellen, ist jetzt sehr einfach.
+
+> 💡 Wir gehen davon aus, dass deine App bereits mit einer lokalen Datenbank verbunden ist.
+
+1. Erstelle in deinem Projektstammverzeichnis eine neue Datei mit dem Namen `.env`.
+2. Füge in die `.env`-Datei eine Variable namens `MONGODB_URI` ein und weise ihr die MongoDB Atlas URI zu, die du beim Einrichten deiner Verbindung erstellt hast.
+   1. Die `.env`-Datei sollte so aussehen: `MONGODB_URI=mongodb+srv://paul:<password>@cluster0.mu12zrz.mongodb.net/<database-name>?retryWrites=true&w=majority`.
+   2. Ersetze den Teil `<password>` durch das Passwort für deinen Datenbankbenutzer (in diesem Fall heißt der Benutzer "paul").
+   3. Ersetze den Teil `<database-name>` durch den Namen deiner Datenbank (entferne auch die Klammern `<>`). Wenn die Datenbank in MongoDB Atlas nicht existiert, wird sie automatisch erstellt.
+   4. Beachte, dass du auch die Klammern `<>` um das Passwort entfernen musst.
+3. Füge `.env` zur `.git
+
+ignore`-Datei hinzu, falls sie noch nicht enthalten ist. Du kannst nun deine Datei `.env.local` löschen.
+
+4. Starte den Entwicklungsserver neu und überprüfe deinen Browser: Du kannst jetzt Einträge in deiner Cloud-Datenbank, die von MongoDB Atlas gehostet wird, lesen, erstellen, aktualisieren und löschen! 🎉
+5. Du kannst die Sammlungen und Dokumente deiner Datenbank über `Deployment > Database > Collections` überprüfen:
+
+<img src="assets/images/atlas_view-collections.png" alt="Sammlungen in MongoDB Atlas anzeigen" width="300px">
+
+---
+
+## Vercel und MongoDB Atlas (Umgebungsvariablen)
+
+Wenn du eine Anwendung auf Vercel bereitstellst, kann die App keine Verbindung mit deiner Cloud-Datenbank herstellen. Das liegt daran, dass die Authentifizierungsinformationen (Benutzername und Passwort) in einer `.env`-Datei gespeichert sind, die nur in deiner lokalen Entwicklungsumgebung verfügbar ist.
+
+Deshalb müssen wir Vercel mit den Zugriffsdetails versorgen.
+
+1. Gehe im Dashboard deines Vercel-Projekts zu "Settings":
+
+<img src="assets/images/vercel_project-navigation.png" alt="Vercel Dashboard Navigation" width="300px">
+
+2. Wähle in der linken Navigation "Environment Variables".
+   1. Füge den Schlüssel (`MONGODB_URI`) und den Wert (`mongodb+srv...`) hinzu.
+   2. Aktiviere alle Umgebungen (Production, Preview und Development).
+   3. Klicke auf "Save".
+
+<img src="assets/images/vercel_setting-environment-variables.png" alt="Umgebungsvariablen im Vercel-Projekt festlegen" width="300px">
+
+3. Unten auf dieser Seite solltest du nun eine neue Umgebungsvariable sehen:
+
+<img src="assets/images/vercel_environment-variables-finished.png" alt="Umgebungsvariable auf Vercel erfolgreich gespeichert" width="300px">
+
+4. Deploye deine Anwendung erneut:
+   1. Wähle in der Hauptnavigation "Deployments".
+   2. Öffne die drei Punkte neben deinem letzten Deployment und wähle "Redeploy".
+
+<img src="assets/images/vercel_redeploy.png" alt="Projekt redeployen" width="300px">
+
+5. Falls ein Popup-Fenster angezeigt wird, klicke erneut auf "Redeploy".
+
+<img src="assets/images/vercel_redeploy-popup.png" alt="Popup-Fenster zum Redeployen des Projekts" width="300px">
+
+6. Herzlichen Glückwunsch, du bist fertig! Öffne die Vercel-URL deines Projekts, um zu sehen, dass deine bereitgestellte Anwendung nun Zugriff auf die Cloud-Datenbank hat.
+
+> 📙 Erfahre mehr darüber, [wie du Umgebungsvariablen in den Vercel-Dokumentationen einrichtest](https://vercel.com/docs/concepts/projects/environment-variables).
+
+## Ressourcen
+
+- [MongoDB Atlas Tutorial](https://www.mongodb.com/basics/mongodb-atlas-tutorial)
+- [Umgebungsvariablen (Vercel-Dokumentation)](https://vercel.com/docs/concepts/projects/environment-variables)
+
+
