@@ -897,9 +897,7 @@ Folge dieser Anleitung, um dein MongoDB Atlas-Konto und deine erste Datenbank ei
 10. Klicke hinter deiner IP-Adresse in der IP Access List auf "Edit".
 11. Klicke im Popup-Fenster auf "Allow Access from Anywhere".
 
-<img src="assetsAtlas/atlas_allow-access-from-anywhere.png" alt="Zugriff von überall erla
-
-uben" width="300px">
+<img src="assetsAtlas/atlas_allow-access-from-anywhere.png" alt="Zugriff von überall erlauben" width="300px">
 
 12. Dein Netzwerkzugriff-Tab sollte jetzt wie folgt aussehen:
 
