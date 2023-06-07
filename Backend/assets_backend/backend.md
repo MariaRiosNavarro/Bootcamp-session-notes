@@ -729,3 +729,138 @@ export default function JokeForm() {
 
 - [What is REST?](https://restfulapi.net/)
 - [swr docs](https://swr.vercel.app/docs/mutation)
+
+
+---
+
+
+
+# Backend Update und Delete
+
+Lernziele:
+
+Verständnis für den Update- und Delete-Teil der CRUD-Operationen
+Fähigkeit zum Implementieren von UPDATE- und DELETE-API-Routen
+Update
+
+### Um einen Eintrag in der Datenbank zu aktualisieren, musst du zwei Dinge tun:
+
+1.-Definiere eine PUT-API-Route
+
+2.- Verbinde den Submit-Handler eines Bearbeitungsformulars mit dieser API-Route
+
+### Update mit Mongoose
+
+Zuerst definiere eine PUT-API-Route:
+
+```js
+// /api/jokes/[id].js
+if (request.method === "PUT") {
+  Joke.findByIdAndUpdate(id, {
+    $set: request.body,
+  });
+  // Finde den Witz anhand seiner ID und aktualisiere den Inhalt, der Teil des Anfragekörpers ist!
+  response.status(200).json({ status: `Witz ${id} aktualisiert!` });
+  // Bei Erfolg erhältst du den Statuscode "OK".
+}
+````
+
+### PUT mit fetch
+
+
+- Verwende die PUT API-Route (d.h. sende eine Anfrage an deine Datenbank, um einen Eintrag zu bearbeiten).
+- Warte auf die Antwort der Datenbank und aktualisiere bei Bedarf die Benutzeroberfläche.
+- Navigiere den Benutzer über push() zu einer anderen Seite.
+
+Gehe zur Seite oder Komponente, in der du den Submit-Handler für dein Bearbeitungsformular schreiben möchtest. Wir benötigen die "mutate"-Methode, um die Joke-Komponente nach einer erfolgreichen Aktualisierung zu aktualisieren.
+
+
+> 💡 Note: `PUT` and `PATCH` are semantically different. According to convention, we would use `PUT` to update our entire document, and `PATCH` to update individual fields. In our demo, we're using `PUT`, simply because we only ever have _one_ field to update.
+
+```js
+
+// /components/Joke/index.js
+export default function Joke() {
+  // ...
+  const { data, isLoading, mutate } = useSWR(`/api/jokes/${id}`);
+
+  async function handleEdit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const jokeData = Object.fromEntries(formData);
+
+    const response = await fetch(`/api/jokes/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(jokeData),
+    });
+
+    if (response.ok) {
+      mutate();
+    }
+  }
+  return; // ...
+}
+````
+
+
+### Delete
+
+Um einen Eintrag in deiner Datenbank zu löschen, musst du zwei Dinge tun:
+
+- Definiere eine DELETE-API-Route
+
+- Verbinde eine Handler-Funktion mit dieser API-Route
+
+### Löschen mit Mongoose
+
+Zuerst definiere eine DELETE-API-Route:
+
+
+```js
+
+if (request.method === "DELETE") {
+  await Joke.findByIdAndDelete(id);
+  // Deklariere "jokeToDelete" als den Witz, der anhand seiner ID identifiziert wird, und lösche ihn.
+  // Diese Zeile behandelt den gesamten Löschvorgang.
+  response.status(200).json({ status: `Witz ${id} erfolgreich gelöscht.` });
+}
+
+`````
+
+### DELETE mit fetch
+
+Wir schreiben eine Handler-Funktion, die fetch() mit den entsprechenden Argumenten aufruft und sie an einen Lösch-Button übergibt:
+
+```js
+
+async function handleDelete() {
+  await fetch(`/api/jokes/${id}`, {
+    method: "DELETE",
+  });
+  // Du übergibst den Witz, der anhand seiner ID identifiziert wird, an unsere DELETE-Anfrage-Methode.
+  // Dies ist der gesamte Code, der dafür erforderlich ist.
+  router.push("/");
+  // Nachdem der Witz gelöscht wurde, leitest du zurück zur Index-Seite.
+}
+
+return (
+  <button type="button" onClick={handleDelete}>
+    Löschen
+  </button>
+);
+`````
+
+Wir möchten "mutate" nicht bei "DELETE"-Anfragen verwenden, da die gelöschten Daten nicht erneut abgerufen werden können und eine Neuvalidierung zu einem Fehler führen würde.
+
+Ressourcen
+
+- [useSWRMutation (SWR Docs)](https://swr.vercel.app/docs/mutation#useswrmutation)
+
+---
+
+
+
+Backend Mongo Atlas
