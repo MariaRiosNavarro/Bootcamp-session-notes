@@ -5,37 +5,27 @@ about: |
   Remove all ... and examples before posting.
 labels: enhancement
 ---
+**As a** Filmmakers want to be able to see a navigation menu below at Home in the Phone
 
-## Value Proposition
-
-**As a** Stanby Props, I would like to be able to click with the Simulation APP to the most important Navigation Icons (Phone, Message and Settings). I would like to be able to click to the Icon of Contacts apps on then HOME Screen. When I click I want to see at least one Heading from each of them 
-
-**I want to** I want to see a the home screen of a mobile phone
+**I want to**  to see a the home screen of a mobile phone with a Navigation below
 
 **so that/in order to** can use it in filming  
 ​
+![Bildschirmfoto 2023-06-15 um 16 09 44](https://github.com/MariaRiosNavarro/mobileSimulation-propOS/assets/118831479/40c7f249-bb56-4c75-b500-a0bc1a399f07)
 
-## Description
 
-... (Wireframe, scribble, design or text)
-​
 
 ## Acceptance Criteria
 
-- [ ] The Navigation with the ICON APPs of `Home`, `Phone`, `Messages`and `Settings` are displayed below of the screen (no names, only ICON APP).
-- [ ] The ICON APP and Name of `Contacts`is displayed with name below.
-- [ ] The 5 ICON APPs work and when you click on them they take you to the pages of each one.
-- [ ] Each component in Navigation has a Heading
-- [ ] The `Contacts` Component has a Heading
+- [ ] The Navigation with the ICON APPs of `Home`, `Phone`, `Messages` and `Settings` are displayed below of the screen (no names, only ICON APP).
+
 
 ## Tasks
 
 - [ ] create branch `home`
-- [ ] create `Home`component to render the main page.
-- [ ] Create the Components `Phone`, `Messages`and `Settings` and `Kontakts`
-- [ ] create component `Navigation`with the Nested Components `Phone`, `Messages`and `Settings`.
+- [ ] create `Home` component to render the main page.
+- [ ] create component `Navigation` with the ICONS APPS of `Phone`, `Messages `and `Settings` and  `Home`. All the icons have a link that takes you to the HOME page.
 - [ ] nesting `Navigation` to `Home`, to view the navigation below 
-- [ ] Position `Contacts` ICON APP at the bottom right of the HOME screen above the navigation (above settings).
 
 
 

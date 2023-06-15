@@ -8,9 +8,7 @@ labels: enhancement
 
 ## Value Proposition
 
-**As a** ... (User, Author, logged in User...)  
-**I want to** ... (describe the goal)  
-**so that/in order to** ... (describe the reason)  
+I want to see sample contacts in a list
 ​
 
 ## Description

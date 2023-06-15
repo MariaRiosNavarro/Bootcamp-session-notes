@@ -1,40 +1,18 @@
----
-name: User Story Template
-about: |
-  A template to create user stories.
-  Remove all ... and examples before posting.
-labels: enhancement
----
-
-## Value Proposition
-
-**As a** Stanby Props, I want to be able to click on each tab within the components that represent an ICON APP.
-
-**I want to** navigate between the tabs of each APP/Component: Contacts, Phone, Message and Settings.
- 
-**so that/in order to** can on the set of the film 
-​
+**As a** Filmmakers I want to view at the `Contacts` Page the same Navigation of the HOME screen, **so that** can use it in filming
 
 ## Description
 
-... (Wireframe, scribble, design or text)
+![Bildschirmfoto 2023-06-15 um 17 01 07](https://github.com/MariaRiosNavarro/mobileSimulation-propOS/assets/118831479/693e511c-c164-457c-98da-931c18931376)
+
 ​
 
 ## Acceptance Criteria
 
-- [ ] Describe every scenario in detail
-- [ ] e.g. all inputs are required, show warning if empty.
-- [ ] ...
-      ​
+- [ ] view at the `Contacts` Page the `Navigation` of the `HOME` screen
+- [ ] Links of the `Navigation` component works like at `HOME`, all redirect you to Home ​
 
 ## Tasks
 
-- [ ] list the coding tasks that need to be performed
-- [ ] e.g. create branch `feature/xyz`
-- [ ] e.g. Components
-
-- [ ] ...
-
-
-KONTAKTE/Kontakte: Db erstellen und in Kontakten anzeigen lassen mit der 4 Aktionen
-KONTAKTE/ i - details ein Kontakt einzeigen lassen (mit Aktion anrufen/message ändern und löschen)
+- [ ] create branch `ContactNavigation`
+- [ ] Nest `Navigation` component at the `Contacts` Component
+- [ ] check that all links in the `Navigation` in `Contacts` Component take me to HOME page
