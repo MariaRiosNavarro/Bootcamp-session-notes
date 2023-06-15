@@ -1,5 +1,5 @@
 ---
-name: User Story Template
+name: US1: HOME
 about: |
   A template to create user stories.
   Remove all ... and examples before posting.
@@ -42,14 +42,3 @@ labels: enhancement
 
 
 
-Acceptance Criteria
- The input field for the task title is displayed 📋
- The input field for the subtasks is displayed 📋
- The input field for the task category is displayed 📋
- The input field for the task deadline is displayed 📋
- The input field for the task prioritisation is displayed 📋
- The add button is displayed 📋 
-​
-Tasks
- Write the component TaskInputForm
- All acceptance criteria marked with 📋 are covered by component testing
