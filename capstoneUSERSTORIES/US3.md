@@ -32,3 +32,7 @@ labels: enhancement
 - [ ] e.g. Components
 
 - [ ] ...
+
+
+KONTAKTE/Kontakte: Db erstellen und in Kontakten anzeigen lassen mit der 4 Aktionen
+KONTAKTE/ i - details ein Kontakt einzeigen lassen (mit Aktion anrufen/message ändern und löschen)

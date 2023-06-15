@@ -31,3 +31,6 @@ labels: enhancement
 - [ ] e.g. create branch `feature/xyz`
 - [ ] e.g. Components
 - [ ] ...
+
+
+Aktionen von KONTAKTE/i funktionieren : Anrufen und Nachrichten Seite mit Name und Foto (wenn vorhanden)

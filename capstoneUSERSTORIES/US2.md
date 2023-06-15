@@ -32,3 +32,9 @@ labels: enhancement
 - [ ] e.g. Components
 
 - [ ] ...
+
+
+2US
+Submenus funktionieren:
+Kontakte, Einstellungen, Telefon und Nachrichtenmenus
+bauen und verlinken
