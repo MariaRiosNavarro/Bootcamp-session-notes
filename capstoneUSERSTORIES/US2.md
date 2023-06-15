@@ -10,7 +10,7 @@ labels: enhancement
 
 **As a** Stanby Props, I would like to be able to click with the Simulation APP to the Icons APPs(`Home`, `Phone`, `Messages`, `Settings` and `Contacts`) they have like in HOME, the same Navigation component below with all its functionality
 
-**so that/in order to** can use it in filming  
+**so that/in order to** on the set of the film
 ​
 
 ## Description

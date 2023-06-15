@@ -12,7 +12,7 @@ labels: enhancement
 
 **I want to** navigate between the tabs of each APP/Component: Contacts, Phone, Message and Settings.
  
-**so that/in order to** can use it in filming    
+**so that/in order to** can on the set of the film 
 ​
 
 ## Description
