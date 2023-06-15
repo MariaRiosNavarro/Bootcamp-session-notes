@@ -8,9 +8,11 @@ labels: enhancement
 
 ## Value Proposition
 
-**As a** ... (User, Author, logged in User...)  
-**I want to** ... (describe the goal)  
-**so that/in order to** ... (describe the reason)  
+**As a** Stanby Props, I want to be able to click on each tab within the components that represent an ICON APP.
+
+**I want to** navigate between the tabs of each APP/Component: Contacts, Phone, Message and Settings.
+ 
+**so that/in order to** can use it in filming    
 ​
 
 ## Description
